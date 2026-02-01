@@ -626,6 +626,10 @@ main section:first-of-type {
   z-index: 9999;
 }
 
+.cookie-banner[hidden] {
+  display: none !important;
+}
+
 .cookie-banner-text {
   margin: 0;
   font-size: 0.95rem;

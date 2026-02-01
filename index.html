@@ -928,8 +928,13 @@
       (function() {
         var banner = document.getElementById('cookie-consent-banner');
         var btn = document.getElementById('cookie-consent-btn');
-        if (banner && !localStorage.getItem('cookie_consent')) banner.removeAttribute('hidden');
-        if (btn && banner) btn.addEventListener('click', function() { localStorage.setItem('cookie_consent', 'accepted'); banner.setAttribute('hidden', ''); });
+        try {
+          if (banner && !localStorage.getItem('cookie_consent')) banner.removeAttribute('hidden');
+        } catch (e) {}
+        if (btn && banner) btn.addEventListener('click', function() {
+          try { localStorage.setItem('cookie_consent', 'accepted'); } catch (e) {}
+          banner.setAttribute('hidden', '');
+        });
       })();
     </script>
   </body>
