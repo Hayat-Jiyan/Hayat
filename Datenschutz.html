@@ -231,25 +231,31 @@
           var overlay = document.getElementById('cookie-consent-overlay');
           var banner = document.getElementById('cookie-consent-banner');
           var btn = document.getElementById('cookie-consent-btn');
-          if (!banner || !overlay) return;
+          if (!banner || !btn) return;
           function showBanner() {
             banner.removeAttribute('hidden');
             banner.classList.remove('cookie-banner--hidden');
-            overlay.removeAttribute('hidden');
-            overlay.classList.remove('cookie-banner--hidden');
+            if (overlay) {
+              overlay.removeAttribute('hidden');
+              overlay.classList.remove('cookie-banner--hidden');
+            }
           }
           function hideBanner() {
             try { localStorage.setItem('cookie_consent', 'accepted'); } catch (e) {}
             banner.setAttribute('hidden', '');
             banner.classList.add('cookie-banner--hidden');
-            overlay.setAttribute('hidden', '');
-            overlay.classList.add('cookie-banner--hidden');
+            if (overlay) {
+              overlay.setAttribute('hidden', '');
+              overlay.classList.add('cookie-banner--hidden');
+            }
           }
           try {
             if (!localStorage.getItem('cookie_consent')) showBanner();
           } catch (e) { showBanner(); }
-          overlay.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
-          overlay.addEventListener('touchend', function(ev) { ev.preventDefault(); hideBanner(); }, { passive: false });
+          if (overlay) {
+            overlay.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
+            overlay.addEventListener('touchend', function(ev) { ev.preventDefault(); hideBanner(); }, { passive: false });
+          }
           btn.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
           btn.addEventListener('touchend', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); }, { passive: false });
         }
