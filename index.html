@@ -668,7 +668,7 @@
                       ? `<span class="menu-item-price">${item.price}</span>`
                       : "";
                     const translationHtml = (() => {
-                      const match = item.name.match(/^(\\d+)/);
+                      const match = item.name.match(/^(\d+)/);
                       if (!match) return "";
                       const text = translationMap[Number(match[1])];
                       return text
