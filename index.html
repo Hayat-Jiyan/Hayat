@@ -99,12 +99,26 @@
       .hero-content {
         max-width: var(--max-width);
         margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 28px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+        align-items: center;
+        gap: 48px;
       }
       
       .hero-text { max-width: 640px; }
+
+      .hero-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-logo {
+        width: min(44vw, 420px);
+        max-width: 100%;
+        height: auto;
+        filter: drop-shadow(0 20px 40px rgba(31, 31, 38, 0.18));
+      }
       
       .eyebrow {
         letter-spacing: 0.24em;
@@ -183,6 +197,7 @@
         <a class="brand" href="#top">Hayat-Jiyan</a>
         <div class="nav-links">
           <a href="#highlights">Favoriten</a>
+          <a href="#gallery">Bilder</a>
           <a href="#menu">Speisekarte</a>
           <a href="#contact">Kontakt</a>
         </div>
@@ -197,10 +212,20 @@
           </p>
           <div class="hero-actions">
             <a class="primary-button" href="#menu">Zur Speisekarte</a>
-            <a class="ghost-button" href="https://maps.app.goo.gl/XF5LRkoz2VXKV5CT8"
+            <a class="ghost-button" href="https://www.google.com/maps/place/Hayat-Jiyan+Restaurant/@51.2605482,7.1380626,17z/data=!4m8!3m7!1s0x47b8d7ac00cb9a29:0xdf5761f218b776e9!8m2!3d51.2605482!4d7.1380626!9m1!1b1!16s%2Fg%2F1td9pmbs?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D"
               >Jetzt besuchen</a
             >
           </div>
+        </div>
+        <div class="hero-visual">
+          <img
+            class="hero-logo"
+            src="assets/logo-hayat.png"
+            alt="Hayat-Jiyan Logo"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
         </div>
       </div>
     </header>
@@ -214,6 +239,7 @@
             Alle Gerichte werden täglich frisch und hausgemacht zubereitet. 
             Wechselnde Tagesgerichte nicht inkludiert.
           </p>
+          <p class="menu-note">Wir haben eine täglich wechselnde Tageskarte!<br />Rufen Sie uns einfach an.<br />Gerne informieren wir Sie telefonisch</p>
         </div>
         <div class="menu-layout">
           <div
@@ -257,6 +283,42 @@
         </div>
       </section>
 
+      <section class="gallery" id="gallery">
+        <div class="section-heading">
+          <p class="eyebrow">Bilder</p>
+          <h2>Einblicke in unsere Location</h2>
+          <p class="section-lead">
+            Bilder der Atmosphäre, Innenräume und der Umgebung – keine Speisen.
+          </p>
+        </div>
+        <div class="gallery-grid">
+          <figure class="gallery-card">
+            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
+            <figcaption>Text folgt (z. B. Eingang / Außenbereich).</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
+            <figcaption>Text folgt (z. B. Innenraum / Sitzbereich).</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
+            <figcaption>Text folgt (z. B. Bar / Theke).</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
+            <figcaption>Text folgt (z. B. Details / Deko).</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
+            <figcaption>Text folgt (z. B. Abendstimmung).</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
+            <figcaption>Text folgt (z. B. Straßenansicht).</figcaption>
+          </figure>
+        </div>
+      </section>
+
       <section class="visit" id="contact">
         <div class="visit-info">
           <div class="section-heading">
@@ -266,7 +328,7 @@
             <div>
               <h3>Adresse</h3>
               <p>Schreinerstraße 28<br />42105 Wuppertal</p>
-              <a class="ghost-button" href="https://maps.app.goo.gl/XF5LRkoz2VXKV5CT8">
+              <a class="ghost-button" href="https://www.google.com/maps/place/Hayat-Jiyan+Restaurant/@51.2605482,7.1380626,17z/data=!4m8!3m7!1s0x47b8d7ac00cb9a29:0xdf5761f218b776e9!8m2!3d51.2605482!4d7.1380626!9m1!1b1!16s%2Fg%2F1td9pmbs?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D">
                 Auf Google Maps öffnen
               </a>
             </div>
@@ -325,25 +387,35 @@
           </div>
         </div>
         <div class="map-wrapper">
-          <div id="map-placeholder" class="map-placeholder">
-            <div class="map-placeholder-content">
-              <h3>Karte laden</h3>
-              <p>Klicken Sie hier, um die interaktive Karte zu laden</p>
-              <button id="load-map-btn" class="primary-button">Karte anzeigen</button>
+          <div class="map-frame">
+            <div id="map-placeholder" class="map-placeholder">
+              <div class="map-placeholder-content">
+                <h3>Karte laden</h3>
+                <p>Klicken Sie hier, um die interaktive Karte zu laden</p>
+                <button id="load-map-btn" class="primary-button">Karte anzeigen</button>
+                <a
+                  class="ghost-button reviews-button"
+                  href="https://www.google.com/maps/place/Hayat-Jiyan+Restaurant/@51.2605482,7.1380626,17z/data=!4m8!3m7!1s0x47b8d7ac00cb9a29:0xdf5761f218b776e9!8m2!3d51.2605482!4d7.1380626!9m1!1b1!16s%2Fg%2F1td9pmbs?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Google Bewertungen ansehen
+                </a>
+              </div>
             </div>
+            <iframe
+              id="google-map"
+              title="Hayat Restaurant auf Google Maps"
+              data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2496.7480480359186!2d7.13548767664248!3d51.2605481717583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8d7ac00cb9a29%3A0xdf5761f218b776e9!2sHayat-Jiyan%20Restaurant!5e0!3m2!1sen!2sgr!4v1761301299413!5m2!1sen!2sgr"
+              width="600"
+              height="450"
+              style="border: 0; display: none;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              fetchpriority="low"
+            ></iframe>
           </div>
-          <iframe
-            id="google-map"
-            title="Hayat Restaurant auf Google Maps"
-            data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2496.7480480359186!2d7.13548767664248!3d51.2605481717583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b8d7ac00cb9a29%3A0xdf5761f218b776e9!2sHayat-Jiyan%20Restaurant!5e0!3m2!1sen!2sgr!4v1761301299413!5m2!1sen!2sgr"
-            width="600"
-            height="450"
-            style="border: 0; display: none;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            fetchpriority="low"
-          ></iframe>
         </div>
       </section>
     </main>
@@ -879,6 +951,19 @@
             e.preventDefault();
             errorMessage.hidden = true;
             errorMessage.textContent = '';
+            const requiredFields = Array.from(reservationForm.querySelectorAll('[required]'));
+            const firstMissing = requiredFields.find((field) => {
+              if (field.type === 'checkbox' || field.type === 'radio') {
+                return !field.checked;
+              }
+              return !field.value || !field.value.trim();
+            });
+            if (firstMissing) {
+              errorMessage.textContent = 'Bitte alle Felder ausfüllen';
+              errorMessage.hidden = false;
+              firstMissing.focus();
+              return;
+            }
             const submitBtn = reservationForm.querySelector('button[type="submit"]');
             if (submitBtn) {
               submitBtn.disabled = true;

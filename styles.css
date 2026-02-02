@@ -95,13 +95,27 @@ a {
 .hero-content {
   max-width: var(--max-width);
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: 48px;
 }
 
 .hero-text {
   max-width: 640px;
+}
+
+.hero-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-logo {
+  width: min(44vw, 420px);
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 20px 40px rgba(31, 31, 38, 0.18));
 }
 
 .eyebrow {
@@ -251,6 +265,60 @@ main section:first-of-type {
   color: var(--accent-strong);
   font-weight: 600;
   letter-spacing: 0.02em;
+}
+
+.gallery {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.gallery-card {
+  margin: 0;
+  background: var(--card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, rgba(210, 106, 44, 0.18), rgba(255, 255, 255, 0.95));
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.gallery-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border: 1px dashed rgba(31, 31, 38, 0.25);
+  border-radius: 12px;
+}
+
+.gallery-card img,
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.gallery-card figcaption {
+  margin: 0;
+  padding: 16px 18px 18px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 .menu {
@@ -418,11 +486,16 @@ main section:first-of-type {
 }
 
 .menu-note {
-  margin: 18px 0 0;
-  font-size: 0.91rem;
-  color: var(--muted);
-  font-style: italic;
+  margin: 18px auto 0;
+  max-width: 60ch;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgba(210, 106, 44, 0.12);
+  color: var(--accent-strong);
+  font-weight: 600;
+  font-size: 1rem;
   line-height: 1.6;
+  border: 1px solid rgba(210, 106, 44, 0.22);
 }
 
 .menu-cta {
@@ -483,9 +556,18 @@ main section:first-of-type {
   overflow: hidden;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.map-wrapper iframe {
+.map-frame {
+  position: relative;
+  min-height: 380px;
+  flex: 1;
+}
+
+.map-frame iframe {
   width: 100%;
   height: 100%;
   min-height: 380px;
@@ -498,11 +580,13 @@ main section:first-of-type {
   height: 100%;
   min-height: 380px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border);
+}
+
+.reviews-button {
+  margin-top: 14px;
 }
 
 .map-placeholder-content {
@@ -818,16 +902,20 @@ main section:first-of-type {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .visit {
     grid-template-columns: 1fr;
   }
 
   .map-wrapper iframe {
-    min-height: 340px;
+    min-height: 240px;
   }
 
   .map-placeholder {
-    min-height: 340px;
+    min-height: 240px;
   }
 
   .footer {
@@ -857,6 +945,19 @@ main section:first-of-type {
     flex-wrap: wrap;
     margin: 0 auto 48px;
     padding: 0 16px;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero-visual {
+    justify-content: center;
+  }
+
+  .hero-logo {
+    width: min(68vw, 320px);
   }
 
   .brand {
@@ -916,6 +1017,7 @@ main section:first-of-type {
   }
 
   .highlight-grid,
+  .gallery-grid,
   .visit-grid {
     grid-template-columns: 1fr;
     gap: 16px;
@@ -967,11 +1069,11 @@ main section:first-of-type {
   }
 
   .map-wrapper iframe {
-    min-height: 300px;
+    min-height: 220px;
   }
 
   .map-placeholder {
-    min-height: 300px;
+    min-height: 220px;
   }
 
   .map-placeholder-content {
@@ -1052,6 +1154,10 @@ main section:first-of-type {
   .nav-links {
     gap: 12px;
     font-size: 0.85rem;
+  }
+
+  .hero-logo {
+    width: min(78vw, 240px);
   }
 
   .hero-text h1 {
@@ -1162,11 +1268,11 @@ main section:first-of-type {
   }
 
   .map-wrapper iframe {
-    min-height: 250px;
+    min-height: 200px;
   }
 
   .map-placeholder {
-    min-height: 250px;
+    min-height: 200px;
   }
 
   .map-placeholder-content {
