@@ -2,9 +2,9 @@
 
 Weißwein (0,2l)
 
-* Grauburgunder – 4,60 €
+* Grauburgunder – 4,80 €
   Volle Frucht und ausgeprägter Geschmack
-* Riesling (enthält Sulfite) – 4,60 €
+* Riesling (enthält Sulfite) – 4,80 €
   Ein edler Freund aus dem Rheingau
 
 Rotwein (0,2l)
