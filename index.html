@@ -268,17 +268,17 @@
           <article class="highlight-card">
             <h3>HAYAT-Grillteller</h3>
             <p>Mix aus Köfte, Şiş und Gemüse – perfekt zum Teilen.</p>
-            <span class="price">17,50&nbsp;€</span>
+            <span class="price" data-price-number="69">17,50&nbsp;€</span>
           </article>
           <article class="highlight-card">
             <h3>Iskender Kebap</h3>
             <p>Geröstetes Brot, Joghurt, Tomate und zartes Lamm.</p>
-            <span class="price">12,80&nbsp;€</span>
+            <span class="price" data-price-number="91">12,80&nbsp;€</span>
           </article>
           <article class="highlight-card">
             <h3>Zucchinipuffer</h3>
             <p>Leicht, knusprig und vegetarisch – hausgemachte Kräuterdip.</p>
-            <span class="price">11,50&nbsp;€</span>
+            <span class="price" data-price-number="36">11,50&nbsp;€</span>
           </article>
         </div>
       </section>
@@ -438,6 +438,8 @@
       </div>
     </footer>
 
+    <!-- Preise zentral in prices.js pflegen -->
+    <script src="prices.js"></script>
     <script defer>
       const menuData = [
         {
@@ -446,15 +448,15 @@
           sections: [
             {
               items: [
-                { name: "1 Portion Oliven", price: "5,00 €" },
-                { name: "2 Portion Peperoni", price: "5,00 €" },
-                { name: "3 Cacık (Knoblauch, Gurken, Joghurt)", price: "5,40 €" },
-                { name: "4 Spinat Ezme", price: "5,00 €" },
-                { name: "5 Sigara Böreği", price: "8,50 €" },
+                { name: "1 Portion Oliven", price: "4,90 €" },
+                { name: "2 Portion Peperoni", price: "4,90 €" },
+                { name: "3 Cacık (Knoblauch, Gurken, Joghurt)", price: "5,50 €" },
+                { name: "4 Spinat Ezme", price: "4,90 €" },
+                { name: "5 Sigara Böreği", price: "8,90 €" },
                 { name: "6 Havuç Ezme", price: "5,00 €" },
                 { name: "7 Muhammara", price: "5,80 €" },
                 { name: "8 Haydari Ezme", price: "5,00 €" },
-                { name: "9 Gefüllte Weinblätter", price: "7,50 €" },
+                { name: "9 Gefüllte Weinblätter", price: "8,50 €" },
                 { name: "10 Türkischer Teller", price: "9,00 €" },
                 { name: "11 Kalte Platte", price: "10,00 €" },
                 { name: "12 Auberginen Ezme", price: "5,80 €" },
@@ -688,12 +690,12 @@
               items: [
                 {
                   name: "Grauburgunder",
-                  price: "4,60 €",
+                  price: "4,80 €",
                   description: "Volle Frucht und ausgeprägter Geschmack."
                 },
                 {
                   name: "Riesling (enthält Sulfite)",
-                  price: "4,60 €",
+                  price: "4,80 €",
                   description: "Ein edler Freund aus dem Rheingau."
                 }
               ]
@@ -743,7 +745,59 @@
         91: "Dönerfleisch auf Fladenbrot mit Tomatensauce und Joghurt"
       };
 
+      const priceCatalog = window.PRICE_CATALOG || { numbered: {}, named: {} };
+
+      const normalizePriceName = (value) =>
+        String(value || "")
+          .toLowerCase()
+          .trim()
+          .replace(/\s+/g, " ");
+
+      const getCatalogPrice = (itemName) => {
+        const name = String(itemName || "");
+        const numberMatch = name.match(/^(\d+)\b/);
+        if (numberMatch) {
+          return priceCatalog.numbered[numberMatch[1]] || "";
+        }
+        return priceCatalog.named[normalizePriceName(name)] || "";
+      };
+
+      const applyCatalogPricesToMenu = () => {
+        menuData.forEach((category) => {
+          (category.sections || []).forEach((section) => {
+            (section.items || []).forEach((item) => {
+              const mappedPrice = getCatalogPrice(item.name);
+              if (mappedPrice) {
+                item.price = mappedPrice;
+              }
+            });
+          });
+        });
+      };
+
+      const applyCatalogPricesToHighlights = () => {
+        const standalonePriceNodes = document.querySelectorAll("[data-price-number], [data-price-name]");
+        standalonePriceNodes.forEach((node) => {
+          const numberKey = node.getAttribute("data-price-number");
+          const nameKey = node.getAttribute("data-price-name");
+          let mappedPrice = "";
+
+          if (numberKey) {
+            mappedPrice = priceCatalog.numbered[numberKey] || "";
+          } else if (nameKey) {
+            mappedPrice = priceCatalog.named[normalizePriceName(nameKey)] || "";
+          }
+
+          if (mappedPrice) {
+            node.textContent = mappedPrice;
+          }
+        });
+      };
+
+      applyCatalogPricesToMenu();
+
       document.addEventListener("DOMContentLoaded", () => {
+        applyCatalogPricesToHighlights();
         // Batch DOM operations to avoid forced reflows
         requestAnimationFrame(() => {
           const yearSpan = document.getElementById("current-year");

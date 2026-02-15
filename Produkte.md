@@ -9,8 +9,8 @@ Weißwein (0,2l)
 
 Rotwein (0,2l)
 
-* Montepulciano d’Abruzzo – 4,60 €
-* Merlot (enthält Sulfite) – 4,60 €
+* Montepulciano d’Abruzzo – 4,80 €
+* Merlot (enthält Sulfite) – 4,80 €
   Rebsorte Merlot – hat die Frucht, die ihm nachgesagt wird. Passt immer!
 
 Weinschorle
@@ -37,7 +37,7 @@ Weinschorle
 
 ### 🍰 Dessert
 
-* 87 Baklava (3 Stück, mit Sahne, Zimt und Walnuss) – 4,20 €
+* 87 Baklava (3 Stück, mit Sahne, Zimt und Walnuss) – 5,50 €
 
 ### 🧆 Kalte Vorspeisen
 
