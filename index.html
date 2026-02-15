@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
@@ -77,14 +77,29 @@
         top: 10px;
         z-index: 1200;
         margin: 10px auto 0;
-        padding: 14px 24px;
-        max-width: min(1120px, calc(100vw - 24px));
+        padding: 12px 20px;
+        max-width: min(1100px, calc(100vw - 32px));
         border: 1px solid rgba(31, 31, 38, 0.06);
         border-radius: 999px;
         background: rgba(253, 249, 243, 0.64);
-        box-shadow: 0 5px 14px rgba(31, 31, 38, 0.08);
+        box-shadow: 0 9px 20px rgba(31, 31, 38, 0.11);
         -webkit-backdrop-filter: blur(7px);
         backdrop-filter: blur(7px);
+      }
+
+      .site-nav .brand {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 0;
+        letter-spacing: 0;
+        text-transform: none;
+      }
+
+      .site-nav-logo {
+        display: block;
+        width: clamp(76px, 8.5vw, 112px);
+        height: auto;
       }
       
       .brand {
@@ -108,6 +123,18 @@
         padding: 4px 0;
         border-bottom: 2px solid transparent;
         transition: color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .nav-link-reservation {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-link-reservation svg {
+        width: 0.95em;
+        height: 0.95em;
+        flex-shrink: 0;
       }
       
       .nav-links a:hover, .nav-links a:focus-visible {
@@ -212,13 +239,21 @@
   </head>
   <body>
     <nav class="nav site-nav">
-      <a class="brand" href="#top">Hayat-Jiyan</a>
+      <a class="brand" href="#top" aria-label="Hayat-Jiyan Startseite">
+        <img class="site-nav-logo" src="assets/logo-hayat.png" alt="Hayat-Jiyan Logo" loading="eager" decoding="async" />
+      </a>
       <div class="nav-links">
         <a href="#menu">Speisekarte</a>
         <a href="#highlights">Favoriten</a>
         <a href="#gallery">Bilder</a>
         <a href="#contact">Kontakt</a>
-        <a href="#reservation">Reservierung</a>
+        <a href="#reservation" class="nav-link-reservation">
+          Reservierung
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6.75 4.5h10.5A1.75 1.75 0 0 1 19 6.25v11.5A1.75 1.75 0 0 1 17.25 19H6.75A1.75 1.75 0 0 1 5 17.75V6.25A1.75 1.75 0 0 1 6.75 4.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+            <path d="M8.25 4.5V3m7.5 1.5V3M5 9.25h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
       </div>
     </nav>
     <header class="hero" id="top">
