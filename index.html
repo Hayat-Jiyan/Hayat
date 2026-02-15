@@ -38,6 +38,10 @@
       *, *::before, *::after { box-sizing: border-box; }
       
       html { scroll-behavior: smooth; }
+
+      #menu, #highlights, #gallery, #contact, #reservation {
+        scroll-margin-top: 124px;
+      }
       
       body {
         margin: 0;
@@ -66,6 +70,21 @@
         align-items: center;
         justify-content: space-between;
         gap: 24px;
+      }
+
+      .site-nav {
+        position: sticky;
+        top: 10px;
+        z-index: 1200;
+        margin: 10px auto 0;
+        padding: 14px 24px;
+        max-width: min(1120px, calc(100vw - 24px));
+        border: 1px solid rgba(31, 31, 38, 0.06);
+        border-radius: 999px;
+        background: rgba(253, 249, 243, 0.64);
+        box-shadow: 0 5px 14px rgba(31, 31, 38, 0.08);
+        -webkit-backdrop-filter: blur(7px);
+        backdrop-filter: blur(7px);
       }
       
       .brand {
@@ -192,16 +211,17 @@
     <noscript><link rel="stylesheet" href="styles.css" /></noscript>
   </head>
   <body>
+    <nav class="nav site-nav">
+      <a class="brand" href="#top">Hayat-Jiyan</a>
+      <div class="nav-links">
+        <a href="#menu">Speisekarte</a>
+        <a href="#highlights">Favoriten</a>
+        <a href="#gallery">Bilder</a>
+        <a href="#contact">Kontakt</a>
+        <a href="#reservation">Reservierung</a>
+      </div>
+    </nav>
     <header class="hero" id="top">
-      <nav class="nav">
-        <a class="brand" href="#top">Hayat-Jiyan</a>
-        <div class="nav-links">
-          <a href="#highlights">Favoriten</a>
-          <a href="#gallery">Bilder</a>
-          <a href="#menu">Speisekarte</a>
-          <a href="#contact">Kontakt</a>
-        </div>
-      </nav>
       <div class="hero-content">
         <div class="hero-text">
           <p class="eyebrow">Seit 1982 in Wuppertal</p>
@@ -350,11 +370,12 @@
             </div>
           </div>
 
-          <div class="reservation-form-wrapper">
+          <div class="reservation-form-wrapper" id="reservation">
             <h3>Reservierung anfragen</h3>
             <div id="reservation-form-container">
               <!-- Ersetze DEINE_FORM_ID durch deine Form-ID von formspree.io -->
               <form id="reservation-form" action="https://formspree.io/f/mvzqgjjp" method="POST">
+                <input type="hidden" name="subject" value="Neue Reservierungsanfrage (Website Hayat-Jiyan)" />
                 <label for="res-name">Name</label>
                 <input type="text" id="res-name" name="name" required placeholder="Ihr Name" />
                 <label for="res-address">Adresse</label>
@@ -1047,15 +1068,27 @@
                 body: formData,
                 headers: { Accept: 'application/json' }
               });
-              const data = await response.json().catch(() => ({}));
+              const rawBody = await response.text();
+              let data = {};
+              try {
+                data = rawBody ? JSON.parse(rawBody) : {};
+              } catch (parseError) {
+                data = {};
+              }
               if (response.ok && (data.ok === true || response.status === 200)) {
                 formContainer.hidden = true;
                 successMessage.hidden = false;
               } else {
-                throw new Error(data.error || 'Fehler beim Senden');
+                const listErrors = Array.isArray(data.errors)
+                  ? data.errors.map((entry) => entry && entry.message).filter(Boolean)
+                  : [];
+                const apiMessage = data.error || listErrors.join(' ');
+                throw new Error(apiMessage || `Formspree-Fehler (HTTP ${response.status})`);
               }
             } catch (err) {
-              errorMessage.textContent = 'Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.';
+              const detail = err && err.message ? ` (${err.message})` : '';
+              errorMessage.textContent = `Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut.${detail}`;
+              console.error('Reservation form submit failed:', err);
               errorMessage.hidden = false;
               if (submitBtn) {
                 submitBtn.disabled = false;
