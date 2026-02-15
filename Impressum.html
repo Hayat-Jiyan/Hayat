@@ -6,11 +6,6 @@
     <meta name="description" content="Impressum des Hayat-Jiyan Restaurants in Wuppertal" />
     <title>Impressum | Hayat-Jiyan Restaurant</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <header class="hero legal-header" id="top">
@@ -127,57 +122,11 @@
       </div>
     </footer>
 
-    <script>
-      const yearSpan = document.getElementById("current-year");
-      if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-      }
-    </script>
     <div id="cookie-consent-overlay" class="cookie-consent-overlay" hidden></div>
     <div id="cookie-consent-banner" class="cookie-banner" hidden>
-      <p class="cookie-banner-text">Wir verwenden keine Tracking-Cookies. Ihre Einwilligung speichern wir lokal im Browser. Google Maps kann Cookies setzen. Mehr in unserer <a href="Datenschutz.html">Datenschutzerklärung</a>.</p>
+      <p class="cookie-banner-text">Wir verwenden keine Tracking-Cookies. Google Maps laden wir erst nach Ihrer Einwilligung. Diese speichern wir lokal im Browser. Mehr in unserer <a href="Datenschutz.html">Datenschutzerklärung</a>.</p>
       <button type="button" id="cookie-consent-btn" class="primary-button">Verstanden</button>
     </div>
-    <script>
-      (function() {
-        function initCookieBanner() {
-          var overlay = document.getElementById('cookie-consent-overlay');
-          var banner = document.getElementById('cookie-consent-banner');
-          var btn = document.getElementById('cookie-consent-btn');
-          if (!banner || !btn) return;
-          function showBanner() {
-            banner.removeAttribute('hidden');
-            banner.classList.remove('cookie-banner--hidden');
-            if (overlay) {
-              overlay.removeAttribute('hidden');
-              overlay.classList.remove('cookie-banner--hidden');
-            }
-          }
-          function hideBanner() {
-            try { localStorage.setItem('cookie_consent', 'accepted'); } catch (e) {}
-            banner.setAttribute('hidden', '');
-            banner.classList.add('cookie-banner--hidden');
-            if (overlay) {
-              overlay.setAttribute('hidden', '');
-              overlay.classList.add('cookie-banner--hidden');
-            }
-          }
-          try {
-            if (!localStorage.getItem('cookie_consent')) showBanner();
-          } catch (e) { showBanner(); }
-          if (overlay) {
-            overlay.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
-            overlay.addEventListener('touchend', function(ev) { ev.preventDefault(); hideBanner(); }, { passive: false });
-          }
-          btn.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
-          btn.addEventListener('touchend', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); }, { passive: false });
-        }
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initCookieBanner);
-        } else {
-          initCookieBanner();
-        }
-      })();
-    </script>
+    <script src="site-shared.js" defer></script>
   </body>
 </html>

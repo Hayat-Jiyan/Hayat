@@ -1,8 +1,8 @@
 # Datenschutzerklärung
 
-## 1. Übersicht
+## 1. Überblick
 
-Auf dieser Website werden nur minimal Daten erhoben. Es gibt kein Kontaktformular, keine Cookies zu Nachverfolgung und keine Datenanalyse. Wir nutzen Ihre Daten nicht für irgendwelche anderen Zwecke, außer um die Website technisch bereitzustellen.
+Diese Datenschutzerklärung informiert Sie über Art, Umfang und Zweck der Verarbeitung personenbezogener Daten auf dieser Website.
 
 ## 2. Verantwortlicher
 
@@ -11,62 +11,86 @@ Schreinerstraße 28
 42105 Wuppertal  
 Telefon: +49 202 308329
 
-## 3. Automatisch erfasste Daten vom Hosting-Anbieter
+## 3. Hosting und Server-Log-Dateien
 
-### Server-Log-Dateien
+Der Hosting-Anbieter dieser Website speichert technisch notwendige Server-Log-Daten, zum Beispiel:
 
-Der Hosting-Anbieter dieser Website speichert automatisch Informationen in Server-Log-Dateien. Diese Daten werden ausschließlich für die technische Bereitstellung und Sicherheit der Website genutzt:
-
-- Browsertyp und Browserversion
-- Verwendetes Betriebssystem
-- Referrer URL
 - IP-Adresse
-- Uhrzeit der Serveranfrage
+- Browsertyp und Browserversion
+- Betriebssystem
+- Referrer-URL
+- Datum/Uhrzeit der Anfrage
+- HTTP-Statuscode
 
-**Diese Daten werden nicht für Analysen oder andere Zwecke weiterverarbeitet.** Sie dienen einzig der technischen Aufrechterhaltung der Website und ihrer Sicherheit.
+Rechtsgrundlage: **Art. 6 Abs. 1 lit. f DSGVO** (berechtigtes Interesse an sicherem und stabilem Betrieb).
 
-Die Erfassung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an technischer Sicherheit und Fehlerfrei-Funktionieren).
+## 4. Schriftarten
 
-## 4. Google Maps
+Diese Website verwendet lokale bzw. systemeigene Schriftarten. Es werden keine Webfonts von Drittanbietern nachgeladen.
 
-Diese Website nutzt Google Maps zur Standortanzeige. Beim Laden von Google Maps können Daten an Google übermittelt werden.
+## 5. Google Maps
 
+Auf der Website ist eine Google-Maps-Karte eingebunden. Die Karte wird erst geladen, wenn Sie in den Hinweis eingewilligt haben und die Karte aktiv anzeigen.
+
+Beim Laden der Karte können Daten (insbesondere IP-Adresse) an Google übertragen werden.
+
+Anbieter:  
 **Google Ireland Limited**  
 Gordon House, Barrow Street  
 Dublin 4, Irland
 
-Weitere Informationen finden Sie in Googles Datenschutzerklärung: https://www.google.com/intl/de/policies/privacy/
+Rechtsgrundlage: **Art. 6 Abs. 1 lit. a DSGVO** (Einwilligung).
 
-Wir haben keinen Zugriff auf diese Daten und können diese nicht kontrollieren.
+Weitere Informationen:
 
-## 5. Keine Datenerfassung durch die Website
+- https://policies.google.com/privacy
+- https://policies.google.com/terms
 
-Diese Website:
-- hat **kein Kontaktformular** (nur Phone-Links)
-- verwendet **keine Cookies** oder Tracking-Tools
-- speichert **keine Besucherdaten**
-- führt **keine Datenanalyse** durch
-- teilt Daten **nicht mit Dritten** (außer wie in Punkt 4 beschrieben)
+## 6. Reservierungsformular (Formspree)
 
-## 6. Ihre Rechte nach der DSGVO
+Für Reservierungsanfragen wird ein Formular bereitgestellt. Die Übermittlung erfolgt über **Formspree**.
 
-Sie haben das Recht zu erfahren, welche Daten wir über Sie speichern. Da wir aber keine personenbezogenen Daten speichern oder verarbeiten (außer den technischen Server-Logs des Hosters), können wir in dieser Hinsicht nichts melden.
+Verarbeitete Daten:
 
-Bei Fragen zum Datenschutz kontaktieren Sie uns:
+- Name
+- Adresse
+- E-Mail-Adresse
+- Telefonnummer
+- Anzahl der Gäste
+- Datum/Uhrzeit der Reservierung
 
-**Hayat-Jiyan Restaurant**  
-Schreinerstraße 28  
-42105 Wuppertal  
-Telefon: +49 202 308329
+Rechtsgrundlage: **Art. 6 Abs. 1 lit. b DSGVO** (Vertragsanbahnung) und ggf. **Art. 6 Abs. 1 lit. f DSGVO** (organisatorische Abwicklung von Reservierungsanfragen).
 
-## 7. Beschwerderecht
+Datenschutz bei Formspree:
 
-Im Falle von Verstößen gegen die DSGVO steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu. Für Wuppertal ist dies die Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen.
+- https://formspree.io/legal/privacy-policy
 
-## 8. Änderungen dieser Datenschutzerklärung
+## 7. Cookies und lokale Speicherung
 
-Diese Datenschutzerklärung kann jederzeit aktualisiert werden, um Änderungen an der Website oder der Rechtslage widerzuspiegeln.
+Diese Website setzt keine Tracking- oder Marketing-Cookies. Zur Steuerung des Hinweises wird Ihre Einwilligung lokal im Browser über `localStorage` gespeichert.
+
+## 8. Ihre Rechte
+
+Sie haben nach DSGVO insbesondere folgende Rechte:
+
+- Auskunft (Art. 15 DSGVO)
+- Berichtigung (Art. 16 DSGVO)
+- Löschung (Art. 17 DSGVO)
+- Einschränkung der Verarbeitung (Art. 18 DSGVO)
+- Widerspruch (Art. 21 DSGVO)
+
+## 9. Beschwerderecht
+
+Sie haben das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren.
+
+Für Nordrhein-Westfalen:
+
+- https://www.ldi.nrw.de
+
+## 10. Änderungen
+
+Diese Datenschutzerklärung kann aktualisiert werden, wenn sich die Website oder die Rechtslage ändert.
 
 ---
 
-*Letzte Aktualisierung: 2025*
+*Letzte Aktualisierung: 2026*

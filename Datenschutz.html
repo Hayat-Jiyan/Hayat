@@ -6,11 +6,6 @@
     <meta name="description" content="Datenschutzerklärung des Hayat-Jiyan Restaurants in Wuppertal" />
     <title>Datenschutzerklärung | Hayat-Jiyan Restaurant</title>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <header class="hero legal-header" id="top">
@@ -79,8 +74,8 @@
           </section>
 
           <section class="legal-section">
-            <h2>4. Google Fonts</h2>
-            <p>Diese Website bindet Schriften des Anbieters Google (Google Fonts) ein. Beim Aufruf der Seite werden dabei Anfragen an Server von Google (z. B. fonts.googleapis.com, fonts.gstatic.com) gesendet. Dabei können unter anderem Ihre IP-Adresse und Angaben zu Ihrem Browser an Google übermittelt werden. Die Verarbeitung erfolgt auf Grundlage von <strong>Art. 6 Abs. 1 lit. f DSGVO</strong> (berechtigtes Interesse an einer einheitlichen Darstellung). Weitere Informationen und die Datenschutzerklärung von Google finden Sie unter <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Datenschutzerklärung</a>.</p>
+            <h2>4. Schriftarten</h2>
+            <p>Diese Website verwendet lokale bzw. systemeigene Schriftarten und lädt keine Webfonts von Drittanbietern nach. Beim Seitenaufruf werden dadurch keine Daten an externe Font-Dienste übertragen.</p>
           </section>
 
           <section class="legal-section">
@@ -94,16 +89,16 @@
             </p>
 
             <h3>5.2 Datenübertragung</h3>
-            <p>Beim Laden der Google Maps iFrame wird Ihre IP-Adresse an Google-Server (teilweise in den USA) übermittelt. Dies erfolgt automatisch, wenn die Karte auf dieser Website angezeigt wird.</p>
+            <p>Google Maps wird auf dieser Website erst geladen, wenn Sie zuvor über den eingeblendeten Hinweis eingewilligt haben und anschließend die Karte aktiv anzeigen. Erst dann wird die iFrame geladen und Ihre IP-Adresse an Google-Server (teilweise in den USA) übermittelt.</p>
 
             <h3>5.3 Rechtsgrundlage</h3>
-            <p>Die Verarbeitung erfolgt auf Grundlage von <strong>Art. 6 Abs. 1 lit. f DSGVO</strong>. Unser berechtigtes Interesse liegt darin, Ihnen unseren genauen Standort anzuzeigen.</p>
+            <p>Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung gemäß <strong>Art. 6 Abs. 1 lit. a DSGVO</strong>.</p>
 
             <h3>5.4 Datenschutz bei Google</h3>
             <p>Für die Verarbeitung Ihrer Daten durch Google gelten Googles Datenschutzrichtlinien:</p>
             <ul>
-              <li><a href="https://policies.google.com/privacy" target="_blank">Google Datenschutzerklärung</a></li>
-              <li><a href="https://policies.google.com/terms" target="_blank">Google Nutzungsbedingungen</a></li>
+              <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Datenschutzerklärung</a></li>
+              <li><a href="https://policies.google.com/terms" target="_blank" rel="noopener">Google Nutzungsbedingungen</a></li>
             </ul>
             <p><strong>Wichtig:</strong> Google kann Ihre Daten international verarbeiten und speichern. Wir haben keinen Einfluss auf diese Verarbeitung und können diese nicht unterbinden.</p>
 
@@ -118,7 +113,7 @@
 
           <section class="legal-section">
             <h2>6. Cookies und Tracking</h2>
-            <p>Diese Website verwendet <strong>keine Cookies</strong> für Tracking, Analyse oder Marketing. Für den Cookie-Hinweis speichern wir Ihre Einwilligung <strong>lokal im Browser</strong> (localStorage), damit der Hinweis nicht bei jedem Besuch erneut erscheint. Es werden keine Tracking- oder Marketing-Cookies gesetzt. Die einzigen Cookies, die möglicherweise von Google Maps gesetzt werden, unterliegen Googles Datenschutzerklärung.</p>
+            <p>Diese Website verwendet <strong>keine Cookies</strong> für Tracking, Analyse oder Marketing. Für den Hinweis speichern wir Ihre Einwilligung <strong>lokal im Browser</strong> (localStorage), damit der Hinweis nicht bei jedem Besuch erneut erscheint. Es werden keine Tracking- oder Marketing-Cookies gesetzt. Wenn Sie Google Maps aktiv laden, können dabei durch Google eigene Cookies gesetzt werden.</p>
           </section>
 
           <section class="legal-section">
@@ -173,7 +168,7 @@
               <strong>Zuständige Aufsichtsbehörde für Wuppertal:</strong><br />
               Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen<br />
               Telefon: 0201 / 88 429-0<br />
-              <a href="https://www.ldi.nrw.de" target="_blank">www.ldi.nrw.de</a>
+              <a href="https://www.ldi.nrw.de" target="_blank" rel="noopener">www.ldi.nrw.de</a>
             </p>
           </section>
 
@@ -214,57 +209,11 @@
       </div>
     </footer>
 
-    <script>
-      const yearSpan = document.getElementById("current-year");
-      if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-      }
-    </script>
     <div id="cookie-consent-overlay" class="cookie-consent-overlay" hidden></div>
     <div id="cookie-consent-banner" class="cookie-banner" hidden>
-      <p class="cookie-banner-text">Wir verwenden keine Tracking-Cookies. Ihre Einwilligung speichern wir lokal im Browser. Google Maps kann Cookies setzen. Mehr in unserer <a href="Datenschutz.html">Datenschutzerklärung</a>.</p>
+      <p class="cookie-banner-text">Wir verwenden keine Tracking-Cookies. Google Maps laden wir erst nach Ihrer Einwilligung. Diese speichern wir lokal im Browser. Mehr in unserer <a href="Datenschutz.html">Datenschutzerklärung</a>.</p>
       <button type="button" id="cookie-consent-btn" class="primary-button">Verstanden</button>
     </div>
-    <script>
-      (function() {
-        function initCookieBanner() {
-          var overlay = document.getElementById('cookie-consent-overlay');
-          var banner = document.getElementById('cookie-consent-banner');
-          var btn = document.getElementById('cookie-consent-btn');
-          if (!banner || !btn) return;
-          function showBanner() {
-            banner.removeAttribute('hidden');
-            banner.classList.remove('cookie-banner--hidden');
-            if (overlay) {
-              overlay.removeAttribute('hidden');
-              overlay.classList.remove('cookie-banner--hidden');
-            }
-          }
-          function hideBanner() {
-            try { localStorage.setItem('cookie_consent', 'accepted'); } catch (e) {}
-            banner.setAttribute('hidden', '');
-            banner.classList.add('cookie-banner--hidden');
-            if (overlay) {
-              overlay.setAttribute('hidden', '');
-              overlay.classList.add('cookie-banner--hidden');
-            }
-          }
-          try {
-            if (!localStorage.getItem('cookie_consent')) showBanner();
-          } catch (e) { showBanner(); }
-          if (overlay) {
-            overlay.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
-            overlay.addEventListener('touchend', function(ev) { ev.preventDefault(); hideBanner(); }, { passive: false });
-          }
-          btn.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
-          btn.addEventListener('touchend', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); }, { passive: false });
-        }
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initCookieBanner);
-        } else {
-          initCookieBanner();
-        }
-      })();
-    </script>
+    <script src="site-shared.js" defer></script>
   </body>
 </html>
