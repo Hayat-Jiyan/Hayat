@@ -6,9 +6,13 @@
     <meta name="theme-color" content="#d26a2c" />
     <meta
       name="description"
-      content="Hayat-Jiyan Restaurant in Wuppertal – authentische anatolische Küche, moderne Atmosphäre, warme Gastfreundschaft. Reservieren Sie jetzt Ihren Tisch."
+      content="Hayat-Jiyan Restaurant in Wuppertal – authentische Kurdische Küche, moderne Atmosphäre, warme Gastfreundschaft. Reservieren Sie jetzt Ihren Tisch."
     />
     <title>Hayat-Jiyan Restaurant | Moderne anatolische Küche in Wuppertal</title>
+    <link rel="preconnect" href="https://maps.google.com" crossorigin />
+    <link rel="preconnect" href="https://www.google.com" crossorigin />
+    <link rel="dns-prefetch" href="//maps.google.com" />
+    <link rel="dns-prefetch" href="//www.google.com" />
     <link rel="preload" href="styles.css" as="style" />
     <style>
       /* Critical CSS inlined to eliminate request chain */
@@ -404,6 +408,7 @@
           <div class="reservation-form-wrapper" id="reservation">
             <h3>Reservierung anfragen</h3>
             <div id="reservation-form-container">
+              <!-- Ersetze DEINE_FORM_ID durch deine Form-ID von formspree.io -->
               <form id="reservation-form" action="https://formspree.io/f/mvzqgjjp" method="POST">
                 <input type="hidden" name="subject" value="Neue Reservierungsanfrage (Website Hayat-Jiyan)" />
                 <label for="res-name">Name</label>
@@ -491,7 +496,6 @@
 
     <!-- Preise zentral in prices.js pflegen -->
     <script src="prices.js"></script>
-    <script src="site-shared.js" defer></script>
     <script defer>
       const menuData = [
         {
@@ -1025,50 +1029,32 @@
           setActiveCategory(activeCategoryId);
         });
 
-        // Google Maps nur nach Einwilligung laden
+        // Lazy load Google Maps to reduce unused JavaScript
         const mapPlaceholder = document.getElementById('map-placeholder');
         const loadMapBtn = document.getElementById('load-map-btn');
         const googleMap = document.getElementById('google-map');
-        const consentApi = window.HayatConsent;
 
-        const hasConsent = () =>
-          consentApi && typeof consentApi.hasConsent === 'function'
-            ? consentApi.hasConsent()
-            : false;
-
-        const requestConsent = () => {
-          if (consentApi && typeof consentApi.showBanner === 'function') {
-            consentApi.showBanner();
-          }
-        };
-
-        if (loadMapBtn && googleMap && mapPlaceholder) {
-          const loadMap = () => {
-            if (!googleMap.src) {
-              googleMap.src = googleMap.dataset.src;
-            }
+        if (loadMapBtn && googleMap) {
+          loadMapBtn.addEventListener('click', () => {
+            // Load the map only when user clicks
+            googleMap.src = googleMap.dataset.src;
             googleMap.style.display = 'block';
             mapPlaceholder.style.display = 'none';
-          };
-
-          let pendingMapLoad = false;
-
-          loadMapBtn.addEventListener('click', () => {
-            if (!hasConsent()) {
-              pendingMapLoad = true;
-              requestConsent();
-              return;
-            }
-            loadMap();
           });
 
-          window.addEventListener('hayat:cookie-consent-accepted', () => {
-            if (!pendingMapLoad) {
-              return;
-            }
-            pendingMapLoad = false;
-            loadMap();
-          });
+          // Also load on scroll into view (Intersection Observer)
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting && !googleMap.src) {
+                googleMap.src = googleMap.dataset.src;
+                googleMap.style.display = 'block';
+                mapPlaceholder.style.display = 'none';
+                observer.disconnect();
+              }
+            });
+          }, { rootMargin: '50px' });
+
+          observer.observe(mapPlaceholder);
         }
 
         // Reservierungsformular: per fetch an Formspree senden, Bestätigung anzeigen
@@ -1150,9 +1136,50 @@
     </script>
     <div id="cookie-consent-overlay" class="cookie-consent-overlay" hidden></div>
     <div id="cookie-consent-banner" class="cookie-banner" hidden>
-      <p class="cookie-banner-text">Wir verwenden keine Tracking-Cookies. Google Maps laden wir erst nach Ihrer Einwilligung. Diese speichern wir lokal im Browser. Mehr in unserer <a href="Datenschutz.html">Datenschutzerklärung</a>.</p>
+      <p class="cookie-banner-text">Wir verwenden keine Tracking-Cookies. Ihre Einwilligung speichern wir lokal im Browser. Google Maps kann Cookies setzen. Mehr in unserer <a href="Datenschutz.html">Datenschutzerklärung</a>.</p>
       <button type="button" id="cookie-consent-btn" class="primary-button">Verstanden</button>
     </div>
+    <script>
+      (function() {
+        function initCookieBanner() {
+          var overlay = document.getElementById('cookie-consent-overlay');
+          var banner = document.getElementById('cookie-consent-banner');
+          var btn = document.getElementById('cookie-consent-btn');
+          if (!banner || !btn) return;
+          function showBanner() {
+            banner.removeAttribute('hidden');
+            banner.classList.remove('cookie-banner--hidden');
+            if (overlay) {
+              overlay.removeAttribute('hidden');
+              overlay.classList.remove('cookie-banner--hidden');
+            }
+          }
+          function hideBanner() {
+            try { localStorage.setItem('cookie_consent', 'accepted'); } catch (e) {}
+            banner.setAttribute('hidden', '');
+            banner.classList.add('cookie-banner--hidden');
+            if (overlay) {
+              overlay.setAttribute('hidden', '');
+              overlay.classList.add('cookie-banner--hidden');
+            }
+          }
+          try {
+            if (!localStorage.getItem('cookie_consent')) showBanner();
+          } catch (e) { showBanner(); }
+          if (overlay) {
+            overlay.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
+            overlay.addEventListener('touchend', function(ev) { ev.preventDefault(); hideBanner(); }, { passive: false });
+          }
+          btn.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
+          btn.addEventListener('touchend', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); }, { passive: false });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initCookieBanner);
+        } else {
+          initCookieBanner();
+        }
+      })();
+    </script>
   </body>
 </html>
 
