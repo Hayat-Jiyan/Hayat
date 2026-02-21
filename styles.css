@@ -72,8 +72,8 @@ a {
   top: 10px;
   z-index: 1200;
   margin: 10px auto 0;
-  padding: 8px 16px;
-  max-width: min(900px, calc(100vw - 60px));
+  padding: 6px 18px;
+  max-width: min(980px, calc(100vw - 44px));
   border: 1px solid rgba(31, 31, 38, 0.06);
   border-radius: 999px;
   background: rgba(253, 249, 243, 0.64);
@@ -89,19 +89,19 @@ a {
   line-height: 0;
   letter-spacing: 0;
   text-transform: none;
-  flex: 0 0 clamp(68px, 7vw, 96px);
+  flex: 0 0 clamp(64px, 6.6vw, 90px);
 }
 
 .site-nav-logo {
   display: block;
-  width: clamp(68px, 7vw, 96px);
+  width: clamp(64px, 6.6vw, 90px);
   height: auto;
 }
 
 .site-nav::after {
   content: "";
   display: block;
-  flex: 0 0 clamp(68px, 7vw, 96px);
+  flex: 0 0 clamp(64px, 6.6vw, 90px);
 }
 
 .brand {
