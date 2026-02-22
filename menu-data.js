@@ -126,7 +126,7 @@
                 { name: "63 Köfte mit Hirtenkäsefüllung", price: "15,00 €", description: "GegrillteHackbällchen mit Feta-Füllung" },
                 { name: "64 Adana Şiş", price: "13,00 €", description: "Scharfer Hackfleischspieß " },
                 { name: "65 Adana Şiş mit Joghurtsauce", price: "14,00 €", description: "Scharfer Hackfleischspieß mit Joghurtsauce" },
-                { name: "66 Tomaten-Kebab", price: "14,50 €", description: "Scharfer Adana Sis mit Pikanter Tomatensaue" },
+                { name: "66 Tomaten-Kebab", price: "14,50 €", description: "Scharfer Adana Sis mit Joghurt und Pikanter Tomatensauce" },
                 { name: "67 Pirzola (Lammkoteletts)", price: "17,00 €" },
                 { name: "68 Fleischplatte", price: "16,50 €" },
                 { name: "69 HAYAT-Grillteller", price: "17,50 €" }
