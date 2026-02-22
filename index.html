@@ -654,10 +654,22 @@
           starsEl.textContent = stars;
           card.appendChild(starsEl);
 
+          const textWrap = document.createElement("div");
+          textWrap.className = "review-text-wrap";
+
           const textEl = document.createElement("p");
           textEl.className = "review-text";
           textEl.textContent = `“${String(item.text).trim()}”`;
-          card.appendChild(textEl);
+          textWrap.appendChild(textEl);
+          card.appendChild(textWrap);
+
+          const toggleEl = document.createElement("button");
+          toggleEl.type = "button";
+          toggleEl.className = "review-toggle";
+          toggleEl.textContent = "Mehr ansehen";
+          toggleEl.hidden = true;
+          toggleEl.setAttribute("aria-expanded", "false");
+          card.appendChild(toggleEl);
 
           const metaEl = document.createElement("p");
           metaEl.className = "review-meta";
@@ -668,7 +680,63 @@
         });
 
         reviewsGrid.appendChild(fragment);
+
+        const updateReviewExpandState = () => {
+          reviewsGrid.querySelectorAll(".review-card").forEach((card) => {
+            const textWrap = card.querySelector(".review-text-wrap");
+            const toggleEl = card.querySelector(".review-toggle");
+
+            if (!textWrap || !toggleEl) {
+              return;
+            }
+
+            const wasExpanded = card.classList.contains("is-expanded");
+            if (wasExpanded) {
+              card.classList.remove("is-expanded");
+            }
+
+            const needsToggle = textWrap.scrollHeight > textWrap.clientHeight + 2;
+            toggleEl.hidden = !needsToggle;
+            card.classList.toggle("has-overflow", needsToggle);
+
+            if (needsToggle && wasExpanded) {
+              card.classList.add("is-expanded");
+              toggleEl.textContent = "Weniger anzeigen";
+              toggleEl.setAttribute("aria-expanded", "true");
+            } else {
+              toggleEl.textContent = "Mehr ansehen";
+              toggleEl.setAttribute("aria-expanded", "false");
+            }
+          });
+        };
+
+        reviewsGrid.querySelectorAll(".review-toggle").forEach((button) => {
+          button.addEventListener("click", () => {
+            const card = button.closest(".review-card");
+            if (!card) {
+              return;
+            }
+
+            const expanded = card.classList.toggle("is-expanded");
+            button.textContent = expanded ? "Weniger anzeigen" : "Mehr ansehen";
+            button.setAttribute("aria-expanded", String(expanded));
+          });
+        });
+
         reviewsSection.hidden = false;
+        updateReviewExpandState();
+
+        if (window.__reviewsResizeHandler) {
+          window.removeEventListener("resize", window.__reviewsResizeHandler);
+        }
+
+        let resizeTimer = 0;
+        window.__reviewsResizeHandler = () => {
+          window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(updateReviewExpandState, 120);
+        };
+        window.addEventListener("resize", window.__reviewsResizeHandler, { passive: true });
+
       };
 
       const initQuickScrollReveal = () => {
