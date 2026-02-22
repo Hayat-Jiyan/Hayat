@@ -193,6 +193,8 @@ a {
   letter-spacing: -0.02em;
   color: var(--text);
   font-weight: 600;
+  font-variant-numeric: lining-nums;
+  font-feature-settings: "lnum" 1;
 }
 
 .lead {
@@ -246,6 +248,28 @@ a {
   transform: translateY(-2px);
   border-color: rgba(210, 106, 44, 0.35);
   color: var(--accent-strong);
+}
+
+.motion-reveal-enabled [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0) scale(0.995);
+  transition:
+    opacity 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.motion-reveal-enabled [data-reveal].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-reveal-enabled [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 main section {
@@ -324,6 +348,71 @@ main section:first-of-type {
   color: var(--accent-strong);
   font-weight: 600;
   letter-spacing: 0.02em;
+}
+
+.reviews {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.review-card {
+  padding: 22px 20px;
+  background: var(--card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+.review-stars {
+  margin: 0 0 10px;
+  color: #d5862e;
+  letter-spacing: 0.12em;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.review-text {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 400;
+  font-size: 0.96rem;
+}
+
+.review-meta {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.reviews-cta {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+}
+
+.reviews-google-link {
+  min-width: min(360px, 100%);
+}
+
+@media (max-width: 1080px) {
+  .reviews-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 780px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .gallery {

@@ -191,6 +191,8 @@
         letter-spacing: -0.02em;
         color: var(--text);
         font-weight: 600;
+        font-variant-numeric: lining-nums;
+        font-feature-settings: "lnum" 1;
       }
       
       .lead {
@@ -347,6 +349,26 @@
         </div>
       </section>
 
+      <section class="reviews" id="reviews" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">Bewertungen</p>
+          <h2>Das sagen unsere Gäste</h2>
+          <p class="section-lead" id="reviews-meta"></p>
+        </div>
+        <div class="reviews-grid" id="reviews-grid"></div>
+        <div class="reviews-cta">
+          <a
+            id="reviews-google-link"
+            class="ghost-button reviews-google-link"
+            href="https://www.google.com/maps/place/Hayat-Jiyan+Restaurant/@51.2605482,7.1380626,17z/data=!4m8!3m7!1s0x47b8d7ac00cb9a29:0xdf5761f218b776e9!8m2!3d51.2605482!4d7.1380626!9m1!1b1!16s%2Fg%2F1td9pmbs?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noopener"
+          >
+            Alle Bewertungen auf Google Maps
+          </a>
+        </div>
+      </section>
+
       <section class="gallery" id="gallery">
         <div class="section-heading">
           <p class="eyebrow">Bilder</p>
@@ -498,6 +520,8 @@
 
     <!-- Menue-Texte zentral in menu-data.js pflegen -->
     <script src="menu-data.js"></script>
+    <!-- Bewertungen zentral in reviews-data.js pflegen -->
+    <script src="reviews-data.js"></script>
     <!-- Preise zentral in prices.js pflegen -->
     <script src="prices.js"></script>
     <script defer>
@@ -551,10 +575,151 @@
         });
       };
 
+      const renderManualReviews = () => {
+        const reviewsSection = document.getElementById("reviews");
+        const reviewsGrid = document.getElementById("reviews-grid");
+        const reviewsMeta = document.getElementById("reviews-meta");
+        const reviewsGoogleLink = document.getElementById("reviews-google-link");
+
+        if (!reviewsSection || !reviewsGrid) {
+          return;
+        }
+
+        const data = window.SITE_REVIEWS || {};
+        const items = Array.isArray(data.items)
+          ? data.items.filter((item) => item && String(item.text || "").trim())
+          : [];
+
+        if (reviewsGoogleLink && typeof data.googleMapsUrl === "string" && data.googleMapsUrl.trim()) {
+          reviewsGoogleLink.href = data.googleMapsUrl.trim();
+        }
+
+        if (!items.length) {
+          reviewsSection.hidden = true;
+          return;
+        }
+
+        const averageRating = String(data.averageRating || "").trim();
+        const totalRatings = String(data.totalRatings || "").trim();
+        if (reviewsMeta) {
+          if (averageRating && totalRatings) {
+            reviewsMeta.textContent = `${averageRating} Sterne bei ${totalRatings} Google-Bewertungen.`;
+          } else if (averageRating) {
+            reviewsMeta.textContent = `${averageRating} Sterne auf Google.`;
+          } else {
+            reviewsMeta.textContent = "Ausgewählte Stimmen von unseren Gästen auf Google.";
+          }
+        }
+
+        reviewsGrid.textContent = "";
+        const fragment = document.createDocumentFragment();
+        items.slice(0, 6).forEach((item) => {
+          const ratingValue = Math.max(0, Math.min(5, Number(item.rating) || 0));
+          const filledStars = Math.round(ratingValue);
+          const stars = "★".repeat(filledStars) + "☆".repeat(5 - filledStars);
+          const author = String(item.author || "Gast").trim();
+          const date = String(item.date || "").trim();
+
+          const card = document.createElement("article");
+          card.className = "review-card";
+
+          const starsEl = document.createElement("p");
+          starsEl.className = "review-stars";
+          starsEl.setAttribute("aria-label", `${ratingValue.toFixed(1)} von 5 Sternen`);
+          starsEl.textContent = stars;
+          card.appendChild(starsEl);
+
+          const textEl = document.createElement("p");
+          textEl.className = "review-text";
+          textEl.textContent = `“${String(item.text).trim()}”`;
+          card.appendChild(textEl);
+
+          const metaEl = document.createElement("p");
+          metaEl.className = "review-meta";
+          metaEl.textContent = date ? `${author} • ${date}` : author;
+          card.appendChild(metaEl);
+
+          fragment.appendChild(card);
+        });
+
+        reviewsGrid.appendChild(fragment);
+        reviewsSection.hidden = false;
+      };
+
+      const initQuickScrollReveal = () => {
+        if (!document.body || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          return;
+        }
+
+        const revealSelectors = [
+          ".hero-text",
+          ".hero-visual",
+          "#menu .section-heading",
+          "#menu .menu-layout",
+          "#highlights .section-heading",
+          "#highlights .highlight-card",
+          "#reviews .section-heading",
+          "#reviews .review-card",
+          "#reviews .reviews-cta",
+          "#gallery .section-heading",
+          "#gallery .gallery-card",
+          "#contact .visit-info",
+          "#contact .map-wrapper",
+          ".footer"
+        ];
+
+        const nodeSet = new Set();
+        revealSelectors.forEach((selector) => {
+          document.querySelectorAll(selector).forEach((node) => nodeSet.add(node));
+        });
+
+        const revealNodes = Array.from(nodeSet);
+        if (!revealNodes.length) {
+          return;
+        }
+
+        document.body.classList.add("motion-reveal-enabled");
+
+        revealNodes.forEach((node) => {
+          node.setAttribute("data-reveal", "");
+        });
+
+        if (!("IntersectionObserver" in window)) {
+          revealNodes.forEach((node) => node.classList.add("is-visible"));
+          return;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: "0px 0px -8% 0px" }
+        );
+
+        revealNodes.forEach((node) => observer.observe(node));
+
+        // Show above-the-fold elements immediately.
+        requestAnimationFrame(() => {
+          const fold = window.innerHeight * 0.9;
+          revealNodes.forEach((node) => {
+            if (node.getBoundingClientRect().top <= fold) {
+              node.classList.add("is-visible");
+              observer.unobserve(node);
+            }
+          });
+        });
+      };
+
       applyCatalogPricesToMenu();
 
       document.addEventListener("DOMContentLoaded", () => {
         applyCatalogPricesToHighlights();
+        renderManualReviews();
         // Batch DOM operations to avoid forced reflows
         requestAnimationFrame(() => {
           const yearSpan = document.getElementById("current-year");
@@ -824,6 +989,8 @@
             }
           });
         }
+
+        initQuickScrollReveal();
       });
     </script>
     <div id="cookie-consent-overlay" class="cookie-consent-overlay" hidden></div>
@@ -874,5 +1041,6 @@
     </script>
   </body>
 </html>
+
 
 
