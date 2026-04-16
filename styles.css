@@ -125,14 +125,21 @@ a {
 }
 
 .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 4px 0;
   border-bottom: 2px solid transparent;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
+.nav-links a svg {
+  width: 0.95em;
+  height: 0.95em;
+  flex-shrink: 0;
+}
+
 .nav-link-reservation {
-  display: inline-flex;
-  align-items: center;
   gap: 8px;
 }
 
