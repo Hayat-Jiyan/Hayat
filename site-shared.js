@@ -102,9 +102,34 @@
     });
   }
 
+  function initTopLinks() {
+    var topLinks = document.querySelectorAll('a[href="#top"]');
+    if (!topLinks.length) {
+      return;
+    }
+
+    topLinks.forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        var topTarget = document.getElementById("top");
+        if (topTarget && typeof topTarget.scrollIntoView === "function") {
+          topTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        if (window.location.hash !== "#top") {
+          history.replaceState(null, "", "#top");
+        }
+      });
+    });
+  }
+
   function init() {
     setCurrentYear();
     initCookieBanner();
+    initTopLinks();
   }
 
   window.HayatConsent = {

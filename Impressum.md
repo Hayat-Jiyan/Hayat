@@ -12,15 +12,16 @@ Telefon: +49 202 308329
 
 ## Vertretungsberechtigte
 
-[Inhaber/Geschäftsführer Name]
+Yasin Yildiz & Aysel Yildiz
 
 ## Kontakt
 
-E-Mail: [Hayat2007@web.de]  
+E-Mail: Hayat2007@web.de  
 Telefon: +49 202 308329
 
 **Öffnungszeiten:**
 - Dienstag – Samstag: 18:00 – 00:00 Uhr
+- Küche bis 22:00 Uhr
 - Sonntag & Montag: Ruhetag
 
 ## Umsatzsteuer-ID
