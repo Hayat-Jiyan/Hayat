@@ -460,6 +460,7 @@
               <h3>Kontakt</h3>
               <p>
                 Telefon: <a href="tel:+49202308329">+49 202 308329</a><br />
+                E-Mail: <a href="mailto:Hayat2007@web.de">Hayat2007@web.de</a><br />
                 Di–Sa: 18:00 – 00:00 Uhr<br />
                 Küche bis 22:00 Uhr<br />
                 Sonntag &amp; Montag: Ruhetag
@@ -565,7 +566,7 @@
         </div>
         <p class="footer-copy"><span id="current-year"></span> © Hayat-Jiyan Restaurant. Alle Rechte vorbehalten.</p>
         <div class="footer-social">
-          <a class="footer-social-link" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram öffnen">
+          <a class="footer-social-link" href="https://www.instagram.com/hayatjiyanmehmetyildiz/" target="_blank" rel="noopener" aria-label="Instagram öffnen">
             <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
               <path d="M16.5 3h-9A4.5 4.5 0 0 0 3 7.5v9A4.5 4.5 0 0 0 7.5 21h9a4.5 4.5 0 0 0 4.5-4.5v-9A4.5 4.5 0 0 0 16.5 3Z" fill="none" stroke="currentColor" stroke-width="1.8" />
               <circle cx="12" cy="12" r="3.4" fill="none" stroke="currentColor" stroke-width="1.8" />
@@ -1129,47 +1130,7 @@
       <p class="cookie-banner-text">Wir verwenden keine Tracking-Cookies. Ihre Einwilligung speichern wir lokal im Browser. Google Maps kann Cookies setzen. Mehr in unserer <a href="Datenschutz.html">Datenschutzerklärung</a>.</p>
       <button type="button" id="cookie-consent-btn" class="primary-button">Verstanden</button>
     </div>
-    <script>
-      (function() {
-        function initCookieBanner() {
-          var overlay = document.getElementById('cookie-consent-overlay');
-          var banner = document.getElementById('cookie-consent-banner');
-          var btn = document.getElementById('cookie-consent-btn');
-          if (!banner || !btn) return;
-          function showBanner() {
-            banner.removeAttribute('hidden');
-            banner.classList.remove('cookie-banner--hidden');
-            if (overlay) {
-              overlay.removeAttribute('hidden');
-              overlay.classList.remove('cookie-banner--hidden');
-            }
-          }
-          function hideBanner() {
-            try { localStorage.setItem('cookie_consent', 'accepted'); } catch (e) {}
-            banner.setAttribute('hidden', '');
-            banner.classList.add('cookie-banner--hidden');
-            if (overlay) {
-              overlay.setAttribute('hidden', '');
-              overlay.classList.add('cookie-banner--hidden');
-            }
-          }
-          try {
-            if (!localStorage.getItem('cookie_consent')) showBanner();
-          } catch (e) { showBanner(); }
-          if (overlay) {
-            overlay.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
-            overlay.addEventListener('touchend', function(ev) { ev.preventDefault(); hideBanner(); }, { passive: false });
-          }
-          btn.addEventListener('click', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); });
-          btn.addEventListener('touchend', function(ev) { ev.preventDefault(); ev.stopPropagation(); hideBanner(); }, { passive: false });
-        }
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initCookieBanner);
-        } else {
-          initCookieBanner();
-        }
-      })();
-    </script>
+    <script src="site-shared.js" defer></script>
   </body>
 </html>
 

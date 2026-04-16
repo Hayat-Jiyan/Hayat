@@ -9,7 +9,8 @@ Diese Datenschutzerklärung informiert Sie über Art, Umfang und Zweck der Verar
 **Hayat-Jiyan Restaurant**  
 Schreinerstraße 28  
 42105 Wuppertal  
-Telefon: +49 202 308329
+Telefon: +49 202 308329  
+E-Mail: Hayat2007@web.de
 
 ## 3. Hosting und Server-Log-Dateien
 
@@ -22,24 +23,24 @@ Der Hosting-Anbieter dieser Website speichert technisch notwendige Server-Log-Da
 - Datum/Uhrzeit der Anfrage
 - HTTP-Statuscode
 
-Rechtsgrundlage: **Art. 6 Abs. 1 lit. f DSGVO** (berechtigtes Interesse an sicherem und stabilem Betrieb).
+Rechtsgrundlage: **Art. 6 Abs. 1 lit. f DSGVO**.
 
 ## 4. Schriftarten
 
-Diese Website verwendet lokale bzw. systemeigene Schriftarten. Es werden keine Webfonts von Drittanbietern nachgeladen.
+Diese Website verwendet lokale beziehungsweise systemeigene Schriftarten. Es werden keine Webfonts von Drittanbietern nachgeladen.
 
 ## 5. Google Maps
 
 Auf der Website ist eine Google-Maps-Karte eingebunden. Die Karte wird erst geladen, wenn Sie in den Hinweis eingewilligt haben und die Karte aktiv anzeigen.
 
-Beim Laden der Karte können Daten (insbesondere IP-Adresse) an Google übertragen werden.
+Beim Laden der Karte können Daten, insbesondere die IP-Adresse, an Google übertragen werden.
 
 Anbieter:  
 **Google Ireland Limited**  
 Gordon House, Barrow Street  
 Dublin 4, Irland
 
-Rechtsgrundlage: **Art. 6 Abs. 1 lit. a DSGVO** (Einwilligung).
+Rechtsgrundlage: **Art. 6 Abs. 1 lit. a DSGVO**.
 
 Weitere Informationen:
 
@@ -59,7 +60,7 @@ Verarbeitete Daten:
 - Anzahl der Gäste
 - Datum/Uhrzeit der Reservierung
 
-Rechtsgrundlage: **Art. 6 Abs. 1 lit. b DSGVO** (Vertragsanbahnung) und ggf. **Art. 6 Abs. 1 lit. f DSGVO** (organisatorische Abwicklung von Reservierungsanfragen).
+Rechtsgrundlage: **Art. 6 Abs. 1 lit. b DSGVO** und gegebenenfalls **Art. 6 Abs. 1 lit. f DSGVO**.
 
 Datenschutz bei Formspree:
 
