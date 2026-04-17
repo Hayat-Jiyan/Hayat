@@ -64,8 +64,9 @@
       }
       
       .nav {
-        max-width: var(--max-width);
-        margin: 0 auto 72px;
+        width: 100%;
+        max-width: none;
+        margin: 0 0 72px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -74,17 +75,31 @@
 
       .site-nav {
         position: sticky;
-        top: 10px;
+        top: 0;
         z-index: 1200;
-        margin: 10px auto 0;
-        padding: 6px 18px;
-        max-width: min(980px, calc(100vw - 44px));
-        border: 1px solid rgba(31, 31, 38, 0.08);
-        border-radius: 999px;
-        background: rgba(251, 246, 238, 0.74);
-        box-shadow: 0 12px 26px rgba(31, 31, 38, 0.14);
-        -webkit-backdrop-filter: blur(8px);
-        backdrop-filter: blur(8px);
+        margin: 0;
+        padding: 14px clamp(18px, 3vw, 34px);
+        border-top: 0;
+        border-right: 0;
+        border-left: 0;
+        border-bottom: 1px solid rgba(31, 31, 38, 0.08);
+        border-radius: 0;
+        background: rgba(251, 246, 238, 0.94);
+        box-shadow: 0 10px 26px rgba(31, 31, 38, 0.08);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        transition:
+          background-color 0.28s ease,
+          box-shadow 0.28s ease,
+          backdrop-filter 0.28s ease,
+          -webkit-backdrop-filter 0.28s ease;
+      }
+
+      .site-nav.is-scrolled {
+        background: rgba(251, 246, 238, 0.72);
+        box-shadow: 0 8px 24px rgba(31, 31, 38, 0.06);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
       }
 
       .site-nav .brand {
@@ -94,19 +109,22 @@
         line-height: 0;
         letter-spacing: 0;
         text-transform: none;
-        flex: 0 0 clamp(64px, 6.6vw, 90px);
+        flex: 0 0 clamp(92px, 10vw, 132px);
       }
 
       .site-nav-logo {
         display: block;
-        width: clamp(64px, 6.6vw, 90px);
-        height: auto;
+        width: auto;
+        height: clamp(38px, 4.4vw, 54px);
+        max-width: 100%;
+        aspect-ratio: 1600 / 1026;
+        object-fit: contain;
       }
 
       .site-nav::after {
         content: "";
         display: block;
-        flex: 0 0 clamp(64px, 6.6vw, 90px);
+        flex: 0 0 clamp(92px, 10vw, 132px);
       }
       
       .brand {
@@ -129,12 +147,28 @@
       }
       
       .nav-links a {
+        position: relative;
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 4px 0;
+        padding: 10px 2px 8px;
         border-bottom: 2px solid transparent;
-        transition: color 0.2s ease, border-color 0.2s ease;
+        transition: color 0.24s ease, border-color 0.24s ease, transform 0.24s ease;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2px;
+        height: 3px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), #cf4e2b);
+        opacity: 0;
+        transform: scaleX(0.45);
+        transform-origin: center;
+        transition: opacity 0.24s ease, transform 0.24s ease;
       }
 
       .nav-links a svg {
@@ -156,6 +190,18 @@
       .nav-links a:hover, .nav-links a:focus-visible {
         color: var(--accent);
         border-color: rgba(210, 106, 44, 0.35);
+        transform: translateY(-1px);
+      }
+
+      .nav-links a:hover::after, .nav-links a:focus-visible::after,
+      .nav-links a.is-current::after {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+
+      .nav-links a.is-current {
+        color: #b84328;
+        transform: translateY(-1px);
       }
       
       .hero-content {
@@ -251,14 +297,57 @@
         border-color: rgba(210, 106, 44, 0.35);
         color: var(--accent-strong);
       }
+
+      body.intro-sequence [data-intro] {
+        opacity: 0;
+        transform: translateY(22px) scale(0.994);
+        filter: blur(4px);
+        transition:
+          opacity 0.92s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.92s cubic-bezier(0.22, 1, 0.36, 1),
+          filter 1.28s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform, filter;
+      }
+
+      body.intro-sequence [data-intro].is-intro-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+
+      body.intro-sequence [data-intro="hero"] {
+        transition-duration: 1.02s;
+      }
+
+      body.intro-sequence [data-intro="nav"] {
+        transition-duration: 0.9s;
+      }
+
+      body.intro-sequence [data-intro="menu"] {
+        transition-duration: 1.08s;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        body.intro-sequence [data-intro] {
+          opacity: 1;
+          transform: none;
+          filter: none;
+          transition: none;
+        }
+      }
     </style>
     <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="styles.css" /></noscript>
   </head>
   <body>
-    <nav class="nav site-nav">
+    <script>
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.body.classList.add("intro-sequence");
+      }
+    </script>
+    <nav class="nav site-nav" data-intro="nav">
       <a class="brand" href="#top" aria-label="Hayat-Jiyan Startseite">
-        <img class="site-nav-logo" src="assets/logo-hayat.png" alt="Hayat-Jiyan Logo" loading="eager" decoding="async" />
+        <img class="site-nav-logo" src="assets/logo-hayat.png" alt="Hayat-Jiyan Logo" width="1600" height="1026" loading="eager" decoding="async" />
       </a>
       <div class="nav-links">
         <a href="#menu">
@@ -306,7 +395,7 @@
       </div>
     </nav>
     <header class="hero" id="top">
-      <div class="hero-content">
+      <div class="hero-content" data-intro="hero">
         <div class="hero-text">
           <p class="eyebrow">Seit 1982 in Wuppertal</p>
           <h1>Authentischer Genuss. Seit 1982</h1>
@@ -336,7 +425,7 @@
 
     <main>
       <section class="menu" id="menu">
-        <div class="section-heading">
+        <div class="section-heading" data-intro="menu">
           <p class="eyebrow">Speisekarte</p>
           <h2>Speisekarte</h2>
           <p class="section-lead">
@@ -345,7 +434,7 @@
           </p>
           <p class="menu-note">Wir haben eine täglich wechselnde Tageskarte!<br />Rufen Sie uns einfach an.<br />Gerne informieren wir Sie telefonisch.</p>
         </div>
-        <div class="menu-layout">
+        <div class="menu-layout" data-intro="menu">
           <div
             class="menu-categories"
             role="tablist"
@@ -387,6 +476,69 @@
         </div>
       </section>
 
+      <section class="services" id="services">
+        <div class="section-heading">
+          <p class="eyebrow">Services</p>
+          <h2>Das bieten wir an</h2>
+          <p class="section-lead">
+            Vier Extras, die den Besuch bei uns noch entspannter und flexibler machen.
+          </p>
+        </div>
+        <div class="services-grid" aria-label="Unsere Services">
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" focusable="false">
+                <path d="M10 31h28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M16 31v4m16-4v4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M15 31v-9.5c0-2.5 2-4.5 4.5-4.5H33c2.2 0 4 1.8 4 4v10" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+                <path d="M21 17V13.5c0-1.4 1.1-2.5 2.5-2.5h2c1.4 0 2.5 1.1 2.5 2.5V17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+                <path d="M11.5 23c2-5.2 6.3-8.5 12.5-10m12.5 10c-1.2-3.3-3.3-5.9-6.2-7.8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>Außengastronomie</h3>
+            <p>Unsere Außengastronomie bietet Platz für etwa 70 Personen. Reservierungen für Außenplätze können wir leider nicht annehmen, da die Plätze begrenzt sind. Deshalb empfehlen wir, frühzeitig zu kommen.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" focusable="false">
+                <path d="M16 19h16l2.5 15H13.5L16 19Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+                <path d="M20 19v-2.5c0-2.2 1.8-4 4-4s4 1.8 4 4V19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M19.5 24h9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M34 17.5 38 21m0 0-4 3.5M38 21H29.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3>Zum Mitnehmen</h3>
+            <p>Viele Gerichte bereiten wir Ihnen gern frisch für unterwegs vor.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" focusable="false">
+                <path d="M24 31a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" fill="currentColor" />
+                <path d="M16.5 26.5a10.5 10.5 0 0 1 15 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M11 21a18 18 0 0 1 26 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M6.5 15.5a24.5 24.5 0 0 1 35 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>Kostenloses WLAN</h3>
+            <p>Vor Ort nutzen Sie unser WLAN kostenlos und unkompliziert.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" focusable="false">
+                <path d="M15 34h18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M18 34v-8.5a6 6 0 0 1 12 0V34" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+                <path d="M21 18h6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M24 14v8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M13 21h22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M10.5 21 14 14h20l3.5 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3>Catering</h3>
+            <p>Für Feiern und besondere Anlässe bieten wir auch Catering an.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="reviews" id="reviews" hidden>
         <div class="section-heading">
           <p class="eyebrow">Bewertungen</p>
@@ -412,33 +564,100 @@
           <p class="eyebrow">Bilder</p>
           <h2>Einblicke in unsere Location</h2>
           <p class="section-lead">
-            Bilder der Atmosphäre, Innenräume und der Umgebung – keine Speisen.
+            Eindrücke aus unserem Gastraum und der besonderen Atmosphäre vor Ort. Unser vorderer und hinterer Bereich bieten zusammen Platz für etwa 80 Personen.
           </p>
         </div>
         <div class="gallery-grid">
           <figure class="gallery-card">
-            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
-            <figcaption>Text folgt (z. B. Eingang / Außenbereich).</figcaption>
+            <button class="gallery-trigger" type="button" aria-label="Bild vergrößern: Blick durch den Gastraum mit gedeckten Holztischen">
+              <img
+                src="assets/Foto_Gastraum_Ansicht.jpg"
+                alt="Blick durch den Gastraum mit gedeckten Holztischen"
+                width="8160"
+                height="6120"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+            <figcaption>Blick durch den Gastraum mit warmem Licht und viel Platz zum entspannten Sitzen.</figcaption>
           </figure>
           <figure class="gallery-card">
-            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
-            <figcaption>Text folgt (z. B. Innenraum / Sitzbereich).</figcaption>
+            <button class="gallery-trigger" type="button" aria-label="Bild vergrößern: Gastraum mit Sitzbereich und Blick Richtung Eingang">
+              <img
+                src="assets/Foto_Gastraum_Hinten.jpg"
+                alt="Gastraum mit Sitzbereich und Blick Richtung Eingang"
+                width="7296"
+                height="5468"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+            <figcaption>Der hintere Bereich des Lokals mit Blick Richtung Eingang und Sitzbereich.</figcaption>
           </figure>
           <figure class="gallery-card">
-            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
-            <figcaption>Text folgt (z. B. Bar / Theke).</figcaption>
+            <button class="gallery-trigger" type="button" aria-label="Bild vergrößern: Seitenansicht des Gastraums mit Wanddekoration und Tischen">
+              <img
+                src="assets/Foto_Gastraum_Mitte-Hinten.jpg"
+                alt="Seitenansicht des Gastraums mit Wanddekoration und Tischen"
+                width="8160"
+                height="6120"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+            <figcaption>Seitenansicht des Gastraums mit Wanddetails, stimmungsvoller Beleuchtung und Sitzplätzen.</figcaption>
           </figure>
           <figure class="gallery-card">
-            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
-            <figcaption>Text folgt (z. B. Details / Deko).</figcaption>
+            <button class="gallery-trigger" type="button" aria-label="Bild vergrößern: Außengastronomie am Abend vor dem Restaurant">
+              <img
+                src="assets/Außengastronomie_Dunkel.jpg"
+                alt="Außengastronomie am Abend vor dem Restaurant"
+                width="2992"
+                height="2992"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+            <figcaption>Abendstimmung vor dem Hayat-Jiyan mit beleuchteter Außengastronomie.</figcaption>
           </figure>
           <figure class="gallery-card">
-            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
-            <figcaption>Text folgt (z. B. Abendstimmung).</figcaption>
+            <button class="gallery-trigger" type="button" aria-label="Bild vergrößern: Außenansicht des Restaurants bei Nacht">
+              <img
+                src="assets/Bild_Außen_1.jpg"
+                alt="Außenansicht des Restaurants bei Nacht"
+                width="2160"
+                height="3840"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+            <figcaption>Außenansicht des Restaurants bei Nacht mit Blick auf die beleuchteten Fenster.</figcaption>
           </figure>
           <figure class="gallery-card">
-            <div class="gallery-placeholder" role="img" aria-label="Platzhalter für ein Bild der Location"></div>
-            <figcaption>Text folgt (z. B. Straßenansicht).</figcaption>
+            <button class="gallery-trigger" type="button" aria-label="Bild vergrößern: Catering-Auswahl mit verschiedenen hausgemachten Dips und Vorspeisen">
+              <img
+                src="assets/Catering_Beispiel_Versch_Dips.jpg"
+                alt="Catering-Auswahl mit verschiedenen hausgemachten Dips und Vorspeisen"
+                width="8160"
+                height="6120"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+            <figcaption>Beispiel aus unserem Catering mit verschiedenen Dips, Weinblättern und Vorspeisen.</figcaption>
+          </figure>
+          <figure class="gallery-card">
+            <button class="gallery-trigger" type="button" aria-label="Bild vergrößern: Detailaufnahme der Wandgestaltung im Restaurant">
+              <img
+                src="assets/Muster_Wand.jpg"
+                alt="Detailaufnahme der Wandgestaltung im Restaurant"
+                width="2992"
+                height="2992"
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+            <figcaption>Ein kleines Detail aus der warmen Wandgestaltung im Innenraum.</figcaption>
           </figure>
         </div>
       </section>
@@ -472,17 +691,20 @@
           <div class="reservation-form-wrapper" id="reservation">
             <h3>Reservierung anfragen</h3>
             <div id="reservation-form-container">
-              <!-- Ersetze DEINE_FORM_ID durch deine Form-ID von formspree.io -->
+              <!-- Formspree versendet an die im Formspree-Konto hinterlegte Zieladresse.
+                   Zieladresse dort auf Hayat2007@web.de setzen bzw. bestaetigen. -->
               <form id="reservation-form" action="https://formspree.io/f/mvzqgjjp" method="POST">
-                <input type="hidden" name="subject" value="Neue Reservierungsanfrage (Website Hayat-Jiyan)" />
+                <input type="hidden" name="_subject" value="Neue Reservierungsanfrage (Website Hayat-Jiyan)" />
+                <input type="hidden" name="_language" value="de" />
+                <input type="hidden" name="_cc" value="Hayat2007@web.de" />
                 <label for="res-name">Name</label>
                 <input type="text" id="res-name" name="name" required placeholder="Ihr Name" />
                 <label for="res-address">Adresse</label>
                 <input type="text" id="res-address" name="address" required placeholder="Straße, PLZ Ort" />
                 <label for="res-email">E-Mail</label>
-                <input type="email" id="res-email" name="email" required placeholder="ihre@email.de" />
+                <input type="email" id="res-email" name="email" required placeholder="ihre@email.de" autocomplete="email" />
                 <label for="res-phone">Telefon</label>
-                <input type="tel" id="res-phone" name="phone" required placeholder="z. B. 0202 123456" />
+                <input type="tel" id="res-phone" name="phone" required placeholder="z. B. 0202 123456" autocomplete="tel" />
                 <label for="res-guests">Anzahl Gäste</label>
                 <select id="res-guests" name="guests" required>
                   <option value="">Bitte wählen</option>
@@ -790,6 +1012,8 @@
           "#menu .menu-layout",
           "#highlights .section-heading",
           "#highlights .highlight-card",
+          "#services .section-heading",
+          "#services .service-card",
           "#reviews .section-heading",
           "#reviews .review-card",
           "#reviews .reviews-cta",
@@ -847,11 +1071,130 @@
         });
       };
 
+      const initGalleryLightbox = () => {
+        const lightbox = document.getElementById("gallery-lightbox");
+        const lightboxImage = document.getElementById("gallery-lightbox-image");
+        const lightboxCaption = document.getElementById("gallery-lightbox-caption");
+        const lightboxClose = document.getElementById("gallery-lightbox-close");
+        const triggers = Array.from(document.querySelectorAll(".gallery-trigger"));
+
+        if (!lightbox || !lightboxImage || !lightboxCaption || !lightboxClose || !triggers.length) {
+          return;
+        }
+
+        let previousOverflow = "";
+        let activeTrigger = null;
+
+        const closeLightbox = () => {
+          lightbox.hidden = true;
+          document.body.classList.remove("has-open-lightbox");
+          document.body.style.overflow = previousOverflow;
+          if (activeTrigger) {
+            activeTrigger.focus();
+          }
+          activeTrigger = null;
+        };
+
+        triggers.forEach((trigger) => {
+          trigger.addEventListener("click", () => {
+            const image = trigger.querySelector("img");
+            const figure = trigger.closest(".gallery-card");
+            const caption = figure ? figure.querySelector("figcaption") : null;
+
+            if (!image) {
+              return;
+            }
+
+            const rect = trigger.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const originX = `${Math.max(10, Math.min(90, (centerX / window.innerWidth) * 100))}%`;
+            const originY = `${Math.max(12, Math.min(88, ((rect.top + rect.height / 2) / window.innerHeight) * 100))}%`;
+            const shiftX = centerX < window.innerWidth * 0.42 ? "-42px" : centerX > window.innerWidth * 0.58 ? "42px" : "0px";
+
+            lightbox.style.setProperty("--lightbox-origin-x", originX);
+            lightbox.style.setProperty("--lightbox-origin-y", originY);
+            lightbox.style.setProperty("--lightbox-shift-x", shiftX);
+
+            lightboxImage.src = image.currentSrc || image.src;
+            lightboxImage.alt = image.alt || "";
+            lightboxImage.width = image.naturalWidth || image.width || 0;
+            lightboxImage.height = image.naturalHeight || image.height || 0;
+            lightboxCaption.textContent = caption ? caption.textContent.trim() : "";
+
+            previousOverflow = document.body.style.overflow;
+            document.body.style.overflow = "hidden";
+            document.body.classList.add("has-open-lightbox");
+            lightbox.hidden = false;
+            activeTrigger = trigger;
+            lightboxClose.focus();
+          });
+        });
+
+        lightboxClose.addEventListener("click", closeLightbox);
+
+        lightbox.addEventListener("click", (event) => {
+          if (event.target === lightbox) {
+            closeLightbox();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !lightbox.hidden) {
+            closeLightbox();
+          }
+        });
+      };
+
+      const initIntroSequence = () => {
+        if (!document.body) {
+          return;
+        }
+
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          return;
+        }
+
+        const introSteps = [
+          { selector: '[data-intro="hero"]', delay: 0 },
+          { selector: '[data-intro="nav"]', delay: 430 },
+          { selector: '[data-intro="menu"]', delay: 920 }
+        ];
+
+        introSteps.forEach(({ selector, delay }) => {
+          document.querySelectorAll(selector).forEach((node) => {
+            window.setTimeout(() => {
+              node.classList.add("is-intro-visible");
+            }, delay);
+          });
+        });
+
+        window.setTimeout(() => {
+          document.body.classList.remove("intro-sequence");
+        }, 2200);
+      };
+
+      const initNavScrollState = () => {
+        const nav = document.querySelector(".site-nav");
+        if (!nav) {
+          return;
+        }
+
+        const updateNavState = () => {
+          nav.classList.toggle("is-scrolled", window.scrollY > 24);
+        };
+
+        updateNavState();
+        window.addEventListener("scroll", updateNavState, { passive: true });
+      };
+
       applyCatalogPricesToMenu();
 
       document.addEventListener("DOMContentLoaded", () => {
+        initIntroSequence();
+        initNavScrollState();
         applyCatalogPricesToHighlights();
         renderManualReviews();
+        initGalleryLightbox();
         // Batch DOM operations to avoid forced reflows
         requestAnimationFrame(() => {
           const yearSpan = document.getElementById("current-year");
@@ -869,6 +1212,45 @@
 
         let activeCategoryId = menuData[0].id;
         const buttons = [];
+
+        const renderMenuSection = (section) => {
+          const itemsHtml = (section.items || [])
+            .map((item) => {
+              const priceHtml = item.price
+                ? `<span class="menu-item-price">${item.price}</span>`
+                : "";
+              const descriptionHtml = item.description
+                ? `<p class="menu-item-description">${item.description}</p>`
+                : "";
+              return `
+                <li class="menu-item">
+                  <div class="menu-item-header">
+                    <span class="menu-item-name">${item.name}</span>
+                    ${priceHtml}
+                  </div>
+                  ${descriptionHtml}
+                </li>
+              `;
+            })
+            .join("");
+
+          const sectionTitle = section.title
+            ? `<h4>${section.title}</h4>`
+            : "";
+          const sectionNote = section.note
+            ? `<p class="menu-note">${section.note}</p>`
+            : "";
+
+          return `
+            <div class="menu-section">
+              ${sectionTitle}
+              <ul class="menu-items">
+                ${itemsHtml}
+              </ul>
+              ${sectionNote}
+            </div>
+          `;
+        };
 
         const setActiveCategory = (categoryId) => {
           const category = menuData.find((entry) => entry.id === categoryId);
@@ -891,46 +1273,8 @@
             });
 
             const sectionsHtml = category.sections
-              .map((section) => {
-                const itemsHtml = (section.items || [])
-                  .map((item) => {
-                    const priceHtml = item.price
-                      ? `<span class="menu-item-price">${item.price}</span>`
-                      : "";
-                    const descriptionHtml = item.description
-                      ? `<p class="menu-item-description">${item.description}</p>`
-                      : "";
-                    return `
-                      <li class="menu-item">
-                        <div class="menu-item-header">
-                          <span class="menu-item-name">${item.name}</span>
-                          ${priceHtml}
-                        </div>
-                        ${descriptionHtml}
-                      </li>
-                    `;
-                  })
-                  .join("");
-
-                const sectionTitle = section.title
-                  ? `<h4>${section.title}</h4>`
-                  : "";
-                const sectionNote = section.note
-                  ? `<p class="menu-note">${section.note}</p>`
-                  : "";
-
-                return `
-                  <div class="menu-section">
-                    ${sectionTitle}
-                    <ul class="menu-items">
-                      ${itemsHtml}
-                    </ul>
-                    ${sectionNote}
-                  </div>
-                `;
-              })
+              .map((section) => renderMenuSection(section))
               .join("");
-
             const descriptionHtml = category.description
               ? `<p class="menu-category-description">${category.description}</p>`
               : "";
@@ -1123,12 +1467,78 @@
         }
 
         initQuickScrollReveal();
+        initSectionNav();
       });
+
+      const initSectionNav = () => {
+        const nav = document.querySelector(".site-nav");
+        const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+        if (!nav || !navLinks.length) {
+          return;
+        }
+
+        const linkMap = navLinks
+          .map((link) => {
+            const target = document.querySelector(link.getAttribute("href"));
+            if (!target) {
+              return null;
+            }
+            return { link, target };
+          })
+          .filter(Boolean);
+
+        if (!linkMap.length) {
+          return;
+        }
+
+        const setCurrentLink = (activeLink) => {
+          navLinks.forEach((link) => {
+            const isCurrent = link === activeLink;
+            link.classList.toggle("is-current", isCurrent);
+            if (isCurrent) {
+              link.setAttribute("aria-current", "page");
+            } else {
+              link.removeAttribute("aria-current");
+            }
+          });
+        };
+
+        const updateCurrentLink = () => {
+          const navOffset = nav.getBoundingClientRect().height + 28;
+          let active = null;
+
+          linkMap.forEach(({ link, target }) => {
+            const rect = target.getBoundingClientRect();
+            if (rect.top - navOffset <= 0) {
+              active = link;
+            }
+          });
+
+          setCurrentLink(active);
+        };
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", () => {
+            setCurrentLink(link);
+          });
+        });
+
+        updateCurrentLink();
+        window.addEventListener("scroll", updateCurrentLink, { passive: true });
+        window.addEventListener("resize", updateCurrentLink, { passive: true });
+      };
     </script>
     <div id="cookie-consent-overlay" class="cookie-consent-overlay" hidden></div>
     <div id="cookie-consent-banner" class="cookie-banner" hidden>
       <p class="cookie-banner-text">Wir verwenden keine Tracking-Cookies. Ihre Einwilligung speichern wir lokal im Browser. Google Maps kann Cookies setzen. Mehr in unserer <a href="Datenschutz.html">Datenschutzerklärung</a>.</p>
       <button type="button" id="cookie-consent-btn" class="primary-button">Verstanden</button>
+    </div>
+    <div class="gallery-lightbox" id="gallery-lightbox" hidden>
+      <button class="gallery-lightbox-close" id="gallery-lightbox-close" type="button" aria-label="Vergrößertes Bild schließen">Schließen</button>
+      <figure class="gallery-lightbox-figure" id="gallery-lightbox-figure">
+        <img id="gallery-lightbox-image" alt="" />
+        <figcaption id="gallery-lightbox-caption"></figcaption>
+      </figure>
     </div>
     <script src="site-shared.js" defer></script>
   </body>

@@ -24,7 +24,7 @@
                 { name: "9 Gefüllte Weinblätter", price: "8,50 €" },
                 { name: "10 Türkischer Teller", price: "9,00 €" },
                 { name: "11 Kalte Platte", price: "10,00 €" },
-                { name: "12 Auberginen Ezme", price: "5,80 €", description: "Geräucherte Auberginencreme" },
+                { name: "12 Auberginen Ezme", price: "5,80 €", description: "Geräucherte Auberginen-Paprikacreme" },
                 { name: "13 Gebratenes Gemüse", price: "8,50 €" },
                 { name: "14 Antep-Ezme", price: "5,00 €", description: "Scharfe Tomaten-Paprika Paste" },
                 { name: "15 Humuz", price: "5,80 €", description: "Kichererbsenpüree mit Tahin" },
