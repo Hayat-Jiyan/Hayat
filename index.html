@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
@@ -9,7 +9,9 @@
       content="Hayat-Jiyan Restaurant in Wuppertal – Handgemachte Meze, saftige Grillgerichte vom Lavasteingrill und süße Spezialitäten – mit Liebe zubereitet und in familiärer Atmosphäre serviert. Reservieren Sie jetzt Ihren Tisch."
     />
     <title>Hayat-Jiyan Restaurant | Authentischer Genuss. Seit 1982.</title>
-    <link rel="icon" type="image/png" href="assets/logo-hayat.png" />
+    <link rel="icon" type="image/png" href="assets/logo-hayat.png" sizes="any" />
+    <link rel="shortcut icon" href="assets/logo-hayat.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/logo-hayat.png" />
     <link rel="preconnect" href="https://maps.google.com" crossorigin />
     <link rel="preconnect" href="https://www.google.com" crossorigin />
     <link rel="dns-prefetch" href="//maps.google.com" />
@@ -351,6 +353,13 @@
         <img class="site-nav-logo" src="assets/logo-hayat.png" alt="Hayat-Jiyan Logo" width="1600" height="1026" loading="eager" decoding="async" />
       </a>
       <div class="nav-links">
+        <a href="#about">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+            <path d="M5 21v-2a7 7 0 0 1 7-7 7 7 0 0 1 7 7v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Über uns
+        </a>
         <a href="#menu">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M6 3v8.2a2.8 2.8 0 0 0 2.8 2.8V21" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
@@ -365,6 +374,12 @@
             <path d="M12 20.5 4.8 13.6a4.8 4.8 0 0 1 6.8-6.8L12 7.2l.4-.4a4.8 4.8 0 1 1 6.8 6.8L12 20.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
           Favoriten
+        </a>
+        <a href="#services">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 2v20M2 12h20M5.6 5.6l12.8 12.8M5.6 18.4L18.4 5.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          Services
         </a>
         <a href="#reviews">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -1793,24 +1808,23 @@
         };
 
         const updateCurrentLink = () => {
-          const navOffset = nav.getBoundingClientRect().height + 28;
+          // Der scroll-margin-top in CSS ist 124px. Wir nutzen diesen Wert als Schwelle.
+          // Ein kleiner Puffer von 5px macht die Erkennung etwas flexibler.
+          const activeThreshold = 124 + 5; 
           let active = null;
 
-          linkMap.forEach(({ link, target }) => {
+          // Iteriere die Links in umgekehrter Reihenfolge, um den untersten (aktuellsten)
+          // Abschnitt zu finden, dessen oberer Rand die Schwelle überschritten hat.
+          for (let i = linkMap.length - 1; i >= 0; i--) {
+            const { link, target } = linkMap[i];
             const rect = target.getBoundingClientRect();
-            if (rect.top - navOffset <= 0) {
+            if (rect.top <= activeThreshold) {
               active = link;
+              break; // Den ersten gefundenen aktiven Link nehmen und Schleife beenden
             }
-          });
-
+          }
           setCurrentLink(active);
         };
-
-        navLinks.forEach((link) => {
-          link.addEventListener("click", () => {
-            setCurrentLink(link);
-          });
-        });
 
         updateCurrentLink();
         window.addEventListener("scroll", updateCurrentLink, { passive: true });
