@@ -1,6 +1,10 @@
-**### 🥂 Weinkarte
+# ⚠️ ALTE LISTE / ARCHIV (NICHT MEHR NUTZEN)
 
-Weißwein (0,2l)
+**WICHTIG:** Diese Datei dient nur noch als Referenz. Preise und Texte werden jetzt zentral in `prices.js` und `menu-data.js` gepflegt. Änderungen hier haben keine Auswirkungen mehr auf die Website.
+
+---
+
+### 🥂 Weinkarte (ALT)
 
 * Grauburgunder – 4,80 €
   Volle Frucht und ausgeprägter Geschmack
@@ -149,5 +153,3 @@ Alle Aufläufe wahlweise mit oder ohne Fleisch – mit Fleisch + 2,50 €
 
 Alle: 3,00 €
 (Ouzo, Rum, 103, Veterano, Grappa, Wodka, Baileys, Averna, Sambuca, Café Oriental, Fernet Branca, Ramazotti, Jägermeister)
-
-**

@@ -12,8 +12,6 @@
   "use strict";
 
   window.SITE_REVIEWS = {
-    averageRating: "",
-    totalRatings: "",
     googleMapsUrl:
       "https://www.google.com/maps/place/Hayat-Jiyan+Restaurant/@51.2605482,7.1380626,17z/data=!4m8!3m7!1s0x47b8d7ac00cb9a29:0xdf5761f218b776e9!8m2!3d51.2605482!4d7.1380626!9m1!1b1!16s%2Fg%2F1td9pmbs?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D",
     items: [
@@ -40,4 +38,20 @@
       }
     ]
   };
+
+  // Funktion zur Berechnung des durchschnittlichen Ratings und der Gesamtzahl der Bewertungen
+  const calculateReviewMetrics = (reviews) => {
+    if (!Array.isArray(reviews) || reviews.length === 0) {
+      return { averageRating: "0.0", totalRatings: "0" };
+    }
+
+    const totalRatingSum = reviews.reduce((sum, review) => sum + (Number(review.rating) || 0), 0);
+    const average = totalRatingSum / reviews.length;
+
+    return {
+      averageRating: average.toFixed(1), // Eine Dezimalstelle
+      totalRatings: String(reviews.length)
+    };
+  };
+  Object.assign(window.SITE_REVIEWS, calculateReviewMetrics(window.SITE_REVIEWS.items));
 })();
