@@ -126,10 +126,29 @@
     });
   }
 
+  function initBackToTop() {
+    var btn = document.getElementById("back-to-top");
+    if (!btn) {
+      return;
+    }
+
+    var updateVisibility = function () {
+      btn.classList.toggle("is-visible", window.scrollY > 400);
+    };
+
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    updateVisibility();
+
+    btn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
   function init() {
     setCurrentYear();
     initCookieBanner();
     initTopLinks();
+    initBackToTop();
   }
 
   window.HayatConsent = {

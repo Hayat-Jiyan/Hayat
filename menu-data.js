@@ -125,7 +125,6 @@
     {
       id: "doenergerichte",
       title: "Dönergerichte",
-      description: "Frisch geschnitten, herzhaft belegt und immer ein Genuss.",
       sections: [
         {
           items: [

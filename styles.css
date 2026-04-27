@@ -47,6 +47,7 @@ body {
   text-rendering: optimizeLegibility;
   font-size: 16px;
   line-height: 1.7;
+  overflow-wrap: break-word;
 }
 
 a {
@@ -373,7 +374,7 @@ main section:first-of-type {
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 22px;
 }
 
@@ -603,10 +604,6 @@ main section:first-of-type {
 }
 
 @media (max-width: 1080px) {
-  .services-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .reviews-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     max-width: 560px;
@@ -614,10 +611,6 @@ main section:first-of-type {
 }
 
 @media (max-width: 780px) {
-  .services-grid {
-    grid-template-columns: 1fr;
-  }
-
   .service-card {
     padding: 26px 20px 22px;
   }
@@ -1516,6 +1509,42 @@ main section:first-of-type {
   flex-shrink: 0;
 }
 
+/* Schwebender "Nach oben"-Button */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1100;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  box-shadow: 0 10px 24px rgba(210, 106, 44, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top.is-visible:hover,
+.back-to-top.is-visible:focus-visible {
+  background: var(--accent-strong);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(210, 106, 44, 0.4);
+}
+
 .footer {
   padding: 48px 16px 58px;
   text-align: center;
@@ -2085,6 +2114,15 @@ main section:first-of-type {
     font-size: 0.95rem;
     margin: 0 0 12px;
   }
+
+  .cookie-banner {
+    padding: 18px 20px;
+    gap: 16px;
+  }
+
+  .cookie-banner-text {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 540px) {
@@ -2268,7 +2306,7 @@ main section:first-of-type {
 
   .footer-row a {
     width: 100%;
-    padding: 6px 4px;
+    padding: 10px 4px;
     font-size: 0.78rem;
     letter-spacing: 0.035em;
   }
@@ -2345,5 +2383,28 @@ main section:first-of-type {
     margin-top: 20px;
     padding-top: 16px;
     font-size: 0.85rem;
+  }
+
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .cookie-banner {
+    padding: 16px 16px 20px;
+    gap: 14px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cookie-banner-text {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .cookie-banner .primary-button {
+    width: 100%;
   }
 }

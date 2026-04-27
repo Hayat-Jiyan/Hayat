@@ -38,20 +38,4 @@
       }
     ]
   };
-
-  // Funktion zur Berechnung des durchschnittlichen Ratings und der Gesamtzahl der Bewertungen
-  const calculateReviewMetrics = (reviews) => {
-    if (!Array.isArray(reviews) || reviews.length === 0) {
-      return { averageRating: "0.0", totalRatings: "0" };
-    }
-
-    const totalRatingSum = reviews.reduce((sum, review) => sum + (Number(review.rating) || 0), 0);
-    const average = totalRatingSum / reviews.length;
-
-    return {
-      averageRating: average.toFixed(1), // Eine Dezimalstelle
-      totalRatings: String(reviews.length)
-    };
-  };
-  Object.assign(window.SITE_REVIEWS, calculateReviewMetrics(window.SITE_REVIEWS.items));
 })();
