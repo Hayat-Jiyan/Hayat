@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
@@ -491,22 +491,22 @@
           <article class="highlight-card">
             <h3>HAYAT-Grillteller</h3>
             <p>Mix aus Köfte, Hähnchenspieß, Lammspieß und Lammkotelett, mit Reis, Bulgur und Salat. Perfekt für den großen Hunger.</p>
-            <span class="price" data-price-number="69">17,90&nbsp;€</span>
+            <span class="price" data-price-number="69">17,50&nbsp;€</span>
           </article>
           <article class="highlight-card">
             <h3>Köfte mit Hirtenkäsefüllung</h3>
             <p>Gefüllte Hackfleischfrikadellen mit Hirtenkäse, dazu Reis, Bulgur und Salat.</p>
-            <span class="price" data-price-number="63">14,90&nbsp;€</span>
+            <span class="price" data-price-number="63">15,00&nbsp;€</span>
           </article>
           <article class="highlight-card">
             <h3>HAYAT-Vorspeisenteller</h3>
             <p>Mix aus handgemachten Pasten wie Humuz, Antep Ezme, Havuç Ezme und weiteren Vorspeisen.</p>
-            <span class="price" data-price-number="16">11,90&nbsp;€</span>
+            <span class="price" data-price-number="16">11,80&nbsp;€</span>
           </article>
           <article class="highlight-card">
             <h3>Adana Şiş mit Joghurtsauce</h3>
             <p>Scharfer Hackfleischspieß mit Joghurtsauce, dazu Reis, Bulgur und Salat.</p>
-            <span class="price" data-price-number="65">14,50&nbsp;€</span>
+            <span class="price" data-price-number="65">14,00&nbsp;€</span>
           </article>
         </div>
       </section>
@@ -531,7 +531,7 @@
               </svg>
             </div>
             <h3>Außengastronomie</h3>
-            <p>Unsere Außengastronomie bietet Platz für etwa 70 Personen. Reservierungen für Außenplätze können wir leider nicht annehmen, da die Plätze begrenzt sind. Deshalb empfehlen wir, frühzeitig zu kommen.</p>
+            <p>Unsere Außengastronomie (von Mai bis Oktober) bietet Platz für etwa 70 Personen. Reservierungen für Außenplätze können wir leider nicht annehmen, da die Plätze begrenzt sind. Deshalb empfehlen wir, frühzeitig zu kommen.</p>
           </article>
           <article class="service-card">
             <div class="service-icon" aria-hidden="true">
@@ -725,7 +725,7 @@
 
           <div class="reservation-form-wrapper" id="reservation">
             <h3>Reservierung anfragen</h3>
-            <p class="reservation-note">Online-Reservierungen können wir für denselben Tag nur bis 15:00 Uhr berücksichtigen. Für spätere Anfragen am selben Tag rufen Sie uns bitte an. Falls wir gerade nicht ans Telefon gehen können, hinterlassen Sie uns gern eine Nachricht auf dem Anrufbeantworter.</p>
+            <p class="reservation-note">Online-Reservierungen können wir für denselben Tag nur bis 16:00 Uhr berücksichtigen. Für spätere Anfragen am selben Tag rufen Sie uns bitte an. Falls wir gerade nicht ans Telefon gehen können, hinterlassen Sie uns gern eine Nachricht auf dem Anrufbeantworter.</p>
             <div id="reservation-form-container">
               <!-- Formspree versendet an die im Formspree-Konto hinterlegte Zieladresse.
                    Zieladresse dort auf Hayat2007@web.de setzen bzw. bestaetigen. -->
@@ -735,8 +735,6 @@
                 <input type="hidden" name="_cc" value="Hayat2007@web.de" />
                 <label for="res-name">Name</label>
                 <input type="text" id="res-name" name="name" required placeholder="Ihr Name" />
-                <label for="res-address">Adresse</label>
-                <input type="text" id="res-address" name="address" required placeholder="Straße, PLZ Ort" />
                 <label for="res-email">E-Mail</label>
                 <input type="email" id="res-email" name="email" required placeholder="ihre@email.de" autocomplete="email" />
                 <label for="res-phone">Telefon</label>
@@ -761,7 +759,7 @@
                 <label for="res-date">Datum</label>
                 <input type="date" id="res-date" name="date" required />
                 <label for="res-time">Uhrzeit</label>
-                <input type="time" id="res-time" name="time" required />
+                <input type="time" id="res-time" name="time" required min="18:00" max="23:30" />
                 <p id="reservation-form-error" class="form-error" aria-live="polite" hidden></p>
                 <button type="submit" class="primary-button">Anfrage absenden</button>
               </form>
@@ -838,7 +836,7 @@
           </a>
           <a class="footer-social-link footer-social-link-google" href="https://www.google.com/maps/place/Hayat-Jiyan+Restaurant/@51.2605482,7.1380626,17z/data=!4m8!3m7!1s0x47b8d7ac00cb9a29:0xdf5761f218b776e9!8m2!3d51.2605482!4d7.1380626!9m1!1b1!16s%2Fg%2F1td9pmbs?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" aria-label="Google Maps öffnen">
             <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true">
-              <text x="12" y="16.2" text-anchor="middle" font-size="16" font-weight="700" font-family="Arial, Helvetica, sans-serif" fill="#4285F4">G</text>
+              <text x="12" y="16.2" text-anchor="middle" font-size="16" font-weight="700" font-family="Arial, Helvetica, sans-serif" fill="currentColor">G</text>
             </svg>
           </a>
         </div>
@@ -1645,13 +1643,21 @@
 
           const now = new Date();
           const currentDate = formatDateForInput(now);
-          reservationDateInput.min = currentDate;
+          const currentHour = now.getHours();
 
-          if (reservationDateInput.value === currentDate) {
-            reservationTimeInput.min = formatTimeForInput(now);
+          // Wenn es nach 16 Uhr ist, kann heute nicht mehr reserviert werden
+          if (currentHour >= 16) {
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            reservationDateInput.min = formatDateForInput(tomorrow);
           } else {
-            reservationTimeInput.removeAttribute('min');
+            reservationDateInput.min = currentDate;
           }
+
+          // Öffnungszeiten festlegen (18:00 - 00:00)
+          // Wir setzen max auf 23:30, damit die Gäste nicht erst um Mitternacht anfragen
+          reservationTimeInput.min = "18:00";
+          reservationTimeInput.max = "23:30";
 
           validateReservationDateTime();
         };
