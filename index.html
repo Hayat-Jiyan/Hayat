@@ -39,7 +39,7 @@
       
       html { scroll-behavior: smooth; }
 
-      #menu, #highlights, #reviews, #gallery, #contact, #reservation {
+      #menu, #about, #highlights, #services, #reviews, #gallery, #contact, #reservation {
         scroll-margin-top: 124px;
       }
       
@@ -424,15 +424,33 @@
     </header>
 
     <main>
+      <section class="about" id="about">
+        <div class="about-panel">
+          <span class="about-badge">Wer wir sind</span>
+          <h2>Seit über 40 Jahren ein Teil der Nordstadt</h2>
+          <p class="about-lead">
+            Das Hayat-Jiyan ist seit Jahrzehnten Treffpunkt für Menschen aus dem Viertel,
+            für StudentInnen, Stammgäste und alle, die gutes Essen in entspannter Atmosphäre schätzen.
+          </p>
+          <div class="about-copy">
+            <p>Seit über 40 Jahren ist das Hayat-Jiyan-Restaurant die gemütliche Szenekneipe in der Elberfelder Nordstadt - Treffpunkt für Leute aus dem Viertel, wie für StudentInnen der Uni oder "Touristen". Auch Akademiker sind willkommen.</p>
+            <p>Leckere kurdische Spezialitäten zu vernünftigen Preisen für den kleinen und großen Hunger, gute Musik, Skat oder Doppelkopf sowie Backgammon - hier lässt es sich leben.</p>
+            <p>Viele Stammkunden, die es oft schon seit Jahren immer wieder ins Hayat zieht, aber auch Gäste, die das deutsch-kurdische Lokal gerade erst für sich entdeckt haben, wissen die ruhige und freundliche Art des Teams um den Gastgeber zu schätzen - und natürlich die stets gemütliche Atmosphäre.</p>
+          </div>
+        </div>
+      </section>
+
       <section class="menu" id="menu">
         <div class="section-heading" data-intro="menu">
           <p class="eyebrow">Speisekarte</p>
           <h2>Speisekarte</h2>
           <p class="section-lead">
-            Alle Gerichte werden täglich frisch und hausgemacht zubereitet. 
-            Wechselnde Tagesgerichte nicht inkludiert.
+            Alle Gerichte werden täglich frisch und hausgemacht zubereitet. Alle Gerichte auf der Speisekarte kommen mit einer Portion Brot. Wechselnde Tagesgerichte sind hier nicht enthalten.
           </p>
           <p class="menu-note">Wir haben eine täglich wechselnde Tageskarte!<br />Rufen Sie uns einfach an.<br />Gerne informieren wir Sie telefonisch.</p>
+          <div class="menu-actions">
+            <a class="ghost-button menu-download-button" href="assets/Hayat-Speisekarte.pdf" download>Originale Speisekarte herunterladen</a>
+          </div>
         </div>
         <div class="menu-layout" data-intro="menu">
           <div
@@ -440,13 +458,24 @@
             role="tablist"
             aria-label="Speisekategorien"
           ></div>
-          <div
-            class="menu-content"
-            id="menu-panel"
-            role="tabpanel"
-            tabindex="0"
-            aria-live="polite"
-          ></div>
+          <div class="menu-book-shell">
+            <div class="menu-book-toolbar">
+              <button type="button" class="menu-book-button" id="menu-prev" aria-label="Vorherige Seiten">
+                ←
+              </button>
+              <p class="menu-book-indicator" id="menu-page-indicator" aria-live="polite"></p>
+              <button type="button" class="menu-book-button" id="menu-next" aria-label="Nächste Seiten">
+                →
+              </button>
+            </div>
+            <div
+              class="menu-content menu-book"
+              id="menu-panel"
+              role="tabpanel"
+              tabindex="0"
+              aria-live="polite"
+            ></div>
+          </div>
         </div>
       </section>
 
@@ -454,24 +483,29 @@
         <div class="section-heading">
           <h2>Unsere Favoriten</h2>
           <p class="section-lead">
-            Drei Teller, die bei jedem Besuch gehen: frisch, aromatisch und original Hayat.
+            Vier Favoriten, die bei jedem Besuch sofort ins Auge fallen.
           </p>
         </div>
         <div class="highlight-grid">
           <article class="highlight-card">
             <h3>HAYAT-Grillteller</h3>
-            <p>Mix aus Köfte, Şiş und Gemüse – perfekt zum Teilen.</p>
+            <p>Mix aus Köfte, Hähnchenspieß, Lammspieß und Lammkotelett, mit Reis, Bulgur und Salat. Perfekt für den großen Hunger.</p>
             <span class="price" data-price-number="69">17,90&nbsp;€</span>
           </article>
           <article class="highlight-card">
-            <h3>Iskender Kebap</h3>
-            <p>Geröstetes Brot, Joghurt, Tomate und zartes Lamm.</p>
-            <span class="price" data-price-number="91">12,90&nbsp;€</span>
+            <h3>Köfte mit Hirtenkäsefüllung</h3>
+            <p>Gefüllte Hackfleischfrikadellen mit Hirtenkäse, dazu Reis, Bulgur und Salat.</p>
+            <span class="price" data-price-number="63">14,90&nbsp;€</span>
           </article>
           <article class="highlight-card">
-            <h3>Zucchinipuffer</h3>
-            <p>Leicht, knusprig und vegetarisch – mit einem hausgemachten Kräuterdip.</p>
-            <span class="price" data-price-number="36">11,50&nbsp;€</span>
+            <h3>HAYAT-Vorspeisenteller</h3>
+            <p>Mix aus handgemachten Pasten wie Humuz, Antep Ezme, Havuç Ezme und weiteren Vorspeisen.</p>
+            <span class="price" data-price-number="16">11,90&nbsp;€</span>
+          </article>
+          <article class="highlight-card">
+            <h3>Adana Şiş mit Joghurtsauce</h3>
+            <p>Scharfer Hackfleischspieß mit Joghurtsauce, dazu Reis, Bulgur und Salat.</p>
+            <span class="price" data-price-number="65">14,50&nbsp;€</span>
           </article>
         </div>
       </section>
@@ -690,6 +724,7 @@
 
           <div class="reservation-form-wrapper" id="reservation">
             <h3>Reservierung anfragen</h3>
+            <p class="reservation-note">Online-Reservierungen können wir für denselben Tag nur bis 15:00 Uhr berücksichtigen. Für spätere Anfragen am selben Tag rufen Sie uns bitte an. Falls wir gerade nicht ans Telefon gehen können, hinterlassen Sie uns gern eine Nachricht auf dem Anrufbeantworter.</p>
             <div id="reservation-form-container">
               <!-- Formspree versendet an die im Formspree-Konto hinterlegte Zieladresse.
                    Zieladresse dort auf Hayat2007@web.de setzen bzw. bestaetigen. -->
@@ -798,6 +833,11 @@
           <a class="footer-social-link" href="https://www.facebook.com/Hayat.Oelberg" target="_blank" rel="noopener" aria-label="Facebook öffnen">
             <svg viewBox="0 0 24 24" width="18" height="18" focusable="false">
               <path d="M13.2 21v-7h2.3l.3-2.7h-2.6V9.6c0-.8.2-1.3 1.3-1.3H16V5.9c-.3 0-1.1-.1-2.1-.1-2.1 0-3.6 1.3-3.6 3.7v1.8H8V14h2.3v7h2.9Z" fill="currentColor" />
+            </svg>
+          </a>
+          <a class="footer-social-link footer-social-link-google" href="https://www.google.com/maps/place/Hayat-Jiyan+Restaurant/@51.2605482,7.1380626,17z/data=!4m8!3m7!1s0x47b8d7ac00cb9a29:0xdf5761f218b776e9!8m2!3d51.2605482!4d7.1380626!9m1!1b1!16s%2Fg%2F1td9pmbs?entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" aria-label="Google Maps öffnen">
+            <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true">
+              <text x="12" y="16.2" text-anchor="middle" font-size="16" font-weight="700" font-family="Arial, Helvetica, sans-serif" fill="#4285F4">G</text>
             </svg>
           </a>
         </div>
@@ -1205,13 +1245,19 @@
 
         const categoryList = document.querySelector(".menu-categories");
         const menuContent = document.getElementById("menu-panel");
+        const menuPrev = document.getElementById("menu-prev");
+        const menuNext = document.getElementById("menu-next");
+        const menuPageIndicator = document.getElementById("menu-page-indicator");
 
-        if (!categoryList || !menuContent || menuData.length === 0) {
+        if (!categoryList || !menuContent || !menuPrev || !menuNext || !menuPageIndicator || menuData.length === 0) {
           return;
         }
 
         let activeCategoryId = menuData[0].id;
+        let currentSpreadIndex = 0;
         const buttons = [];
+        const categoryPageStartMap = new Map();
+        const pagedCategories = [];
 
         const renderMenuSection = (section) => {
           const itemsHtml = (section.items || [])
@@ -1252,18 +1298,141 @@
           `;
         };
 
-        const setActiveCategory = (categoryId) => {
-          const category = menuData.find((entry) => entry.id === categoryId);
+        const LONG_CATEGORY_IDS = new Set(["vorspeisen", "biere", "softdrinks", "warme-getraenke", "spirituosen", "weinkarte"]);
+        const MAX_ITEMS_PER_LONG_PAGE = 10;
+
+        const splitCategoryIntoPages = (category) => {
+          const sections = Array.isArray(category.sections) ? category.sections : [];
+          const totalItems = sections.reduce((sum, section) => sum + ((section.items || []).length || 0), 0);
+
+          if (!LONG_CATEGORY_IDS.has(category.id)) {
+            return [{
+              ...category,
+              continuation: false,
+              pageNumber: 1,
+              pageCount: 1
+            }];
+          }
+
+          const pages = [];
+          let currentSections = [];
+          let currentItemCount = 0;
+
+          const pushPage = () => {
+            if (!currentSections.length) {
+              return;
+            }
+
+            pages.push({
+              id: category.id,
+              title: category.title,
+              description: pages.length === 0 ? category.description : "",
+              continuation: pages.length > 0,
+              pageNumber: pages.length + 1,
+              pageCount: 0,
+              sections: currentSections
+            });
+
+            currentSections = [];
+            currentItemCount = 0;
+          };
+
+          sections.forEach((section) => {
+            const items = Array.isArray(section.items) ? section.items : [];
+
+            if (!items.length) {
+              currentSections.push(section);
+              return;
+            }
+
+            let itemIndex = 0;
+            while (itemIndex < items.length) {
+              const remainingSlots = Math.max(1, MAX_ITEMS_PER_LONG_PAGE - currentItemCount);
+              const chunkItems = items.slice(itemIndex, itemIndex + remainingSlots);
+              const isChunkEnd = itemIndex + chunkItems.length >= items.length;
+
+              currentSections.push({
+                ...section,
+                note: isChunkEnd ? section.note : "",
+                items: chunkItems
+              });
+
+              currentItemCount += chunkItems.length;
+              itemIndex += chunkItems.length;
+
+              if (currentItemCount >= MAX_ITEMS_PER_LONG_PAGE) {
+                pushPage();
+              }
+            }
+          });
+
+          pushPage();
+
+          return pages.map((page, index) => ({
+            ...page,
+            pageNumber: index + 1,
+            pageCount: pages.length
+          }));
+        };
+
+        menuData.forEach((category) => {
+          categoryPageStartMap.set(category.id, pagedCategories.length);
+          pagedCategories.push(...splitCategoryIntoPages(category));
+        });
+
+        const spreads = [];
+        for (let index = 0; index < pagedCategories.length; index += 2) {
+          spreads.push(pagedCategories.slice(index, index + 2));
+        }
+
+        const renderBookPage = (category, side) => {
           if (!category) {
+            return `<article class="menu-book-page menu-book-page-${side} is-empty" aria-hidden="true"></article>`;
+          }
+
+          const totalItems = (category.sections || []).reduce(
+            (sum, section) => sum + ((section.items || []).length || 0),
+            0
+          );
+          const isDenseCategory = totalItems >= 10 || LONG_CATEGORY_IDS.has(category.id);
+          const sectionsHtml = (category.sections || [])
+            .map((section) => renderMenuSection(section))
+            .join("");
+          const descriptionHtml = category.description
+            ? `<p class="menu-category-description">${category.description}</p>`
+            : "";
+
+          return `
+            <article class="menu-book-page menu-book-page-${side} ${isDenseCategory ? "menu-book-page-dense" : ""}" data-category-page="${category.id}">
+              <div class="menu-content-header">
+                <p class="menu-book-page-label">${side === "left" ? "Linke Seite" : "Rechte Seite"}</p>
+                <h3>${category.title}</h3>
+                ${category.continuation ? `<p class="menu-book-page-meta">Fortsetzung · Seite ${category.pageNumber} von ${category.pageCount}</p>` : category.pageCount > 1 ? `<p class="menu-book-page-meta">Seite ${category.pageNumber} von ${category.pageCount}</p>` : ""}
+                ${descriptionHtml}
+              </div>
+              ${sectionsHtml}
+            </article>
+          `;
+        };
+
+        const renderSpread = (spreadIndex) => {
+          const spread = spreads[spreadIndex];
+          if (!spread) {
             return;
           }
 
-          activeCategoryId = categoryId;
-          
-          // Batch DOM updates to avoid forced reflows
+          const [leftCategory, rightCategory] = spread;
+          const visibleCategoryIds = new Set(
+            spread
+              .map((entry) => entry && entry.id)
+              .filter(Boolean)
+          );
+
           requestAnimationFrame(() => {
             buttons.forEach((btn) => {
-              const isActive = btn.dataset.category === categoryId;
+              const isVisible = visibleCategoryIds.has(btn.dataset.category);
+              const isActive = btn.dataset.category === activeCategoryId;
+              btn.classList.toggle("is-visible", isVisible);
               btn.classList.toggle("is-active", isActive);
               btn.setAttribute("aria-selected", isActive ? "true" : "false");
               btn.setAttribute("tabindex", isActive ? "0" : "-1");
@@ -1272,26 +1441,33 @@
               }
             });
 
-            const sectionsHtml = category.sections
-              .map((section) => renderMenuSection(section))
-              .join("");
-            const descriptionHtml = category.description
-              ? `<p class="menu-category-description">${category.description}</p>`
-              : "";
-
             menuContent.innerHTML = `
-              <div class="menu-content-header">
-                <h3>${category.title}</h3>
-                ${descriptionHtml}
+              <div class="menu-book-spread">
+                ${renderBookPage(leftCategory, "left")}
+                ${renderBookPage(rightCategory, "right")}
               </div>
-              ${sectionsHtml}
             `;
 
-            // Defer scroll operation to avoid forced reflow
+            menuPageIndicator.textContent = `Speisekarte · Seite ${spreadIndex + 1} von ${spreads.length}`;
+            menuPrev.disabled = spreadIndex === 0;
+            menuNext.disabled = spreadIndex === spreads.length - 1;
+
             requestAnimationFrame(() => {
               menuContent.scrollTop = 0;
             });
           });
+        };
+
+        const setActiveCategory = (categoryId) => {
+          const category = menuData.find((entry) => entry.id === categoryId);
+          if (!category) {
+            return;
+          }
+
+          activeCategoryId = categoryId;
+          const matchingPageIndex = categoryPageStartMap.get(categoryId) ?? 0;
+          currentSpreadIndex = Math.floor(matchingPageIndex / 2);
+          renderSpread(currentSpreadIndex);
         };
 
         const focusButtonByIndex = (index) => {
@@ -1354,12 +1530,28 @@
           buttons.push(button);
         });
 
-        // Single DOM update to avoid multiple reflows
         categoryList.appendChild(fragment);
 
-        // Defer initial category setup
         requestAnimationFrame(() => {
           setActiveCategory(activeCategoryId);
+        });
+
+        menuPrev.addEventListener("click", () => {
+          if (currentSpreadIndex <= 0) {
+            return;
+          }
+          currentSpreadIndex -= 1;
+          activeCategoryId = spreads[currentSpreadIndex][0].id;
+          renderSpread(currentSpreadIndex);
+        });
+
+        menuNext.addEventListener("click", () => {
+          if (currentSpreadIndex >= spreads.length - 1) {
+            return;
+          }
+          currentSpreadIndex += 1;
+          activeCategoryId = spreads[currentSpreadIndex][0].id;
+          renderSpread(currentSpreadIndex);
         });
 
         // Lazy load Google Maps to reduce unused JavaScript
@@ -1395,6 +1587,80 @@
         const formContainer = document.getElementById('reservation-form-container');
         const successMessage = document.getElementById('reservation-success');
         const errorMessage = document.getElementById('reservation-form-error');
+        const reservationDateInput = document.getElementById('res-date');
+        const reservationTimeInput = document.getElementById('res-time');
+
+        const formatDateForInput = (date) => {
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          return `${year}-${month}-${day}`;
+        };
+
+        const formatTimeForInput = (date) => {
+          const hours = String(date.getHours()).padStart(2, '0');
+          const minutes = String(date.getMinutes()).padStart(2, '0');
+          return `${hours}:${minutes}`;
+        };
+
+        const validateReservationDateTime = () => {
+          if (!reservationDateInput || !reservationTimeInput) {
+            return true;
+          }
+
+          const selectedDate = reservationDateInput.value;
+          const selectedTime = reservationTimeInput.value;
+          reservationDateInput.setCustomValidity('');
+          if (!selectedDate || !selectedTime) {
+            reservationTimeInput.setCustomValidity('');
+            return true;
+          }
+
+          const now = new Date();
+          const currentDate = formatDateForInput(now);
+          if (selectedDate < currentDate) {
+            reservationDateInput.setCustomValidity('Vergangene Tage können nicht reserviert werden.');
+            return false;
+          }
+          const selectedDateTime = new Date(`${selectedDate}T${selectedTime}`);
+          if (Number.isNaN(selectedDateTime.getTime())) {
+            reservationTimeInput.setCustomValidity('Bitte wählen Sie eine gültige Uhrzeit.');
+            return false;
+          }
+
+          if (selectedDate === currentDate && selectedDateTime < now) {
+            reservationTimeInput.setCustomValidity('Für heute können nur zukünftige Uhrzeiten gewählt werden.');
+            return false;
+          }
+
+          reservationTimeInput.setCustomValidity('');
+          return true;
+        };
+
+        const updateReservationConstraints = () => {
+          if (!reservationDateInput || !reservationTimeInput) {
+            return;
+          }
+
+          const now = new Date();
+          const currentDate = formatDateForInput(now);
+          reservationDateInput.min = currentDate;
+
+          if (reservationDateInput.value === currentDate) {
+            reservationTimeInput.min = formatTimeForInput(now);
+          } else {
+            reservationTimeInput.removeAttribute('min');
+          }
+
+          validateReservationDateTime();
+        };
+
+        if (reservationDateInput && reservationTimeInput) {
+          updateReservationConstraints();
+          reservationDateInput.addEventListener('input', updateReservationConstraints);
+          reservationDateInput.addEventListener('change', updateReservationConstraints);
+          reservationTimeInput.addEventListener('input', validateReservationDateTime);
+        }
 
         if (reservationForm && formContainer && successMessage) {
           reservationForm.addEventListener('submit', async (e) => {
@@ -1412,6 +1678,17 @@
               errorMessage.textContent = 'Bitte alle Felder ausfüllen';
               errorMessage.hidden = false;
               firstMissing.focus();
+              return;
+            }
+            updateReservationConstraints();
+            if (!validateReservationDateTime()) {
+              errorMessage.textContent = reservationDateInput.validationMessage || reservationTimeInput.validationMessage;
+              errorMessage.hidden = false;
+              if (reservationDateInput.validationMessage) {
+                reservationDateInput.focus();
+              } else {
+                reservationTimeInput.focus();
+              }
               return;
             }
             const submitBtn = reservationForm.querySelector('button[type="submit"]');
