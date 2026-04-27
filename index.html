@@ -20,8 +20,8 @@
     <style>
       /* Critical CSS inlined to eliminate request chain */
       :root {
-        --bg: #fbf6ee;
-        --bg-muted: #efe5d7;
+        --bg: #fcf5ea;
+        --bg-muted: #f1e4d1;
         --card: #ffffff;
         --accent: #d26a2c;
         --accent-strong: #b9571f;
@@ -49,7 +49,7 @@
       body {
         margin: 0;
         font-family: var(--font-sans);
-        background: linear-gradient(180deg, var(--bg) 0%, #f8f2e8 60%, var(--bg-muted) 100%);
+        background: linear-gradient(180deg, var(--bg) 0%, #f9f0e4 60%, var(--bg-muted) 100%);
         color: var(--text);
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
@@ -113,13 +113,13 @@
         line-height: 0;
         letter-spacing: 0;
         text-transform: none;
-        flex: 0 0 clamp(92px, 10vw, 132px);
+        flex: 0 0 clamp(100px, 11vw, 140px);
       }
 
       .site-nav-logo {
         display: block;
         width: auto;
-        height: clamp(38px, 4.4vw, 54px);
+        height: clamp(42px, 5vw, 60px);
         max-width: 100%;
         aspect-ratio: 1600 / 1026;
         object-fit: contain;
@@ -128,7 +128,7 @@
       .site-nav::after {
         content: "";
         display: block;
-        flex: 0 0 clamp(92px, 10vw, 132px);
+        flex: 0 0 clamp(100px, 11vw, 140px);
       }
       
       .brand {
@@ -347,7 +347,7 @@
         .site-nav { top: 0; margin: 0; padding: 12px 14px; }
         .site-nav::after { content: none; }
         .site-nav .brand { width: auto; flex: 0 0 auto; margin-bottom: 0; }
-        .site-nav-logo { width: auto; height: clamp(40px, 9vw, 52px); }
+        .site-nav-logo { width: auto; height: clamp(44px, 9.5vw, 56px); }
         .hero-content { grid-template-columns: 1fr; gap: 32px; }
         .hero-visual { justify-content: center; }
         .hero-logo { width: min(68vw, 320px); }
@@ -370,7 +370,7 @@
         .hero { padding: 20px 0 60px; }
         .nav { margin: 0 auto 36px; gap: 12px; }
         .site-nav { padding: 10px 12px; }
-        .site-nav-logo { height: clamp(36px, 11vw, 46px); }
+        .site-nav-logo { height: clamp(40px, 12vw, 50px); }
         .brand { font-size: 1.3rem; margin-bottom: 12px; }
         .nav-links { gap: 12px; font-size: 0.85rem; }
         .hero-logo { width: min(78vw, 240px); }
