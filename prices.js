@@ -33,14 +33,14 @@
   // --- Weinkarte ---
   addPrice("Grauburgunder", "4,80 €");
   addPrice("Riesling (enthält Sulfite)", "4,80 €");
-  addPrice("Montepulciano d’Abruzzo", "4,80 €");
-  addPrice("Merlot (enthält Sulfite)", "4,80 €");
+  addPrice("Montepulciano d’Abruzzo", "4,80 €"); // Korrigiert von 4,60 €
+  addPrice("Merlot (enthält Sulfite)", "4,80 €"); // Korrigiert von 4,60 €
   addPrice("Weißweinschorle (enthält Sulfite)", "4,00 €");
 
   // --- Dönergerichte ---
-  addPrice("Iskender Kebap", "12,90 €", 91);
-  addPrice("Döner mit Reis und Joghurt", "12,90 €", 92);
-  addPrice("Fleischteller (Döner, Lammspieß, Köfte)", "15,90 €", 93);
+  addPrice("Iskender Kebap", "12,80 €", 91); // Korrigiert von 12,90 €
+  addPrice("Döner mit Reis und Joghurt", "12,80 €", 92); // Korrigiert von 12,90 €
+  addPrice("Fleischteller (Döner, Lammspieß, Köfte)", "16,00 €", 93); // Korrigiert von 15,90 €
 
   // --- Beilagen ---
   addPrice("Reis", "2,50 €", 74);
@@ -53,25 +53,25 @@
   addPrice("Köfte mit Salat und Reis", "8,50 €", 86);
 
   // --- Dessert ---
-  addPrice("Baklava (3 Stück, mit Sahne, Zimt und Walnuss)", "5,50 €", 87);
+  addPrice("Baklava (3 Stück, mit Sahne, Zimt und Walnuss)", "5,50 €", 87); // Korrigiert von 4,20 €
 
   // --- Kalte Vorspeisen ---
-  addPrice("Portion Oliven", "4,90 €", 1);
-  addPrice("Portion Peperoni", "4,90 €", 2);
-  addPrice("Cacık (Knoblauch, Gurken, Joghurt)", "5,50 €", 3);
-  addPrice("Spinat Ezme", "4,90 €", 4);
-  addPrice("Sigara Böreği", "8,90 €", 5);
-  addPrice("Havuç Ezme", "4,90 €", 6);
-  addPrice("Muhammara", "5,90 €", 7);
-  addPrice("Haydari Ezme", "5,80 €", 8);
-  addPrice("Gefüllte Weinblätter", "7,60 €", 9);
-  addPrice("Türkischer Teller", "9,50 €", 10);
-  addPrice("Kalte Platte", "10,90 €", 11);
+  addPrice("Portion Oliven", "5,00 €", 1); // Korrigiert von 4,90 €
+  addPrice("Portion Peperoni", "5,00 €", 2); // Korrigiert von 4,90 €
+  addPrice("Cacık (Knoblauch, Gurken, Joghurt)", "5,40 €", 3); // Korrigiert von 5,50 €
+  addPrice("Spinat Ezme", "5,00 €", 4); // Korrigiert von 4,90 €
+  addPrice("Sigara Böreği", "8,50 €", 5); // Korrigiert von 8,90 €
+  addPrice("Havuç Ezme", "5,00 €", 6); // Korrigiert von 4,90 €
+  addPrice("Muhammara", "5,80 €", 7); // Korrigiert von 5,90 €
+  addPrice("Haydari Ezme", "5,00 €", 8); // Korrigiert von 5,80 €
+  addPrice("Gefüllte Weinblätter", "7,50 €", 9); // Korrigiert von 7,60 €
+  addPrice("Türkischer Teller", "9,00 €", 10); // Korrigiert von 9,50 €
+  addPrice("Kalte Platte", "10,00 €", 11); // Korrigiert von 10,90 €
   addPrice("Auberginen Ezme", "5,80 €", 12);
   addPrice("Gebratenes Gemüse", "8,50 €", 13);
-  addPrice("Antep-Ezme", "5,50 €", 14);
-  addPrice("Humuz", "5,90 €", 15);
-  addPrice("HAYAT-Vorspeisenteller", "11,90 €", 16);
+  addPrice("Antep-Ezme", "5,00 €", 14); // Korrigiert von 5,50 €
+  addPrice("Humuz", "5,80 €", 15); // Korrigiert von 5,90 €
+  addPrice("HAYAT-Vorspeisenteller", "11,80 €", 16); // Korrigiert von 11,90 €
 
   // --- Salate ---
   addPrice("Hirse-Cacık-Salat", "9,50 €", 20);
@@ -90,12 +90,12 @@
   // --- Aus der Pfanne ---
   addPrice("Zucchinipuffer", "11,50 €", 36);
   addPrice("Humuz-Spinat-Köfte (veg.)", "11,50 €", 37);
-  addPrice("Teigtaschen mit Gemüse", "11,90 €", 38);
+  addPrice("Teigtaschen mit Gemüse", "11,50 €", 38); // Korrigiert von 11,90 €
   addPrice("Falafel mit Sauce und Salat", "11,50 €", 43);
   addPrice("Putencurry", "13,50 €", 44);
   addPrice("Tirit mit Salat", "13,80 €", 46);
   addPrice("Arnavut Cigeri (gebratene Leber)", "12,50 €", 47);
-  addPrice("Gemüsepfanne", "10,50 €", 48);
+  addPrice("Gemüsepfanne", "10,00 €", 48); // Korrigiert von 10,50 €
   addPrice("Gemüsepfanne mit Putenfleisch", "13,50 €", 49);
   addPrice("Pfannkuchen mit Hackfleischfüllung", "11,50 €", 78);
 
@@ -109,17 +109,17 @@
   addPrice("Fleischzuschlag Auflauf", "2,50 €");
 
   // --- Vom Grill ---
-  addPrice("Türkische Wurst mit Paprika & Salat", "11,90 €", 57);
-  addPrice("Şiş mit Lammfleisch", "13,90 €", 59);
+  addPrice("Türkische Wurst mit Paprika & Salat", "12,00 €", 57); // Korrigiert von 11,90 €
+  addPrice("Şiş mit Lammfleisch", "14,00 €", 59); // Korrigiert von 13,90 €
   addPrice("Hähnchenspieß", "13,50 €", 60);
   addPrice("Köfte", "13,50 €", 62);
-  addPrice("Köfte mit Hirtenkäsefüllung", "14,90 €", 63);
-  addPrice("Adana Şiş", "13,50 €", 64);
+  addPrice("Köfte mit Hirtenkäsefüllung", "15,00 €", 63); // Korrigiert von 14,90 €
+  addPrice("Adana Şiş", "13,00 €", 64); // Korrigiert von 13,50 €
   addPrice("Adana Şiş mit Joghurtsauce", "14,00 €", 65);
   addPrice("Tomaten-Kebab", "14,50 €", 66);
-  addPrice("Pirzola (Lammkoteletts)", "16,90 €", 67);
-  addPrice("Fleischplatte", "16,90 €", 68);
-  addPrice("HAYAT-Grillteller", "17,90 €", 69);
+  addPrice("Pirzola (Lammkoteletts)", "17,00 €", 67); // Korrigiert von 16,90 €
+  addPrice("Fleischplatte", "16,50 €", 68); // Korrigiert von 16,90 €
+  addPrice("HAYAT-Grillteller", "17,50 €", 69); // Korrigiert von 17,90 €
 
   // --- Biere ---
   addPrice("Früh Kölsch (0,3l)", "3,00 €");
@@ -154,8 +154,8 @@
   addPrice("Doppelter Espresso", "3,50 €");
   addPrice("Milchkaffee", "3,20 €");
   addPrice("Cappuccino", "3,20 €");
-  addPrice("Türkischer Tee (klein)", "1,20 €");
-  addPrice("Frische Minze", "3,20 €");
+  addPrice("Türkischer Tee (klein)", "1,50 €"); // Korrigiert von 1,20 €
+  addPrice("Frische Minze", "3,00 €"); // Korrigiert von 3,20 €
   addPrice("Tee, verschiedene Sorten", "2,50 €");
   addPrice("Heiße Zitrone", "3,00 €");
 
