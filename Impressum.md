@@ -24,10 +24,6 @@ Telefon: +49 202 308329
 - Küche bis 22:00 Uhr
 - Sonntag & Montag: Ruhetag
 
-## Umsatzsteuer-ID
-
-Umsatzsteuer-Identifikationsnummer: [Umsatzsteuer-Identifikationsnummer]
-
 ## Registereintrag
 
 Eintrag im Handelsregister:  

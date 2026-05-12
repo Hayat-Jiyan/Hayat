@@ -3,6 +3,7 @@
 
   const menuData = Array.isArray(window.MENU_DATA) ? window.MENU_DATA : [];
   const priceCatalog = window.PRICE_CATALOG || { numbered: {}, named: {} };
+  const siteNews = Array.isArray(window.SITE_NEWS) ? window.SITE_NEWS : [];
 
   const normalizePriceName = (value) =>
     String(value || "")
@@ -184,6 +185,96 @@
     };
     window.addEventListener("resize", window.__reviewsResizeHandler, { passive: true });
 
+  };
+
+  const getTodayKey = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const isNewsVisible = (item, todayKey) => {
+    const visibleFrom = String(item.visibleFrom || "").trim();
+    const visibleUntil = String(item.visibleUntil || "").trim();
+
+    if (visibleFrom && todayKey < visibleFrom) {
+      return false;
+    }
+
+    if (visibleUntil && todayKey > visibleUntil) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const getReservationClosureForDate = (dateKey) => {
+    if (!dateKey) {
+      return null;
+    }
+
+    return siteNews.find((item) => {
+      const closedDates = Array.isArray(item && item.closedDates) ? item.closedDates : [];
+      return closedDates.includes(dateKey);
+    }) || null;
+  };
+
+  const renderSiteNews = () => {
+    const newsPopup = document.getElementById("news-popup");
+    const newsList = document.getElementById("news-popup-list");
+    const newsClose = document.getElementById("news-popup-close");
+
+    if (!newsPopup || !newsList) {
+      return;
+    }
+
+    const todayKey = getTodayKey();
+    const visibleItems = siteNews.filter((item) => {
+      return item && String(item.title || "").trim() && isNewsVisible(item, todayKey);
+    });
+
+    if (!visibleItems.length) {
+      newsPopup.hidden = true;
+      newsList.textContent = "";
+      return;
+    }
+
+    newsList.textContent = "";
+    const fragment = document.createDocumentFragment();
+
+    visibleItems.forEach((item) => {
+      const card = document.createElement("article");
+      card.className = "news-popup-card";
+
+      const meta = document.createElement("p");
+      meta.className = "news-popup-meta";
+      meta.textContent = String(item.dateLabel || "Aktuelles").trim();
+      card.appendChild(meta);
+
+      const title = document.createElement("h3");
+      title.textContent = String(item.title).trim();
+      card.appendChild(title);
+
+      if (String(item.text || "").trim()) {
+        const text = document.createElement("p");
+        text.className = "news-popup-text";
+        text.textContent = String(item.text).trim();
+        card.appendChild(text);
+      }
+
+      fragment.appendChild(card);
+    });
+
+    newsList.appendChild(fragment);
+    newsPopup.hidden = false;
+
+    if (newsClose) {
+      newsClose.addEventListener("click", () => {
+        newsPopup.hidden = true;
+      }, { once: true });
+    }
   };
 
   const initQuickScrollReveal = () => {
@@ -381,6 +472,7 @@
     initIntroSequence();
     initNavScrollState();
     applyCatalogPricesToHighlights();
+    renderSiteNews();
     renderManualReviews();
     initGalleryLightbox();
     // Batch DOM operations to avoid forced reflows
@@ -759,6 +851,14 @@
       const selectedDate = reservationDateInput.value;
       const selectedTime = reservationTimeInput.value;
       reservationDateInput.setCustomValidity('');
+      const closure = getReservationClosureForDate(selectedDate);
+      if (closure) {
+        const message = `${closure.title || "An diesem Tag sind keine Reservierungen möglich."} Wir haben an diesem Tag eine geschlossene Gesellschaft.`;
+        reservationDateInput.setCustomValidity(message);
+        reservationTimeInput.setCustomValidity('');
+        return false;
+      }
+
       if (!selectedDate || !selectedTime) {
         reservationTimeInput.setCustomValidity('');
         return true;
@@ -810,11 +910,33 @@
       validateReservationDateTime();
     };
 
+    const updateReservationValidationMessage = () => {
+      if (!errorMessage) {
+        return;
+      }
+
+      const isValid = validateReservationDateTime();
+      if (!isValid) {
+        errorMessage.textContent = reservationDateInput.validationMessage || reservationTimeInput.validationMessage;
+        errorMessage.hidden = false;
+        return;
+      }
+
+      errorMessage.textContent = '';
+      errorMessage.hidden = true;
+    };
+
     if (reservationDateInput && reservationTimeInput) {
       updateReservationConstraints();
-      reservationDateInput.addEventListener('input', updateReservationConstraints);
-      reservationDateInput.addEventListener('change', updateReservationConstraints);
-      reservationTimeInput.addEventListener('input', validateReservationDateTime);
+      reservationDateInput.addEventListener('input', () => {
+        updateReservationConstraints();
+        updateReservationValidationMessage();
+      });
+      reservationDateInput.addEventListener('change', () => {
+        updateReservationConstraints();
+        updateReservationValidationMessage();
+      });
+      reservationTimeInput.addEventListener('input', updateReservationValidationMessage);
     }
 
     if (reservationForm && formContainer && successMessage) {
