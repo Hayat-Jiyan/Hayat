@@ -1,4 +1,4 @@
-// Zentrale Neuigkeiten fuer die Website.
+// BEARBEITEN: Zentrale Neuigkeiten fuer die Website.
 // Eintraege sind nur sichtbar, wenn das heutige Datum zwischen visibleFrom und visibleUntil liegt.
 // Datumsformat: JJJJ-MM-TT
 

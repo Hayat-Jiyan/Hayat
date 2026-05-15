@@ -1,6 +1,6 @@
-// Zentrale Menue-Texte fuer die Website.
+// BEARBEITEN: Zentrale Menue-Texte fuer die Website.
 // Gerichtsnamen, Beschreibungen und Kategorien nur hier pflegen.
-// Preise werden zentral in prices.js gepflegt.
+// Preise werden zentral in bearbeiten/prices.js gepflegt.
 // { name: "3 Cacık (...)", price: "5,50 €", description: "Ihr Beschreibungstext" }
 
 (function () {

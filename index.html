@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://www.google.com" crossorigin />
     <link rel="dns-prefetch" href="//maps.google.com" />
     <link rel="dns-prefetch" href="//www.google.com" />
-    <link rel="preload" href="styles.css" as="style" />
+    <link rel="preload" href="technik/styles.css" as="style" />
     <style>
       /* Critical CSS inlined to eliminate request chain */
       :root {
@@ -397,8 +397,8 @@
         .primary-button, .ghost-button { padding: 11px 18px; font-size: 0.9rem; }
       }
     </style>
-    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="styles.css" /></noscript>
+    <link rel="stylesheet" href="technik/styles.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="technik/styles.css" /></noscript>
   </head>
   <body>
     <script>
@@ -889,11 +889,23 @@
                 <input type="hidden" name="_language" value="de" />
                 <input type="hidden" name="_cc" value="Hayat2007@web.de" />
                 <label for="res-name">Name</label>
-                <input type="text" id="res-name" name="name" required placeholder="Ihr Name" />
+                <input type="text" id="res-name" name="name" required minlength="2" maxlength="80" autocomplete="name" placeholder="Ihr Name" />
                 <label for="res-email">E-Mail</label>
-                <input type="email" id="res-email" name="email" required placeholder="ihre@email.de" autocomplete="email" />
+                <input type="email" id="res-email" name="email" required maxlength="120" placeholder="ihre@email.de" autocomplete="email" />
                 <label for="res-phone">Telefon</label>
-                <input type="tel" id="res-phone" name="phone" required placeholder="z. B. 0202 123456" autocomplete="tel" />
+                <input
+                  type="tel"
+                  id="res-phone"
+                  name="phone"
+                  required
+                  inputmode="tel"
+                  minlength="7"
+                  maxlength="25"
+                  pattern="(?:\+|00)?[0-9][0-9 ()/.-]{5,24}"
+                  title="Bitte geben Sie eine erreichbare Telefonnummer ein, z. B. 0202 123456 oder +49 202 123456."
+                  placeholder="z. B. 0202 123456"
+                  autocomplete="tel"
+                />
                 <label for="res-guests">Anzahl Gäste</label>
                 <select id="res-guests" name="guests" required>
                   <option value="">Bitte wählen</option>
@@ -920,7 +932,7 @@
               </form>
             </div>
             <div id="reservation-success" class="form-success" hidden>
-              Ihre Anfrage für eine Reservierung wurde übermittelt.
+              Ihre Anfrage für eine Reservierung wurde übermittelt. Wir freuen uns sehr auf Ihren Besuch. Sollte etwas nicht passen oder wir noch Rückfragen haben, melden wir uns selbstverständlich umgehend bei Ihnen.
             </div>
           </div>
         </div>
@@ -1010,14 +1022,14 @@
       </div>
     </footer>
 
-    <!-- Menue-Texte zentral in menu-data.js pflegen -->
-    <script src="menu-data.js"></script>
-    <!-- Bewertungen zentral in reviews-data.js pflegen -->
-    <script src="reviews-data.js"></script>
-    <!-- Neuigkeiten zentral in news-data.js pflegen -->
-    <script src="news-data.js"></script>
-    <!-- Preise zentral in prices.js pflegen -->
-    <script src="prices.js"></script>
+    <!-- Menue-Texte zentral in bearbeiten/menu-data.js pflegen -->
+    <script src="bearbeiten/menu-data.js"></script>
+    <!-- Bewertungen zentral in bearbeiten/reviews-data.js pflegen -->
+    <script src="bearbeiten/reviews-data.js"></script>
+    <!-- Neuigkeiten zentral in bearbeiten/news-data.js pflegen -->
+    <script src="bearbeiten/news-data.js"></script>
+    <!-- Preise zentral in bearbeiten/prices.js pflegen -->
+    <script src="bearbeiten/prices.js"></script>
     <div id="cookie-consent-overlay" class="cookie-consent-overlay" hidden></div>
     <div id="cookie-consent-banner" class="cookie-banner" hidden>
   <p class="cookie-banner-text">Wir verwenden keine Tracking-Cookies. Google Maps laden wir erst nach Ihrer Einwilligung. Diese speichern wir lokal im Browser. Mehr in unserer <a href="Datenschutz.html">Datenschutzerklärung</a>.</p>
@@ -1039,7 +1051,7 @@
         <path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
-    <script src="site-shared.js" defer></script>
-    <script src="main.js" defer></script>
+    <script src="technik/site-shared.js" defer></script>
+    <script src="technik/main.js" defer></script>
   </body>
 </html>

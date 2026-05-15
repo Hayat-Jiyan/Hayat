@@ -1,4 +1,4 @@
-// Zentrale Bewertungen fuer die Website.
+// BEARBEITEN: Zentrale Bewertungen fuer die Website.
 // Nur hier pflegen; die Karten auf der Startseite aktualisieren sich automatisch.
 // Beispiel:
 // {

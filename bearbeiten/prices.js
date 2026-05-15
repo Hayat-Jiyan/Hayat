@@ -1,4 +1,4 @@
-// Zentrale Preisliste für die Website.
+// BEARBEITEN: Zentrale Preisliste fuer die Website.
 // Alle Preise sollten nur hier gepflegt werden, um Konsistenz zu gewährleisten.
 // Die Website liest die Preise aus diesem Katalog und wendet sie auf das Menü und Highlights an.
 

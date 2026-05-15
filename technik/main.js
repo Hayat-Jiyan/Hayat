@@ -829,6 +829,7 @@
     const errorMessage = document.getElementById('reservation-form-error');
     const reservationDateInput = document.getElementById('res-date');
     const reservationTimeInput = document.getElementById('res-time');
+    const reservationPhoneInput = document.getElementById('res-phone');
 
     const formatDateForInput = (date) => {
       const year = date.getFullYear();
@@ -841,6 +842,69 @@
       const hours = String(date.getHours()).padStart(2, '0');
       const minutes = String(date.getMinutes()).padStart(2, '0');
       return `${hours}:${minutes}`;
+    };
+
+    const getReservationFieldLabel = (field) => {
+      const fieldNames = {
+        name: 'Name',
+        email: 'E-Mail',
+        phone: 'Telefon',
+        guests: 'Anzahl Gaeste',
+        date: 'Datum',
+        time: 'Uhrzeit'
+      };
+      return fieldNames[field.name] || field.getAttribute('aria-label') || field.name || 'dieses Feld';
+    };
+
+    const isProbablyPhoneNumber = (value) => {
+      const trimmed = String(value || '').trim();
+      const digits = trimmed.replace(/\D/g, '');
+
+      if (!trimmed || digits.length < 7 || digits.length > 15) {
+        return false;
+      }
+
+      if (!/^[+\d][\d\s()./-]*$/.test(trimmed)) {
+        return false;
+      }
+
+      const plusCount = (trimmed.match(/\+/g) || []).length;
+      if (plusCount > 1 || (plusCount === 1 && !trimmed.startsWith('+'))) {
+        return false;
+      }
+
+      if (/^(\d)\1+$/.test(digits)) {
+        return false;
+      }
+
+      if (/^(0123456|1234567|9876543)/.test(digits)) {
+        return false;
+      }
+
+      return true;
+    };
+
+    const validateReservationPhone = () => {
+      if (!reservationPhoneInput) {
+        return true;
+      }
+
+      const value = reservationPhoneInput.value.trim();
+      reservationPhoneInput.setCustomValidity('');
+
+      if (!value) {
+        reservationPhoneInput.setCustomValidity('Bitte geben Sie eine Telefonnummer an.');
+        return false;
+      }
+
+      if (!isProbablyPhoneNumber(value)) {
+        reservationPhoneInput.setCustomValidity(
+          'Bitte geben Sie eine erreichbare Telefonnummer mit mindestens 7 und maximal 15 Ziffern ein, z. B. 0202 123456 oder +49 202 123456.'
+        );
+        return false;
+      }
+
+      return true;
     };
 
     const validateReservationDateTime = () => {
@@ -939,12 +1003,38 @@
       reservationTimeInput.addEventListener('input', updateReservationValidationMessage);
     }
 
+    if (reservationPhoneInput) {
+      reservationPhoneInput.addEventListener('input', () => {
+        validateReservationPhone();
+        if (!errorMessage) {
+          return;
+        }
+        if (reservationPhoneInput.validationMessage) {
+          errorMessage.textContent = reservationPhoneInput.validationMessage;
+          errorMessage.hidden = false;
+          return;
+        }
+        if (errorMessage.textContent.includes('Telefonnummer')) {
+          errorMessage.textContent = '';
+          errorMessage.hidden = true;
+        }
+      });
+    }
+
     if (reservationForm && formContainer && successMessage) {
       reservationForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         errorMessage.hidden = true;
         errorMessage.textContent = '';
-        const requiredFields = Array.from(reservationForm.querySelectorAll('[required]'));
+        const requiredFields = Array.from(reservationForm.querySelectorAll('[required]')).filter(
+          (field) => field.type !== 'hidden'
+        );
+
+        requiredFields.forEach((field) => {
+          if (field.matches('input[type="text"], input[type="email"], input[type="tel"], textarea')) {
+            field.value = field.value.trim();
+          }
+        });
         const firstMissing = requiredFields.find((field) => {
           if (field.type === 'checkbox' || field.type === 'radio') {
             return !field.checked;
@@ -952,9 +1042,15 @@
           return !field.value || !field.value.trim();
         });
         if (firstMissing) {
-          errorMessage.textContent = 'Bitte alle Felder ausfüllen';
+          errorMessage.textContent = `Bitte fuellen Sie das Feld "${getReservationFieldLabel(firstMissing)}" aus.`;
           errorMessage.hidden = false;
           firstMissing.focus();
+          return;
+        }
+        if (!validateReservationPhone()) {
+          errorMessage.textContent = reservationPhoneInput.validationMessage;
+          errorMessage.hidden = false;
+          reservationPhoneInput.focus();
           return;
         }
         updateReservationConstraints();
@@ -966,6 +1062,13 @@
           } else {
             reservationTimeInput.focus();
           }
+          return;
+        }
+        const firstInvalid = requiredFields.find((field) => !field.checkValidity());
+        if (firstInvalid) {
+          errorMessage.textContent = firstInvalid.validationMessage || `Bitte pruefen Sie das Feld "${getReservationFieldLabel(firstInvalid)}".`;
+          errorMessage.hidden = false;
+          firstInvalid.focus();
           return;
         }
         const submitBtn = reservationForm.querySelector('button[type="submit"]');
