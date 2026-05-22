@@ -9,14 +9,14 @@
       content="Hayat-Jiyan Restaurant in Wuppertal – Handgemachte Meze, saftige Grillgerichte vom Lavasteingrill und süße Spezialitäten – mit Liebe zubereitet und in familiärer Atmosphäre serviert. Reservieren Sie jetzt Ihren Tisch."
     />
     <title>Hayat-Jiyan Restaurant | Authentischer Genuss. Seit 1982.</title>
-    <link rel="icon" type="image/png" href="assets/favicon.png" sizes="any" />
-    <link rel="shortcut icon" href="assets/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="assets/favicon.png" />
+    <link rel="icon" type="image/png" href="assets/logo-hayat.png" sizes="any" />
+    <link rel="shortcut icon" href="assets/logo-hayat.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/logo-hayat.png" />
     <link rel="preconnect" href="https://maps.google.com" crossorigin />
     <link rel="preconnect" href="https://www.google.com" crossorigin />
     <link rel="dns-prefetch" href="//maps.google.com" />
     <link rel="dns-prefetch" href="//www.google.com" />
-    <link rel="preload" href="technik/styles.css" as="style" />
+    <link rel="preload" href="technik/styles.css?v=20260522-3" as="style" />
     <style>
       /* Critical CSS inlined to eliminate request chain */
       :root {
@@ -113,13 +113,13 @@
         line-height: 0;
         letter-spacing: 0;
         text-transform: none;
-        flex: 0 0 clamp(130px, 14vw, 170px);
+        flex: 0 0 clamp(170px, 18vw, 220px);
       }
 
       .site-nav-logo {
         display: block;
         width: auto;
-        height: clamp(54px, 6.5vw, 76px);
+        height: clamp(72px, 8vw, 98px);
         max-width: 100%;
         aspect-ratio: 1600 / 1026;
         object-fit: contain;
@@ -128,7 +128,7 @@
       .site-nav::after {
         content: "";
         display: block;
-        flex: 0 0 clamp(130px, 14vw, 170px);
+        flex: 0 0 clamp(170px, 18vw, 220px);
       }
       
       .brand {
@@ -424,7 +424,7 @@
         .site-nav { top: 0; margin: 0; padding: 12px 14px; }
         .site-nav::after { content: none; }
         .site-nav .brand { width: auto; flex: 0 0 auto; margin-bottom: 0; }
-        .site-nav-logo { width: auto; height: clamp(52px, 11vw, 68px); }
+        .site-nav-logo { width: auto; height: clamp(64px, 13vw, 84px); }
         .hero-content { grid-template-columns: 1fr; gap: 32px; }
         .hero-visual { justify-content: center; }
         .hero-logo { width: min(68vw, 320px); }
@@ -447,7 +447,7 @@
         .hero { padding: 20px 0 60px; }
         .nav { margin: 0 auto 36px; gap: 12px; }
         .site-nav { padding: 10px 12px; }
-        .site-nav-logo { height: clamp(48px, 13vw, 60px); }
+        .site-nav-logo { height: clamp(58px, 15vw, 74px); }
         .brand { font-size: 1.3rem; margin-bottom: 12px; }
         .nav-links { gap: 12px; font-size: 0.85rem; }
         .hero-logo { width: min(78vw, 240px); }
@@ -457,8 +457,8 @@
         .primary-button, .ghost-button { padding: 11px 18px; font-size: 0.9rem; }
       }
     </style>
-    <link rel="stylesheet" href="technik/styles.css" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="technik/styles.css" /></noscript>
+    <link rel="stylesheet" href="technik/styles.css?v=20260522-3" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="technik/styles.css?v=20260522-3" /></noscript>
   </head>
   <body>
     <script>
@@ -466,7 +466,7 @@
         document.body.classList.add("intro-sequence");
       }
     </script>
-    <nav class="nav site-nav" data-intro="nav">
+    <nav class="nav site-nav" id="top" data-intro="nav">
       <a class="brand" href="#top" aria-label="Hayat-Jiyan Startseite">
         <img class="site-nav-logo" src="assets/logo-hayat.png" alt="Hayat-Jiyan Logo" width="1600" height="1026" loading="eager" decoding="async" />
       </a>
@@ -528,7 +528,7 @@
         </a>
       </div>
     </nav>
-    <header class="hero" id="top">
+    <header class="hero">
       <div class="hero-content" data-intro="hero">
         <div class="hero-text">
           <p class="eyebrow">Seit 1982 in Wuppertal</p>
@@ -986,8 +986,8 @@
                 <label for="res-date">Datum</label>
                 <input type="date" id="res-date" name="date" required />
                 <label for="res-time">Uhrzeit</label>
-                <input type="time" id="res-time" name="time" required min="18:00" max="20:00" />
-                <p style="font-size: 0.85rem; color: var(--accent-strong); font-weight: 500; margin-top: 0; margin-bottom: 16px;">🌙 Reservierungen nach 20:00 Uhr nehmen wir gerne telefonisch entgegen.</p>
+                <input type="time" id="res-time" name="time" required min="18:00" max="20:00" step="300" />
+                <p class="reservation-time-note">Reservierungen nach 20:00 Uhr nehmen wir gerne telefonisch entgegen.</p>
                 <label for="res-message">Anmerkungen (optional)</label>
                 <textarea id="res-message" name="message" rows="2" placeholder="Allergien, besondere Wünsche..."></textarea>
                 <p id="reservation-form-error" class="form-error" aria-live="polite" hidden></p>
@@ -1140,7 +1140,7 @@
         <path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
-    <script src="technik/site-shared.js" defer></script>
-    <script src="technik/main.js" defer></script>
+    <script src="technik/site-shared.js?v=20260522-3" defer></script>
+    <script src="technik/main.js?v=20260522-3" defer></script>
   </body>
 </html>

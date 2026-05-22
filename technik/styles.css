@@ -108,13 +108,13 @@ a {
   line-height: 0;
   letter-spacing: 0;
   text-transform: none;
-  flex: 0 0 clamp(130px, 14vw, 170px);
+  flex: 0 0 clamp(170px, 18vw, 220px);
 }
 
 .site-nav-logo {
   display: block;
   width: auto;
-  height: clamp(54px, 6.5vw, 76px);
+  height: clamp(72px, 8vw, 98px);
   max-width: 100%;
   aspect-ratio: 1600 / 1026;
   object-fit: contain;
@@ -123,7 +123,7 @@ a {
 .site-nav::after {
   content: "";
   display: block;
-  flex: 0 0 clamp(130px, 14vw, 170px);
+  flex: 0 0 clamp(170px, 18vw, 220px);
 }
 
 .brand {
@@ -1412,6 +1412,91 @@ main section:first-of-type {
   color: var(--muted);
 }
 
+.reservation-time-native.is-enhanced {
+  display: none;
+}
+
+.reservation-time-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(68px, 1fr));
+  gap: 8px;
+  margin: 0 0 4px;
+  padding: 0;
+  border: 0;
+}
+
+.reservation-time-grid legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.reservation-time-option {
+  position: relative;
+  display: block;
+}
+
+.reservation-time-option input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.reservation-time-option span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  color: var(--text);
+  font-weight: 600;
+  line-height: 1;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.reservation-time-option input:hover + span,
+.reservation-time-option input:focus-visible + span {
+  border-color: rgba(210, 106, 44, 0.55);
+  box-shadow: 0 0 0 3px rgba(210, 106, 44, 0.14);
+  transform: translateY(-1px);
+}
+
+.reservation-time-option input:checked + span {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #fff;
+}
+
+.reservation-time-option input:disabled {
+  cursor: not-allowed;
+}
+
+.reservation-time-option input:disabled + span {
+  opacity: 0.42;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.reservation-time-note {
+  margin: -2px 0 12px;
+  color: var(--accent-strong);
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
 .reservation-form-wrapper .form-error {
   color: #b91c1c;
   font-size: 0.9rem;
@@ -1945,7 +2030,7 @@ main section:first-of-type {
 
   .site-nav-logo {
     width: auto;
-    height: clamp(52px, 11vw, 68px);
+    height: clamp(64px, 13vw, 84px);
   }
 
   .hero-content {
@@ -2250,7 +2335,7 @@ main section:first-of-type {
 
   .site-nav-logo {
     width: auto;
-    height: clamp(48px, 13vw, 60px);
+    height: clamp(58px, 15vw, 74px);
   }
 
   .brand {

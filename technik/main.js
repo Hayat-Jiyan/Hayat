@@ -894,11 +894,12 @@
     const successMessage = document.getElementById('reservation-success');
     const errorMessage = document.getElementById('reservation-form-error');
     const reservationDateInput = document.getElementById('res-date');
-    let reservationTimeInput = document.getElementById('res-time');
+    const reservationTimeNativeInput = document.getElementById('res-time');
+    let reservationTimeInput = reservationTimeNativeInput;
     const reservationPhoneInput = document.getElementById('res-phone');
 
     // Zeit-Feld in anklickbare Blöcke umwandeln
-    if (reservationTimeInput && reservationTimeInput.tagName.toLowerCase() === 'input') {
+    if (false && reservationTimeInput && reservationTimeInput.tagName.toLowerCase() === 'input') {
       const timeContainer = document.createElement('div');
       timeContainer.className = 'time-grid-container';
       timeContainer.style.display = 'grid';
@@ -993,6 +994,79 @@
       };
     }
 
+    const enhanceReservationTimePicker = () => {
+      if (!reservationTimeNativeInput || !reservationTimeNativeInput.parentNode) {
+        return;
+      }
+
+      const slotTimes = [];
+      for (let totalMinutes = 18 * 60; totalMinutes <= 20 * 60; totalMinutes += 5) {
+        const hours = String(Math.floor(totalMinutes / 60)).padStart(2, "0");
+        const minutes = String(totalMinutes % 60).padStart(2, "0");
+        slotTimes.push(`${hours}:${minutes}`);
+      }
+      const fieldset = document.createElement("fieldset");
+      fieldset.className = "reservation-time-grid";
+
+      const legend = document.createElement("legend");
+      legend.textContent = "Uhrzeit auswählen";
+      fieldset.appendChild(legend);
+
+      const radios = slotTimes.map((time) => {
+        const label = document.createElement("label");
+        label.className = "reservation-time-option";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = reservationTimeNativeInput.name || "time";
+        radio.value = time;
+        radio.required = true;
+
+        const text = document.createElement("span");
+        text.textContent = time;
+
+        radio.addEventListener("change", () => updateReservationValidationMessage());
+
+        label.appendChild(radio);
+        label.appendChild(text);
+        fieldset.appendChild(label);
+        return radio;
+      });
+
+      reservationTimeNativeInput.classList.add("reservation-time-native", "is-enhanced");
+      reservationTimeNativeInput.required = false;
+      reservationTimeNativeInput.disabled = true;
+      reservationTimeNativeInput.removeAttribute("name");
+      reservationTimeNativeInput.insertAdjacentElement("afterend", fieldset);
+
+      reservationTimeInput = {
+        get value() {
+          const checked = radios.find((radio) => radio.checked);
+          return checked ? checked.value : "";
+        },
+        setCustomValidity(message) {
+          radios.forEach((radio) => radio.setCustomValidity(message));
+        },
+        get validationMessage() {
+          const invalidRadio = radios.find((radio) => radio.validationMessage);
+          return invalidRadio ? invalidRadio.validationMessage : "";
+        },
+        focus() {
+          const focusTarget = radios.find((radio) => !radio.disabled) || radios[0];
+          if (focusTarget) {
+            focusTarget.focus();
+          }
+        },
+        addEventListener(event, handler) {
+          radios.forEach((radio) => radio.addEventListener(event, handler));
+        },
+        radios,
+        isSlotPicker: true
+      };
+    };
+
+    enhanceReservationTimePicker();
+
     const formatDateForInput = (date) => {
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -1086,8 +1160,8 @@
       }
 
       if (!selectedDate || !selectedTime) {
-        reservationTimeInput.setCustomValidity('');
-        return true;
+        reservationTimeInput.setCustomValidity(selectedDate ? 'Bitte wählen Sie eine Uhrzeit.' : '');
+        return !selectedDate;
       }
 
       const now = new Date();
@@ -1130,33 +1204,23 @@
       }
 
       // Vergangene Uhrzeiten für heute in den Blöcken deaktivieren
-      if (reservationTimeInput.tagName === 'radiogroup') {
+      if (reservationTimeInput.isSlotPicker) {
         const isToday = (reservationDateInput.value === currentDate);
         const currentTotalMins = currentHour * 60 + now.getMinutes();
 
         reservationTimeInput.radios.forEach(radio => {
-          const span = radio.nextElementSibling;
-          const label = radio.parentElement;
           if (isToday) {
             const [optH, optM] = radio.value.split(':').map(Number);
             const optTotalMins = optH * 60 + optM;
             const isDisabled = optTotalMins <= currentTotalMins;
             
             radio.disabled = isDisabled;
-            span.style.opacity = isDisabled ? '0.4' : '1';
-            label.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
             
             if (isDisabled && radio.checked) {
                radio.checked = false;
-               span.style.background = 'var(--card)';
-               span.style.color = 'var(--text)';
-               span.style.borderColor = 'var(--border)';
-               span.style.fontWeight = 'normal';
             }
           } else {
             radio.disabled = false;
-            span.style.opacity = '1';
-            label.style.cursor = 'pointer';
           }
         });
       }
@@ -1217,7 +1281,7 @@
         errorMessage.hidden = true;
         errorMessage.textContent = '';
         const requiredFields = Array.from(reservationForm.querySelectorAll('[required]')).filter(
-          (field) => field.type !== 'hidden'
+          (field) => field.type !== 'hidden' && !field.disabled
         );
 
         requiredFields.forEach((field) => {
