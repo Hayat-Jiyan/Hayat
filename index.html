@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://www.google.com" crossorigin />
     <link rel="dns-prefetch" href="//maps.google.com" />
     <link rel="dns-prefetch" href="//www.google.com" />
-    <link rel="preload" href="technik/styles.css?v=20260522-4" as="style" />
+    <link rel="preload" href="technik/styles.css?v=20260522-5" as="style" />
     <style>
       /* Critical CSS inlined to eliminate request chain */
       :root {
@@ -418,23 +418,32 @@
 
       /* Mobile Critical CSS: Sofortiges Responsive Design beim ersten Laden */
       @media (max-width: 780px) {
-        .hero { padding: 24px 0 72px; }
-        .nav { flex-wrap: wrap; margin: 0 auto 48px; padding: 0 16px; }
-        .site-nav { top: 0; margin: 0; padding: 12px 14px; }
+        .hero { padding: 20px 0 60px; }
+        .nav { flex-wrap: wrap; margin: 0 auto 32px; padding: 0; gap: 8px; }
+        .site-nav { top: 0; margin: 0; padding: 8px 10px 9px; }
         .site-nav::after { content: none; }
-        .site-nav .brand { width: auto; flex: 0 0 auto; margin-bottom: 0; }
-        .site-nav-logo { width: auto; height: clamp(64px, 13vw, 84px); }
+        .site-nav .brand { width: 100%; flex: 0 0 100%; margin-bottom: 4px; justify-content: center; }
+        .site-nav-logo { width: auto; height: clamp(48px, 10vw, 60px); }
         .hero-content { grid-template-columns: 1fr; gap: 32px; }
         .hero-visual { justify-content: center; }
         .hero-logo { width: min(68vw, 320px); }
-        .brand { width: 100%; text-align: center; margin-bottom: 16px; font-size: 1.5rem; }
+        .brand { width: 100%; text-align: center; margin-bottom: 8px; font-size: 1.5rem; }
         .nav-links { 
           order: 2; width: 100%; justify-content: flex-start; flex-wrap: nowrap; 
           overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; 
-          gap: 16px; font-size: 0.9rem; padding-bottom: 4px;
+          gap: 6px; font-size: 0.84rem; padding: 2px 2px 4px; scroll-padding-inline: 10px;
         }
         .nav-links::-webkit-scrollbar { display: none; }
-        .nav-links a { flex: 0 0 auto; white-space: nowrap; }
+        .nav-links a {
+          flex: 0 0 auto;
+          min-height: 36px;
+          padding: 7px 10px;
+          white-space: nowrap;
+          border: 1px solid rgba(31, 31, 38, 0.08);
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.5);
+        }
+        .nav-links a::after { display: none; }
         .hero-text { max-width: 100%; }
         .hero-text h1 { font-size: 2rem; margin: 16px 0 16px; }
         .lead { font-size: 1rem; }
@@ -443,12 +452,14 @@
       }
 
       @media (max-width: 540px) {
-        .hero { padding: 20px 0 60px; }
-        .nav { margin: 0 auto 36px; gap: 12px; }
-        .site-nav { padding: 10px 12px; }
-        .site-nav-logo { height: clamp(58px, 15vw, 74px); }
-        .brand { font-size: 1.3rem; margin-bottom: 12px; }
-        .nav-links { gap: 12px; font-size: 0.85rem; }
+        .hero { padding: 16px 0 52px; }
+        .nav { margin: 0 auto 24px; gap: 6px; }
+        .site-nav { padding: 7px 8px 8px; }
+        .site-nav-logo { height: clamp(44px, 12vw, 54px); }
+        .brand { font-size: 1.3rem; margin-bottom: 6px; }
+        .nav-links { gap: 6px; font-size: 0.8rem; }
+        .nav-links a { min-height: 34px; padding: 6px 9px; gap: 6px; }
+        .nav-links a svg { display: none; }
         .hero-logo { width: min(78vw, 240px); }
         .hero-text h1 { font-size: 1.6rem; margin: 12px 0 12px; }
         .lead { font-size: 0.95rem; line-height: 1.6; }
@@ -456,8 +467,8 @@
         .primary-button, .ghost-button { padding: 11px 18px; font-size: 0.9rem; }
       }
     </style>
-    <link rel="stylesheet" href="technik/styles.css?v=20260522-4" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="technik/styles.css?v=20260522-4" /></noscript>
+    <link rel="stylesheet" href="technik/styles.css?v=20260522-5" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="technik/styles.css?v=20260522-5" /></noscript>
   </head>
   <body>
     <script>
