@@ -7,9 +7,9 @@
 
   window.SITE_NEWS = [
     {
-      title: "Herzlich Willkommen im Hayat-Jiyan",
-      dateLabel: "Immer für Sie da",
-      text: "Wir freuen uns, Sie bei uns begrüßen zu dürfen. Genießen Sie unsere authentische Küche! Bei Fragen zu Reservierungen, Allergien oder Feiern (wie z.B. Weihnachtsfeiern) sprechen Sie uns gerne an."
+      title: "Willkommen im Hayat-Jiyan",
+      dateLabel: "Aktueller Hinweis",
+      text: "Schön, dass Sie da sind. Bei Fragen zu Reservierungen, Allergien oder Feiern sprechen Sie uns gerne an."
     },
     {
       title: "Fußball-WM Live!",

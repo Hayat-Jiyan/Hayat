@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://www.google.com" crossorigin />
     <link rel="dns-prefetch" href="//maps.google.com" />
     <link rel="dns-prefetch" href="//www.google.com" />
-    <link rel="preload" href="technik/styles.css?v=20260522-3" as="style" />
+    <link rel="preload" href="technik/styles.css?v=20260522-4" as="style" />
     <style>
       /* Critical CSS inlined to eliminate request chain */
       :root {
@@ -304,17 +304,16 @@
 
       .news-popup {
         position: fixed;
-        right: 0;
-        top: clamp(90px, 12vw, 110px);
-        bottom: auto;
-        z-index: 1300;
-        width: min(360px, calc(100vw - 20px));
-        padding: 20px 44px 20px 22px;
-        border-radius: var(--radius-md) 0 0 var(--radius-md);
+        left: clamp(12px, 3vw, 24px);
+        right: auto;
+        bottom: clamp(14px, 3vw, 24px);
+        z-index: 1180;
+        width: min(292px, calc(100vw - 28px));
+        padding: 14px 38px 14px 16px;
+        border-radius: var(--radius-sm);
         border: 1px solid var(--border);
-        border-right: none;
-        background: rgba(255, 255, 255, 0.96);
-        box-shadow: -10px 20px 44px rgba(31, 31, 38, 0.12);
+        background: rgba(255, 255, 255, 0.93);
+        box-shadow: 0 14px 30px rgba(31, 31, 38, 0.12);
       }
 
       .news-popup[hidden] {
@@ -457,8 +456,8 @@
         .primary-button, .ghost-button { padding: 11px 18px; font-size: 0.9rem; }
       }
     </style>
-    <link rel="stylesheet" href="technik/styles.css?v=20260522-3" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="technik/styles.css?v=20260522-3" /></noscript>
+    <link rel="stylesheet" href="technik/styles.css?v=20260522-4" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="technik/styles.css?v=20260522-4" /></noscript>
   </head>
   <body>
     <script>
@@ -1090,7 +1089,7 @@
     <!-- Bewertungen zentral in bearbeiten/reviews-data.js pflegen -->
     <script src="bearbeiten/reviews-data.js"></script>
     <!-- Neuigkeiten zentral in bearbeiten/news-data.js pflegen -->
-    <script src="bearbeiten/news-data.js"></script>
+    <script src="bearbeiten/news-data.js?v=20260522-4"></script>
     <!-- Preise zentral in bearbeiten/prices.js pflegen -->
     <script src="bearbeiten/prices.js"></script>
     <div id="cookie-consent-overlay" class="cookie-consent-overlay" hidden></div>
