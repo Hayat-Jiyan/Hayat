@@ -10,7 +10,7 @@
     {
       id: "vorspeisen",
       title: "Vorspeisen",
-      description: "Täglich frisch zubereitete Vorspeisen für den perfekten Start.",
+      description: "Täglich frisch zubereitete Vorspeisen für den perfekten Start.<br><br>🌱 <strong>Info:</strong> Wir bieten viele vegane Gerichte an und können Speisen oft nach Ihren Wünschen anpassen. Sprechen Sie uns bei Allergien oder besonderen Wünschen einfach darauf an!",
       sections: [
         {
           title: "Kalte Vorspeisen",

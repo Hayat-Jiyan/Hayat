@@ -225,6 +225,7 @@
     const newsPopup = document.getElementById("news-popup");
     const newsList = document.getElementById("news-popup-list");
     const newsClose = document.getElementById("news-popup-close");
+    const newsProgress = document.getElementById("news-popup-progress");
 
     if (!newsPopup || !newsList) {
       return;
@@ -244,9 +245,16 @@
     newsList.textContent = "";
     const fragment = document.createDocumentFragment();
 
+    const newsCards = [];
+
     visibleItems.forEach((item) => {
       const card = document.createElement("article");
       card.className = "news-popup-card";
+      card.style.display = "none";
+      card.style.opacity = "0";
+      // Startposition für den Swipe (rechts außerhalb)
+      card.style.transform = "translateX(100%)";
+      card.style.transition = "opacity 0.6s ease, transform 0.6s ease";
 
       const meta = document.createElement("p");
       meta.className = "news-popup-meta";
@@ -264,8 +272,65 @@
         card.appendChild(text);
       }
 
+      newsCards.push(card);
       fragment.appendChild(card);
     });
+
+    // Verhindert, dass die Karten während der Animation über den Rand ragen
+    newsList.style.overflowX = "hidden";
+
+    let intervalId;
+
+    if (newsCards.length > 0) {
+      newsCards[0].style.display = "block";
+      newsCards[0].offsetHeight; // Reflow erzwingen, damit die Transition greift
+      newsCards[0].style.opacity = "1";
+      newsCards[0].style.transform = "translateX(0)";
+      
+      if (newsProgress) {
+        newsProgress.hidden = false;
+        newsProgress.classList.add("is-running");
+      }
+      
+      let currentNewsIndex = 0;
+      intervalId = setInterval(() => {
+        const currentCard = newsCards[currentNewsIndex];
+        
+        // Aktuelle Karte nach links raus-swipen
+        currentCard.style.opacity = "0";
+        currentCard.style.transform = "translateX(-100%)";
+
+        setTimeout(() => {
+          currentCard.style.display = "none";
+          // Karte im Hintergrund wieder nach rechts schieben
+          currentCard.style.transform = "translateX(100%)";
+
+          currentNewsIndex++;
+          
+          // Wenn alle Nachrichten durch sind -> schließen
+          if (currentNewsIndex >= newsCards.length) {
+            clearInterval(intervalId);
+            newsPopup.style.transition = "opacity 0.4s ease";
+            newsPopup.style.opacity = "0";
+            setTimeout(() => {
+              newsPopup.hidden = true;
+              newsPopup.style.transition = "";
+              newsPopup.style.opacity = "";
+            }, 400);
+            return;
+          }
+
+          const nextCard = newsCards[currentNewsIndex];
+
+          nextCard.style.display = "block";
+          nextCard.offsetHeight; // Reflow erzwingen
+          
+          // Nächste Karte von rechts in die Mitte swipen
+          nextCard.style.opacity = "1";
+          nextCard.style.transform = "translateX(0)";
+        }, 600); // Wartezeit entspricht der CSS Transition-Dauer (0.6s)
+      }, 15000); // Alle 15 Sekunden wechseln
+    }
 
     newsList.appendChild(fragment);
     newsPopup.hidden = false;
@@ -273,6 +338,7 @@
     if (newsClose) {
       newsClose.addEventListener("click", () => {
         newsPopup.hidden = true;
+        if (intervalId) clearInterval(intervalId);
       }, { once: true });
     }
   };
@@ -828,8 +894,104 @@
     const successMessage = document.getElementById('reservation-success');
     const errorMessage = document.getElementById('reservation-form-error');
     const reservationDateInput = document.getElementById('res-date');
-    const reservationTimeInput = document.getElementById('res-time');
+    let reservationTimeInput = document.getElementById('res-time');
     const reservationPhoneInput = document.getElementById('res-phone');
+
+    // Zeit-Feld in anklickbare Blöcke umwandeln
+    if (reservationTimeInput && reservationTimeInput.tagName.toLowerCase() === 'input') {
+      const timeContainer = document.createElement('div');
+      timeContainer.className = 'time-grid-container';
+      timeContainer.style.display = 'grid';
+      timeContainer.style.gridTemplateColumns = 'repeat(auto-fill, minmax(70px, 1fr))';
+      timeContainer.style.gap = '10px';
+      timeContainer.style.marginTop = '8px';
+      timeContainer.style.marginBottom = '8px';
+      const timeRadios = [];
+
+      for (let h = 18; h <= 20; h++) {
+        for (let m = 0; m < 60; m += 5) { // 5 Min Takt für saubere Blöcke
+          if (h === 20 && m > 0) continue; // Letzte Zeit 20:00
+          
+          const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+          
+          const label = document.createElement('label');
+          label.style.display = 'block';
+          label.style.cursor = 'pointer';
+          label.style.position = 'relative';
+
+          const radio = document.createElement('input');
+          radio.type = 'radio';
+          radio.name = reservationTimeInput.name;
+          radio.value = timeStr;
+          radio.required = true;
+          radio.style.position = 'absolute';
+          radio.style.opacity = '0';
+          
+          const span = document.createElement('span');
+          span.textContent = timeStr;
+          span.style.display = 'block';
+          span.style.textAlign = 'center';
+          span.style.padding = '10px 4px';
+          span.style.border = '1px solid var(--border)';
+          span.style.borderRadius = 'var(--radius-sm)';
+          span.style.background = 'var(--card)';
+          span.style.color = 'var(--text)';
+          span.style.fontSize = '0.95rem';
+          span.style.transition = 'all 0.2s ease';
+
+          radio.addEventListener('change', () => {
+            timeContainer.querySelectorAll('span').forEach(s => {
+              s.style.background = 'var(--card)';
+              s.style.color = 'var(--text)';
+              s.style.borderColor = 'var(--border)';
+              s.style.fontWeight = 'normal';
+            });
+            if (radio.checked) {
+              span.style.background = 'linear-gradient(135deg, var(--accent), var(--accent-strong))';
+              span.style.color = '#fff';
+              span.style.borderColor = 'transparent';
+              span.style.fontWeight = '600';
+            }
+            updateReservationValidationMessage();
+          });
+
+          radio.addEventListener('focus', () => {
+            span.style.boxShadow = '0 0 0 2px var(--bg), 0 0 0 4px var(--accent)';
+          });
+          radio.addEventListener('blur', () => {
+            span.style.boxShadow = 'none';
+          });
+
+          label.appendChild(radio);
+          label.appendChild(span);
+          timeContainer.appendChild(label);
+          timeRadios.push(radio);
+        }
+      }
+
+      reservationTimeInput.parentNode.replaceChild(timeContainer, reservationTimeInput);
+      
+      reservationTimeInput = {
+        get value() {
+          const checked = timeRadios.find(r => r.checked);
+          return checked ? checked.value : '';
+        },
+        setCustomValidity: (msg) => {
+          if (timeRadios.length > 0) timeRadios[0].setCustomValidity(msg);
+        },
+        get validationMessage() {
+          return timeRadios.length > 0 ? timeRadios[0].validationMessage : '';
+        },
+        focus: () => {
+          if (timeRadios.length > 0) timeRadios[0].focus();
+        },
+        radios: timeRadios,
+        tagName: 'radiogroup',
+        addEventListener: (event, handler) => {
+          timeRadios.forEach(r => r.addEventListener(event, handler));
+        }
+      };
+    }
 
     const formatDateForInput = (date) => {
       const year = date.getFullYear();
@@ -967,9 +1129,37 @@
         reservationDateInput.min = currentDate;
       }
 
-      // Öffnungszeiten festlegen (18:00 - 00:00)
-      reservationTimeInput.min = "18:00"; 
-      reservationTimeInput.max = "23:30"; 
+      // Vergangene Uhrzeiten für heute in den Blöcken deaktivieren
+      if (reservationTimeInput.tagName === 'radiogroup') {
+        const isToday = (reservationDateInput.value === currentDate);
+        const currentTotalMins = currentHour * 60 + now.getMinutes();
+
+        reservationTimeInput.radios.forEach(radio => {
+          const span = radio.nextElementSibling;
+          const label = radio.parentElement;
+          if (isToday) {
+            const [optH, optM] = radio.value.split(':').map(Number);
+            const optTotalMins = optH * 60 + optM;
+            const isDisabled = optTotalMins <= currentTotalMins;
+            
+            radio.disabled = isDisabled;
+            span.style.opacity = isDisabled ? '0.4' : '1';
+            label.style.cursor = isDisabled ? 'not-allowed' : 'pointer';
+            
+            if (isDisabled && radio.checked) {
+               radio.checked = false;
+               span.style.background = 'var(--card)';
+               span.style.color = 'var(--text)';
+               span.style.borderColor = 'var(--border)';
+               span.style.fontWeight = 'normal';
+            }
+          } else {
+            radio.disabled = false;
+            span.style.opacity = '1';
+            label.style.cursor = 'pointer';
+          }
+        });
+      }
 
       validateReservationDateTime();
     };
@@ -1036,8 +1226,12 @@
           }
         });
         const firstMissing = requiredFields.find((field) => {
-          if (field.type === 'checkbox' || field.type === 'radio') {
+          if (field.type === 'checkbox') {
             return !field.checked;
+          }
+          if (field.type === 'radio') {
+            const group = reservationForm.querySelectorAll(`input[name="${field.name}"]`);
+            return !Array.from(group).some(r => r.checked);
           }
           return !field.value || !field.value.trim();
         });
@@ -1118,6 +1312,87 @@
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Anfrage absenden';
+          }
+        }
+      });
+    }
+
+    // --- INQUIRY WIDGET LOGIC ---
+    const inquiryBtn = document.getElementById("inquiry-btn");
+    const inquiryPopup = document.getElementById("inquiry-popup");
+    const inquiryClose = document.getElementById("inquiry-popup-close");
+    const inquiryForm = document.getElementById("inquiry-form");
+    const inquirySuccess = document.getElementById("inquiry-success");
+    const inquiryError = document.getElementById("inquiry-form-error");
+    const newsPopupRef = document.getElementById("news-popup");
+    
+    if (inquiryBtn && inquiryPopup && inquiryClose) {
+      inquiryBtn.addEventListener("click", () => {
+        const isHidden = inquiryPopup.hidden;
+        inquiryPopup.hidden = !isHidden;
+        
+        if (!isHidden) {
+           // Wenn das Anfragefenster geöffnet wird, News-Popup ausblenden falls offen
+           if (newsPopupRef && !newsPopupRef.hidden) {
+             newsPopupRef.hidden = true;
+           }
+           // Formular-Zustand zurücksetzen, falls es vorher erfolgreich gesendet wurde
+           if (inquirySuccess && !inquirySuccess.hidden) {
+             inquirySuccess.hidden = true;
+             inquiryForm.style.display = "block";
+             inquiryForm.reset();
+             const submitBtn = inquiryForm.querySelector('button[type="submit"]');
+             if (submitBtn) {
+               submitBtn.disabled = false;
+               submitBtn.textContent = "Nachricht senden";
+             }
+           }
+        }
+      });
+
+      inquiryClose.addEventListener("click", () => {
+        inquiryPopup.hidden = true;
+      });
+    }
+
+    if (inquiryForm) {
+      inquiryForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (inquiryError) {
+          inquiryError.hidden = true;
+          inquiryError.textContent = "";
+        }
+        
+        const submitBtn = inquiryForm.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Wird gesendet…";
+        }
+
+        const formData = new FormData(inquiryForm);
+        const action = inquiryForm.getAttribute("action");
+
+        try {
+          const response = await fetch(action, {
+            method: "POST",
+            body: formData,
+            headers: { Accept: "application/json" }
+          });
+          
+          if (response.ok) {
+            inquiryForm.style.display = "none";
+            if (inquirySuccess) inquirySuccess.hidden = false;
+          } else {
+            throw new Error("Fehler beim Senden");
+          }
+        } catch (err) {
+          if (inquiryError) {
+            inquiryError.textContent = "Etwas ist schiefgelaufen. Bitte später erneut versuchen.";
+            inquiryError.hidden = false;
+          }
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Nachricht senden";
           }
         }
       });
