@@ -210,15 +210,306 @@
     return true;
   };
 
+  const isDateInClosedRange = (dateKey, item) => {
+    if (!dateKey || !item) {
+      return false;
+    }
+
+    const closedDates = Array.isArray(item.closedDates) ? item.closedDates : [];
+    if (closedDates.includes(dateKey)) {
+      return true;
+    }
+
+    const closedFrom = String(item.closedFrom || "").trim();
+    const closedUntil = String(item.closedUntil || "").trim();
+    if (!closedFrom && !closedUntil) {
+      return false;
+    }
+
+    if (closedFrom && dateKey < closedFrom) {
+      return false;
+    }
+
+    if (closedUntil && dateKey > closedUntil) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const formatGermanDate = (dateKey) => {
+    const parts = String(dateKey || "").split("-");
+    if (parts.length !== 3) {
+      return "";
+    }
+    return `${parts[2]}.${parts[1]}.${parts[0]}`;
+  };
+
+  const getClosureMessage = (item) => {
+    const customMessage = String(item && item.closureMessage ? item.closureMessage : "").trim();
+    if (customMessage) {
+      return customMessage;
+    }
+
+    if (item && (item.closedFrom || item.closedUntil)) {
+      return `${item.title || "In diesem Zeitraum sind keine Reservierungen möglich."}`;
+    }
+
+    return `${item && item.title ? item.title : "An diesem Tag sind keine Reservierungen möglich."} Wir haben an diesem Tag eine geschlossene Gesellschaft.`;
+  };
+
   const getReservationClosureForDate = (dateKey) => {
     if (!dateKey) {
       return null;
     }
 
-    return siteNews.find((item) => {
-      const closedDates = Array.isArray(item && item.closedDates) ? item.closedDates : [];
-      return closedDates.includes(dateKey);
-    }) || null;
+    return siteNews.find((item) => isDateInClosedRange(dateKey, item)) || null;
+  };
+
+  const getActiveClosureNotices = (todayKey) => {
+    return siteNews.filter((item) => {
+      if (!item || (!item.closedFrom && !item.closedUntil && !Array.isArray(item.closedDates))) {
+        return false;
+      }
+      return isNewsVisible(item, todayKey);
+    });
+  };
+
+  const renderReservationClosureNotice = () => {
+    let notice = document.getElementById("reservation-closure-notice");
+    if (!notice) {
+      const container = document.getElementById("reservation-form-container");
+      if (!container) {
+        return;
+      }
+      notice = document.createElement("p");
+      notice.id = "reservation-closure-notice";
+      notice.className = "reservation-closure-notice";
+      notice.hidden = true;
+      container.insertBefore(notice, container.firstChild);
+    }
+
+    const todayKey = getTodayKey();
+    const notices = getActiveClosureNotices(todayKey).filter(
+      (item) => item.closedFrom || item.closedUntil
+    );
+
+    if (!notices.length) {
+      notice.hidden = true;
+      notice.textContent = "";
+      return;
+    }
+
+    const primary = notices[0];
+    const fromLabel = formatGermanDate(primary.closedFrom);
+    const untilLabel = formatGermanDate(primary.closedUntil);
+    const reopenLabel = formatGermanDate(primary.reopen);
+    const reopenText = reopenLabel
+      ? ` Ab dem ${reopenLabel} sind wir wieder für euch da.`
+      : "";
+    notice.textContent = `Vom ${fromLabel} bis ${untilLabel} haben wir Betriebsurlaub. In diesem Zeitraum sind keine Reservierungen möglich.${reopenText}`;
+    notice.hidden = false;
+  };
+
+  const ensureClosureModalElements = () => {
+    let overlay = document.getElementById("closure-overlay");
+    let modal = document.getElementById("closure-modal");
+    const needsRebuild = modal && !document.getElementById("closure-image");
+
+    if (needsRebuild) {
+      overlay?.remove();
+      modal.remove();
+      overlay = null;
+      modal = null;
+    }
+
+    if (overlay && modal) {
+      return {
+        overlay: overlay,
+        modal: modal,
+        eyebrow: document.getElementById("closure-eyebrow"),
+        title: document.getElementById("closure-title"),
+        text: document.getElementById("closure-text"),
+        image: document.getElementById("closure-image"),
+        textWrap: document.getElementById("closure-text-wrap"),
+        closeBtn: document.getElementById("closure-close"),
+        okBtn: document.getElementById("closure-ok")
+      };
+    }
+
+    overlay = document.createElement("div");
+    overlay.id = "closure-overlay";
+    overlay.className = "closure-overlay";
+    overlay.hidden = true;
+    overlay.setAttribute("aria-hidden", "true");
+
+    modal = document.createElement("div");
+    modal.id = "closure-modal";
+    modal.className = "closure-modal";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.setAttribute("aria-labelledby", "closure-title");
+    modal.hidden = true;
+    modal.innerHTML =
+      '<button type="button" id="closure-close" class="closure-close" aria-label="Schließen">×</button>' +
+      '<img id="closure-image" class="closure-poster" alt="" hidden />' +
+      '<div id="closure-text-wrap" class="closure-text-wrap">' +
+      '<p class="closure-eyebrow" id="closure-eyebrow"></p>' +
+      '<h2 id="closure-title"></h2>' +
+      '<p class="closure-text" id="closure-text"></p>' +
+      "</div>" +
+      '<button type="button" id="closure-ok" class="primary-button">Verstanden</button>';
+
+    const cookieOverlay = document.getElementById("cookie-consent-overlay");
+    if (cookieOverlay && cookieOverlay.parentNode) {
+      cookieOverlay.parentNode.insertBefore(overlay, cookieOverlay);
+      cookieOverlay.parentNode.insertBefore(modal, cookieOverlay);
+    } else {
+      document.body.appendChild(overlay);
+      document.body.appendChild(modal);
+    }
+
+    return {
+      overlay: overlay,
+      modal: modal,
+      eyebrow: document.getElementById("closure-eyebrow"),
+      title: document.getElementById("closure-title"),
+      text: document.getElementById("closure-text"),
+      image: document.getElementById("closure-image"),
+      textWrap: document.getElementById("closure-text-wrap"),
+      closeBtn: document.getElementById("closure-close"),
+      okBtn: document.getElementById("closure-ok")
+    };
+  };
+
+  const renderClosureModal = () => {
+    const nodes = ensureClosureModalElements();
+    const overlay = nodes.overlay;
+    const modal = nodes.modal;
+    const eyebrow = nodes.eyebrow;
+    const title = nodes.title;
+    const text = nodes.text;
+    const image = nodes.image;
+    const textWrap = nodes.textWrap;
+    const closeBtn = nodes.closeBtn;
+    const okBtn = nodes.okBtn;
+
+    if (!overlay || !modal) {
+      return;
+    }
+
+    const todayKey = getTodayKey();
+    const modalItem = siteNews.find((item) => {
+      return item && item.modal === true && isNewsVisible(item, todayKey);
+    });
+
+    if (!modalItem) {
+      overlay.hidden = true;
+      modal.hidden = true;
+      return;
+    }
+
+    const dismissKey = `hayat_modal_dismissed_${String(modalItem.id || modalItem.title || "news").trim()}_v2`;
+    const persistDismiss = modalItem.modalDismiss === "session" || modalItem.modalDismiss === "local";
+
+    if (persistDismiss) {
+      const storage = modalItem.modalDismiss === "local" ? localStorage : sessionStorage;
+      try {
+        if (storage.getItem(dismissKey) === "1") {
+          overlay.hidden = true;
+          modal.hidden = true;
+          return;
+        }
+      } catch (error) {
+        // Ignore storage failures.
+      }
+    }
+
+    const imageSrc = String(modalItem.image || "").trim();
+    const hasPoster = Boolean(imageSrc);
+
+    modal.classList.toggle("closure-modal--poster", hasPoster);
+
+    if (image) {
+      if (hasPoster) {
+        image.src = imageSrc;
+        image.alt = String(modalItem.title || "Betriebsurlaub").trim();
+        image.hidden = false;
+      } else {
+        image.hidden = true;
+        image.removeAttribute("src");
+      }
+    }
+
+    if (textWrap) {
+      textWrap.hidden = hasPoster;
+    }
+
+    if (!hasPoster) {
+      if (eyebrow) {
+        eyebrow.textContent = String(modalItem.dateLabel || "").trim();
+        eyebrow.hidden = !String(modalItem.dateLabel || "").trim();
+      }
+      if (title) {
+        title.textContent = String(modalItem.title || "Hinweis").trim();
+      }
+      if (text) {
+        text.textContent = String(modalItem.text || "").trim();
+      }
+    }
+
+    if (okBtn) {
+      okBtn.textContent = "Verstanden";
+      okBtn.hidden = hasPoster;
+    }
+
+    const hideModal = () => {
+      overlay.hidden = true;
+      modal.hidden = true;
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("closure-open");
+      if (persistDismiss) {
+        const storage = modalItem.modalDismiss === "local" ? localStorage : sessionStorage;
+        try {
+          storage.setItem(dismissKey, "1");
+        } catch (error) {
+          // Ignore storage failures.
+        }
+      }
+    };
+
+    modal.onclick = (event) => {
+      event.stopPropagation();
+    };
+
+    overlay.hidden = false;
+    modal.hidden = false;
+    modal.removeAttribute("hidden");
+    overlay.removeAttribute("hidden");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.classList.add("closure-open");
+
+    if (closeBtn) {
+      closeBtn.onclick = hideModal;
+      if (hasPoster) {
+        closeBtn.focus();
+      }
+    }
+    if (okBtn && !hasPoster) {
+      okBtn.onclick = hideModal;
+      okBtn.focus();
+    }
+    overlay.onclick = hideModal;
+
+    document.addEventListener(
+      "keydown",
+      function onEscape(event) {
+        if (event.key === "Escape" && !modal.hidden) {
+          hideModal();
+          document.removeEventListener("keydown", onEscape);
+        }
+      }
+    );
   };
 
   const renderSiteNews = () => {
@@ -233,7 +524,12 @@
 
     const todayKey = getTodayKey();
     const visibleItems = siteNews.filter((item) => {
-      return item && String(item.title || "").trim() && isNewsVisible(item, todayKey);
+      return (
+        item &&
+        (!item.modal || item.showInNews) &&
+        String(item.title || "").trim() &&
+        isNewsVisible(item, todayKey)
+      );
     });
 
     if (!visibleItems.length) {
@@ -538,6 +834,8 @@
     initIntroSequence();
     initNavScrollState();
     applyCatalogPricesToHighlights();
+    renderClosureModal();
+    renderReservationClosureNotice();
     renderSiteNews();
     renderManualReviews();
     initGalleryLightbox();
@@ -1153,7 +1451,7 @@
       reservationDateInput.setCustomValidity('');
       const closure = getReservationClosureForDate(selectedDate);
       if (closure) {
-        const message = `${closure.title || "An diesem Tag sind keine Reservierungen möglich."} Wir haben an diesem Tag eine geschlossene Gesellschaft.`;
+        const message = getClosureMessage(closure);
         reservationDateInput.setCustomValidity(message);
         reservationTimeInput.setCustomValidity('');
         return false;

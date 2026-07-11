@@ -1631,11 +1631,150 @@ main section:first-of-type {
   transform: translateY(-1px);
 }
 
+/* Betriebsurlaub / Modal-Hinweise */
+.closure-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  background: rgba(31, 31, 38, 0.55);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+}
+
+.closure-overlay[hidden] {
+  display: none !important;
+}
+
+.closure-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2147483647;
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  padding: 32px 28px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  cursor: default;
+}
+
+.closure-modal--poster {
+  width: min(680px, calc(100vw - 16px));
+  padding: 10px 10px 12px;
+  max-height: calc(100vh - 16px);
+}
+
+.closure-poster {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 56px);
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+.closure-modal--poster .closure-close {
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(31, 31, 38, 0.12);
+  box-shadow: 0 4px 12px rgba(31, 31, 38, 0.12);
+}
+
+.closure-modal--poster .primary-button {
+  display: none;
+}
+
+.closure-text-wrap[hidden] {
+  display: none !important;
+}
+
+.closure-poster[hidden] {
+  display: none !important;
+}
+
+.closure-modal[hidden] {
+  display: none !important;
+}
+
+body.closure-open {
+  overflow: hidden;
+}
+
+.closure-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: 0;
+  background: transparent;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 4px 8px;
+}
+
+.closure-close:hover,
+.closure-close:focus-visible {
+  color: var(--text);
+}
+
+.closure-eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.closure-modal h2 {
+  margin: 0 0 16px;
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.2rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1e3a5f;
+  font-weight: 700;
+}
+
+.closure-text {
+  margin: 0 0 20px;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.closure-modal .primary-button {
+  min-width: 160px;
+}
+
+.reservation-closure-notice {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: rgba(210, 106, 44, 0.1);
+  border: 1px solid rgba(210, 106, 44, 0.25);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  max-width: 420px;
+}
+
 /* Cookie-Consent: Overlay und Banner liegen ueber allem (z. B. Google Maps) */
 .cookie-consent-overlay {
   position: fixed;
   inset: 0;
-  z-index: 2147483646;
+  z-index: 2147483644;
   background: rgba(0, 0, 0, 0.2);
   cursor: default;
 }
@@ -1661,7 +1800,7 @@ main section:first-of-type {
   align-items: center;
   justify-content: center;
   gap: 20px;
-  z-index: 2147483647;
+  z-index: 2147483643;
   pointer-events: auto;
 }
 
@@ -2647,5 +2786,22 @@ main section:first-of-type {
 
   .cookie-banner .primary-button {
     width: 100%;
+  }
+
+  .closure-modal--poster {
+    width: calc(100vw - 12px);
+    padding: 8px;
+    max-height: calc(100vh - 12px);
+  }
+
+  .closure-poster {
+    max-height: calc(100vh - 40px);
+  }
+
+  .closure-modal--poster .closure-close {
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
   }
 }
