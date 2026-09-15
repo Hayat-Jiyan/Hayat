@@ -70,7 +70,7 @@
         {
           items: [
             { name: "36 Zucchinipuffer", description: "Mit Salat und Cacık" },
-            { name: "37 Humus-Spinat-Köfte", description: "Mit Bulgur, Reis und Salat" },
+            { name: "37 Hummus-Spinat-Köfte", description: "Mit Bulgur, Reis und Salat" },
             { name: "38 Teigtaschen mit Gemüse", description: "Mit Hirtenkäse, Salat und Cacık" },
             { name: "43 Falafel", description: "Mit Joghurt und Salat" },
             { name: "44 Putencurry", description: "Mit Bulgur, Reis und Salat" },
@@ -280,7 +280,7 @@
           title: "Weißwein",
           items: [
             {
-              name: "Grauburgunder",
+              name: "Grauburgunder (enthält Sulfite)",
               description: "Volle Frucht und ausgeprägter Geschmack."
             },
             {
@@ -296,7 +296,7 @@
               name: "Merlot (enthält Sulfite)",
               description: "Rebsorte Merlot – hat die Frucht, die ihm nachgesagt wird. Passt immer!"
             },
-            { name: "Montepulciano d'Abruzzo" }
+            { name: "Montepulciano d'Abruzzo (enthält Sulfite)" }
           ]
         },
         {

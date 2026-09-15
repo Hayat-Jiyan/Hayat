@@ -81,7 +81,9 @@
     }
 
     if (reviewsMeta) {
-      reviewsMeta.textContent = "Ausgewählte Stimmen von unseren Gästen.";
+      // Pflichthinweis nach § 5b Abs. 3 UWG: ob und wie die Echtheit der Bewertungen geprueft wird.
+      reviewsMeta.textContent =
+        "Eine Auswahl von Google-Bewertungen unserer Gäste. Die Auswahl treffen wir selbst; ob die Verfasser tatsächlich bei uns zu Gast waren, können wir nicht überprüfen.";
     }
 
     reviewsGrid.textContent = "";
@@ -360,14 +362,8 @@
       "</div>" +
       '<button type="button" id="closure-ok" class="primary-button">Verstanden</button>';
 
-    const cookieOverlay = document.getElementById("cookie-consent-overlay");
-    if (cookieOverlay && cookieOverlay.parentNode) {
-      cookieOverlay.parentNode.insertBefore(overlay, cookieOverlay);
-      cookieOverlay.parentNode.insertBefore(modal, cookieOverlay);
-    } else {
-      document.body.appendChild(overlay);
-      document.body.appendChild(modal);
-    }
+    document.body.appendChild(overlay);
+    document.body.appendChild(modal);
 
     return {
       overlay: overlay,
@@ -1158,32 +1154,18 @@
       renderSpread(currentSpreadIndex);
     });
 
-    // Lazy load Google Maps to reduce unused JavaScript
+    // Google Maps nur nach Klick auf "Karte laden" einbinden (Einwilligung, siehe Datenschutzerklaerung).
+    // Nicht automatisch beim Scrollen laden, sonst gehen ohne Einwilligung Daten an Google.
     const mapPlaceholder = document.getElementById('map-placeholder');
     const loadMapBtn = document.getElementById('load-map-btn');
     const googleMap = document.getElementById('google-map');
 
-    if (loadMapBtn && googleMap) {
+    if (loadMapBtn && googleMap && mapPlaceholder) {
       loadMapBtn.addEventListener('click', () => {
-        // Load the map only when user clicks
         googleMap.src = googleMap.dataset.src;
         googleMap.style.display = 'block';
         mapPlaceholder.style.display = 'none';
       });
-
-      // Also load on scroll into view (Intersection Observer)
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !googleMap.src) {
-            googleMap.src = googleMap.dataset.src;
-            googleMap.style.display = 'block';
-            mapPlaceholder.style.display = 'none';
-            observer.disconnect();
-          }
-        });
-      }, { rootMargin: '50px' });
-
-      observer.observe(mapPlaceholder);
     }
 
     // Reservierungsformular: per fetch an Formspree senden, Bestätigung anzeigen
@@ -1378,12 +1360,23 @@
       return `${hours}:${minutes}`;
     };
 
+    // Ruhetage laut Oeffnungszeiten: Sonntag (0) und Montag (1)
+    const RESERVATION_REST_DAYS = [0, 1];
+    const isRestDay = (dateKey) => {
+      const parts = String(dateKey || '').split('-').map(Number);
+      if (parts.length !== 3 || parts.some((part) => Number.isNaN(part))) {
+        return false;
+      }
+      const weekday = new Date(parts[0], parts[1] - 1, parts[2]).getDay();
+      return RESERVATION_REST_DAYS.includes(weekday);
+    };
+
     const getReservationFieldLabel = (field) => {
       const fieldNames = {
         name: 'Name',
         email: 'E-Mail',
         phone: 'Telefon',
-        guests: 'Anzahl Gaeste',
+        guests: 'Anzahl Gäste',
         date: 'Datum',
         time: 'Uhrzeit'
       };
@@ -1453,6 +1446,12 @@
       if (closure) {
         const message = getClosureMessage(closure);
         reservationDateInput.setCustomValidity(message);
+        reservationTimeInput.setCustomValidity('');
+        return false;
+      }
+
+      if (isRestDay(selectedDate)) {
+        reservationDateInput.setCustomValidity('Sonntag und Montag sind unsere Ruhetage. Bitte wählen Sie einen Tag von Dienstag bis Samstag.');
         reservationTimeInput.setCustomValidity('');
         return false;
       }
@@ -1598,7 +1597,7 @@
           return !field.value || !field.value.trim();
         });
         if (firstMissing) {
-          errorMessage.textContent = `Bitte fuellen Sie das Feld "${getReservationFieldLabel(firstMissing)}" aus.`;
+          errorMessage.textContent = `Bitte füllen Sie das Feld "${getReservationFieldLabel(firstMissing)}" aus.`;
           errorMessage.hidden = false;
           firstMissing.focus();
           return;
@@ -1622,7 +1621,7 @@
         }
         const firstInvalid = requiredFields.find((field) => !field.checkValidity());
         if (firstInvalid) {
-          errorMessage.textContent = firstInvalid.validationMessage || `Bitte pruefen Sie das Feld "${getReservationFieldLabel(firstInvalid)}".`;
+          errorMessage.textContent = firstInvalid.validationMessage || `Bitte prüfen Sie das Feld "${getReservationFieldLabel(firstInvalid)}".`;
           errorMessage.hidden = false;
           firstInvalid.focus();
           return;

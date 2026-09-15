@@ -1345,10 +1345,17 @@ main section:first-of-type {
 }
 
 .map-placeholder-content p {
-  margin: 0 0 24px;
+  max-width: 440px;
+  margin: 0 auto 24px;
   color: var(--text-secondary);
   font-size: 1rem;
   line-height: 1.6;
+}
+
+.map-placeholder-content p a {
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* Reservierungsformular */
@@ -1499,6 +1506,19 @@ main section:first-of-type {
   font-size: 0.88rem;
   font-weight: 600;
   line-height: 1.5;
+}
+
+.form-hint {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.form-hint a {
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .reservation-form-wrapper .form-error {
@@ -1768,75 +1788,6 @@ body.closure-open {
   font-size: 0.95rem;
   line-height: 1.55;
   max-width: 420px;
-}
-
-/* Cookie-Consent: Overlay und Banner liegen ueber allem (z. B. Google Maps) */
-.cookie-consent-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2147483644;
-  background: rgba(0, 0, 0, 0.2);
-  cursor: default;
-}
-
-.cookie-consent-overlay[hidden],
-.cookie-consent-overlay.cookie-banner--hidden {
-  display: none !important;
-}
-
-.cookie-banner {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px var(--max-width);
-  padding-left: max(4vw, 20px);
-  padding-right: max(4vw, 20px);
-  background: var(--card);
-  border-top: 1px solid var(--border);
-  box-shadow: 0 -4px 24px rgba(31, 31, 38, 0.08);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  z-index: 2147483643;
-  pointer-events: auto;
-}
-
-.cookie-banner[hidden],
-.cookie-banner.cookie-banner--hidden {
-  display: none !important;
-}
-
-.cookie-banner .primary-button {
-  position: relative;
-  z-index: 1;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-.cookie-banner-text {
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--text-secondary);
-  max-width: min(560px, 100%);
-}
-
-.cookie-banner-text a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.cookie-banner-text a:hover,
-.cookie-banner-text a:focus-visible {
-  color: var(--accent-strong);
-}
-
-.cookie-banner .primary-button {
-  flex-shrink: 0;
 }
 
 /* Schwebender "Nach oben"-Button */
@@ -2456,15 +2407,6 @@ body.closure-open {
     font-size: 0.95rem;
     margin: 0 0 12px;
   }
-
-  .cookie-banner {
-    padding: 18px 20px;
-    gap: 16px;
-  }
-
-  .cookie-banner-text {
-    font-size: 0.9rem;
-  }
 }
 
 @media (max-width: 540px) {
@@ -2770,22 +2712,6 @@ body.closure-open {
     right: 20px;
     width: 44px;
     height: 44px;
-  }
-
-  .cookie-banner {
-    padding: 16px 16px 20px;
-    gap: 14px;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .cookie-banner-text {
-    font-size: 0.85rem;
-    text-align: center;
-  }
-
-  .cookie-banner .primary-button {
-    width: 100%;
   }
 
   .closure-modal--poster {

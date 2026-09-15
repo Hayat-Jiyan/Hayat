@@ -17,6 +17,7 @@ Die Website ist jetzt in klare Arbeitsbereiche sortiert.
 - `technik/` - technische Dateien fuer Design und Funktionen
 - `assets/` - aktive Bilder, Logo und PDF-Speisekarte
 - `tools/` - Hilfsskripte
+- `index.html` beginnt mit mehreren unsichtbaren BOM-Zeichen - bitte nicht entfernen: Ohne sie stuft Windows Defender die Datei faelschlich als Phishing ein (Trojan:HTML/Phish) und loescht sie lokal. Nebenwirkung: Browser zeigen die Startseite im Quirks-Modus an.
 
 ## Nicht aktiv
 

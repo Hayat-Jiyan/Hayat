@@ -67,7 +67,7 @@
 
   // --- Aus der Pfanne ---
   addPrice("Zucchinipuffer", "11,90 €", 36);
-  addPrice("Humus-Spinat-Köfte", "11,90 €", 37);
+  addPrice("Hummus-Spinat-Köfte", "11,90 €", 37);
   addPrice("Teigtaschen mit Gemüse", "12,50 €", 38);
   addPrice("Falafel", "11,90 €", 43);
   addPrice("Putencurry", "13,90 €", 44);
@@ -160,10 +160,10 @@
   addPrice("103", "3,00 €", 103);
 
   // --- Weinkarte (0,1 l / 0,2 l) ---
-  addPrice("Grauburgunder", "2,50 € / 4,90 €");
+  addPrice("Grauburgunder (enthält Sulfite)", "2,50 € / 4,90 €");
   addPrice("Riesling (enthält Sulfite)", "2,50 € / 4,90 €");
   addPrice("Merlot (enthält Sulfite)", "2,50 € / 4,90 €");
-  addPrice("Montepulciano d'Abruzzo", "2,50 € / 4,90 €");
+  addPrice("Montepulciano d'Abruzzo (enthält Sulfite)", "2,50 € / 4,90 €");
   addPrice("Weißweinschorle (enthält Sulfite)", "4,00 €");
 
   window.PRICE_CATALOG = priceCatalog;
