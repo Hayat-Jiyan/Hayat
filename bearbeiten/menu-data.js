@@ -1,7 +1,8 @@
 // BEARBEITEN: Zentrale Menue-Texte fuer die Website.
 // Gerichtsnamen, Beschreibungen und Kategorien nur hier pflegen.
 // Preise werden zentral in bearbeiten/prices.js gepflegt.
-// { name: "3 Cacık (...)", price: "5,50 €", description: "Ihr Beschreibungstext" }
+// Stand: Speisekarte September 2026.
+// { name: "3 Cacık", description: "Ihr Beschreibungstext" }
 
 (function () {
   "use strict";
@@ -17,29 +18,30 @@
           items: [
             { name: "1 Portion Oliven" },
             { name: "2 Portion Peperoni" },
-            { name: "3 Cacık (Knoblauch, Gurken, Joghurt)", description: "Joghurt-Gurken-Dip mit Knoblauch" },
+            { name: "3 Cacık", description: "Joghurt-Gurken-Dip mit Knoblauch" },
             { name: "4 Spinat Ezme", description: "Spinat-Joghurt-Paste" },
-            { name: "5 Sigara Böreği", description: "Knusprige Yufka-Röllchen mit Käse" },
+            { name: "5 Sigara Börek", description: "Mit Salat und Cacık" },
             { name: "6 Havuç Ezme", description: "Karotten-Joghurt-Paste" },
             { name: "7 Muhammara", description: "Paprika-Walnuss-Creme" },
-            { name: "8 Haydari Ezme", description: "Cremiger Joghurt-Dip mit Kräutern und Knoblauch" },
-            { name: "9 Gefüllte Weinblätter" },
-            { name: "10 Türkischer Teller" },
-            { name: "11 Kalte Platte" },
+            { name: "8 Haydari", description: "Joghurt-Dip mit Dill und Knoblauch" },
+            { name: "9 Gefüllte Weinblätter", description: "Mit Joghurt" },
+            { name: "10 Türkischer Teller", description: "Türkische Wurst, Käse, Peperoni, Oliven, Salat" },
+            { name: "11 Kalte Platte", description: "Hummus, Spinat Ezme, Oliven, Peperoni, Sigara Börek, gefülltes Weinblatt, gebratenes Gemüse" },
             { name: "12 Auberginen Ezme", description: "Geräucherte Auberginen-Paprikacreme" },
-            { name: "13 Gebratenes Gemüse" },
-            { name: "14 Antep-Ezme", description: "Scharfe Tomaten-Paprika-Paste" },
-            { name: "15 Humuz", description: "Kichererbsenpüree mit Tahin" },
-            { name: "16 HAYAT-Vorspeisenteller" }
+            { name: "13 Gebratenes Gemüse", description: "Mit Joghurt" },
+            { name: "14 Antep Ezme", description: "Paprika-Paste mit Zwiebeln, scharf" },
+            { name: "15 Hummus", description: "Kichererbsenpüree mit Sesampaste" },
+            { name: "16 HAYAT-Vorspeisenteller", description: "Antep-, Havuç- und Spinat Ezme, Muhammara, Haydari, Hummus" }
           ]
         },
         {
           title: "Warme Vorspeisen",
           items: [
-            { name: "30 Überbackene Champignons" },
+            { name: "30 Überbackene Champignons", description: "Mit Joghurt" },
             { name: "33 Überbackener Hirtenkäse" },
             { name: "83 Linsensuppe" }
-          ]
+          ],
+          note: "Extra-Portion Brot: 1,00 €"
         }
       ]
     },
@@ -51,10 +53,10 @@
         {
           items: [
             { name: "20 Hirse-Cacık-Salat" },
-            { name: "21 HAYAT-Salat (mit Thunfisch)" },
-            { name: "22 Hirtensalat" },
+            { name: "21 HAYAT-Salat", description: "Mit Thunfisch und Joghurt" },
+            { name: "22 Hirtensalat", description: "Tomaten, Gurken, Zwiebeln" },
             { name: "24 Gemischter Salat mit Hirtenkäse" },
-            { name: "28 Hindili Salat (mit Putenfleisch)" },
+            { name: "28 Hindili Salat", description: "Mit Joghurt und Putenfleisch" },
             { name: "29 Tomaten-Joghurt-Salat" }
           ]
         }
@@ -67,16 +69,16 @@
       sections: [
         {
           items: [
-            { name: "36 Zucchinipuffer" },
-            { name: "37 Humuz-Spinat-Köfte (veg.)", description: "Kichererbsen-Spinat-Bällchen mit Kräutern" },
-            { name: "38 Teigtaschen mit Gemüse" },
-            { name: "43 Falafel mit Sauce und Salat" },
-            { name: "44 Putencurry" },
-            { name: "46 Tirit mit Salat", description: "Lammfleisch mit geröstetem Brot, Joghurt und Tomatensauce" },
-            { name: "47 Arnavut Cigeri (gebratene Leber)", description: "Gebratene Leber mit Zwiebeln und Tomaten, leicht pikant" },
-            { name: "48 Gemüsepfanne" },
-            { name: "49 Gemüsepfanne mit Putenfleisch" },
-            { name: "78 Pfannkuchen mit Hackfleischfüllung" }
+            { name: "36 Zucchinipuffer", description: "Mit Salat und Cacık" },
+            { name: "37 Humus-Spinat-Köfte", description: "Mit Bulgur, Reis und Salat" },
+            { name: "38 Teigtaschen mit Gemüse", description: "Mit Hirtenkäse, Salat und Cacık" },
+            { name: "43 Falafel", description: "Mit Joghurt und Salat" },
+            { name: "44 Putencurry", description: "Mit Bulgur, Reis und Salat" },
+            { name: "46 Tirit mit Salat", description: "Geröstetes Brot, Joghurt-Tomaten-Soße" },
+            { name: "47 Arnavut Ciğeri", description: "Gebratene Leber mit Bulgur, Reis und Salat" },
+            { name: "48 Gemüsepfanne", description: "Mit Bulgur, Reis, Joghurt und Salat" },
+            { name: "49 Gemüsepfanne mit Putenfleisch", description: "Mit Bulgur, Reis, Joghurt und Salat" },
+            { name: "78 Pfannkuchen gefüllt mit Hackfleisch", description: "Mit Joghurt und Salat" }
           ]
         }
       ]
@@ -88,14 +90,14 @@
       sections: [
         {
           items: [
-            { name: "50 Spinatauflauf mit Kartoffeln & Käse" },
-            { name: "51 Spinatauflauf mit Bulgur & Hirtenkäse" },
-            { name: "52 Brokkoliauflauf" },
-            { name: "53 Auberginenauflauf" },
+            { name: "50 Spinatauflauf mit Kartoffeln und Käse" },
+            { name: "51 Spinatauflauf mit Bulgur und Hirtenkäse" },
+            { name: "52 Brokkoliauflauf mit Kartoffeln" },
+            { name: "53 Auberginenauflauf mit Kartoffeln" },
             { name: "55 Nudelauflauf" },
             { name: "56 Gemüseauflauf" }
           ],
-          note: "Alle Aufläufe wahlweise mit oder ohne Fleisch - mit Fleisch + 2,50 €"
+          note: "Alle Aufläufe gibt es wahlweise mit oder ohne Fleisch (Hackfleisch) – mit Fleisch + 2,50 €"
         }
       ]
     },
@@ -106,17 +108,17 @@
       sections: [
         {
           items: [
-            { name: "57 Türkische Wurst mit Paprika & Salat" },
-            { name: "59 Şiş mit Lammfleisch", description: "Lammspieß vom Grill" },
-            { name: "60 Hähnchenspieß", description: "Hähnchenspieß vom Grill" },
-            { name: "62 Köfte", description: "Gegrillte Hackfleischbällchen" },
-            { name: "63 Köfte mit Hirtenkäsefüllung", description: "Gegrillte Hackbällchen mit Feta-Füllung" },
-            { name: "64 Adana Şiş", description: "Scharfer Hackfleischspieß" },
-            { name: "65 Adana Şiş mit Joghurtsauce", description: "Scharfer Hackfleischspieß mit Joghurtsauce" },
-            { name: "66 Tomaten-Kebab", description: "Scharfer Adana-Spieß mit Joghurt und pikanter Tomatensauce" },
-            { name: "67 Pirzola (Lammkoteletts)" },
-            { name: "68 Fleischplatte" },
-            { name: "69 HAYAT-Grillteller" }
+            { name: "57 Gegrillte türkische Wurst mit Paprika" },
+            { name: "59 Şiş mit Lammfleisch", description: "Lammspieße" },
+            { name: "60 Hähnchenspieße" },
+            { name: "62 Köfte" },
+            { name: "63 Köfte gefüllt mit Hirtenkäse" },
+            { name: "64 Adana Şiş", description: "Hackfleischspieß, scharf" },
+            { name: "65 Adana Şiş mit Joghurtsauce", description: "Scharf" },
+            { name: "66 Tomaten-Kebab", description: "Hackfleischspieß mit Joghurtsauce und Tomatensauce" },
+            { name: "67 Pirzola", description: "Lammkoteletts" },
+            { name: "68 Fleischplatte", description: "Köfte, Lammspieß, Kotelett" },
+            { name: "69 HAYAT-Grillteller", description: "Köfte, Lammspieß, Kotelett, Hähnchenspieß" }
           ],
           note: "Alle Grillgerichte werden mit Reis, Bulgur und Salat als Beilage serviert."
         }
@@ -128,9 +130,9 @@
       sections: [
         {
           items: [
-            { name: "91 Iskender Kebap", description: "Dönerfleisch mit geröstetem Brot, Joghurt und Tomatensauce" },
-            { name: "92 Döner mit Reis und Joghurt" },
-            { name: "93 Fleischteller (Döner, Lammspieß, Köfte)" }
+            { name: "91 Iskender Kebap", description: "Dönerfleisch, geröstetes Brot, Joghurt-Tomatensoße mit Salat" },
+            { name: "92 Döner auf Reis", description: "Mit Salat und Joghurt" },
+            { name: "93 Fleischteller", description: "Döner, Lammspieß, Köfte, Reis, Bulgur und Salat" }
           ]
         }
       ]
@@ -138,13 +140,13 @@
     {
       id: "kinder",
       title: "Für Kinder",
-      description: "Leckere Lieblingsgerichte für unsere kleinen Gäste.",
+      description: "Leckere Lieblingsgerichte für unsere kleinen Gäste bis 12 Jahre.",
       sections: [
         {
           items: [
-            { name: "84 Falafel mit Sauce und Salat" },
-            { name: "85 Spieß mit Salat und Reis", description: "Hähnchenspieß mit Salat und Reis" },
-            { name: "86 Köfte mit Salat und Reis", description: "Hackfleischbällchen mit Salat und Reis" }
+            { name: "84 Falafel", description: "2 Stück mit Joghurt und Salat" },
+            { name: "85 Hähnchenspieß", description: "1 Hähnchenspieß mit Bulgur, Reis und Salat" },
+            { name: "86 Kinderköfte", description: "1 Köfte mit Bulgur, Reis und Salat" }
           ]
         }
       ]
@@ -158,7 +160,8 @@
           items: [
             { name: "74 Reis" },
             { name: "75 Bulgur" },
-            { name: "76 Beilagensalat" }
+            { name: "76 Beilagensalat" },
+            { name: "77 Beilagenteller", description: "Bulgur, Reis, Salat" }
           ]
         }
       ]
@@ -168,13 +171,29 @@
       title: "Dessert",
       sections: [
         {
-          items: [{ name: "87 Baklava (3 Stück, mit Sahne, Zimt und Walnuss)" }]
+          items: [
+            { name: "87 Baklava", description: "3 Stück, mit Sahne, Walnuss und Zimt" },
+            { name: "88 Wechselnde Nachspeise", description: "Auf Nachfrage" }
+          ]
+        }
+      ]
+    },
+    {
+      id: "tagesgerichte",
+      title: "Tagesgerichte",
+      sections: [
+        {
+          items: [
+            { name: "Täglich wechselnde Gerichte", description: "Mit Reis, Bulgur und Salat – siehe Info-Tafel" },
+            { name: "Mittwochs: frische Sardellen mit Salat", description: "Nach Verfügbarkeit" }
+          ]
         }
       ]
     },
     {
       id: "biere",
       title: "Biere",
+      description: "Preise für 0,3 l / 0,5 l.",
       sections: [
         {
           items: [
@@ -182,10 +201,10 @@
             { name: "Schlösser Alt" },
             { name: "Jever Pils" },
             { name: "Brinkhoffs Nr. 1" },
-            { name: "Jever Fun (alkoholfrei)" },
             { name: "Malz" },
-            { name: "Hefeweizen" },
-            { name: "Weizen, alkoholfrei" }
+            { name: "Hefeweizen (0,5 l)" },
+            { name: "Jever Fun alkoholfrei (&lt;0,5 % vol.)" },
+            { name: "Hefeweizen alkoholfrei (0,0 %, 0,5 l)" }
           ]
         }
       ]
@@ -193,15 +212,18 @@
     {
       id: "softdrinks",
       title: "Alkoholfreie Getränke",
+      description: "Preise für 0,3 l / 0,5 l, sofern nicht anders angegeben.",
       sections: [
         {
           items: [
-            { name: "Fanta / Cola / Sprite" },
-            { name: "Selters Mineralwasser (0,25l / 0,75l)" },
-            { name: "Tonic, Bitter Lemon" },
-            { name: "Säfte / Saftschorle" },
-            { name: "Bionade (0,33l)" },
-            { name: "Fassbrause (0,33l)" }
+            { name: "Cola, Cola Zero, Cola Light, Fanta, Sprite", description: "Mit Farbstoff" },
+            { name: "Säfte", description: "Apfel, Banane, Schwarze Johannisbeere, Kirsche, Rhabarber, Maracuja, Orange" },
+            { name: "Saftschorle" },
+            { name: "Bionade (Flasche 0,33 l)" },
+            { name: "Fassbrause (Flasche 0,33 l)" },
+            { name: "Tonic (0,2 l)", description: "Mit Farbstoff" },
+            { name: "Bitter Lemon (0,2 l)", description: "Mit Farbstoff" },
+            { name: "Selters Mineralwasser (0,25 l / 0,75 l)", description: "Medium, Classic" }
           ]
         }
       ]
@@ -228,6 +250,7 @@
     {
       id: "spirituosen",
       title: "Spirituosen",
+      description: "Spirituosen, Liköre und Magenbitter (2 cl).",
       sections: [
         {
           items: [
@@ -242,7 +265,6 @@
             { name: "Sambuca" },
             { name: "Café Oriental" },
             { name: "Fernet Branca" },
-            { name: "Ramazotti" },
             { name: "Jägermeister" }
           ],
           note: "Alle Spirituosen: 3,00 €"
@@ -252,9 +274,10 @@
     {
       id: "weinkarte",
       title: "Weinkarte",
+      description: "Preise für 0,1 l / 0,2 l.",
       sections: [
         {
-          title: "Weißwein (0,2l)",
+          title: "Weißwein",
           items: [
             {
               name: "Grauburgunder",
@@ -267,18 +290,18 @@
           ]
         },
         {
-          title: "Rotwein (0,2l)",
-          items: [ // Note: Montepulciano d'Abruzzo and Merlot prices were 4,60 € in menu-data.js, but 4,80 € in Produkte.md. Using 4,80 € from prices.js.
-            { name: "Montepulciano d'Abruzzo" },
+          title: "Rotwein",
+          items: [
             {
               name: "Merlot (enthält Sulfite)",
-              description: "Rebsorte Merlot - hat die Frucht, die ihm nachgesagt wird. Passt immer!"
-            }
+              description: "Rebsorte Merlot – hat die Frucht, die ihm nachgesagt wird. Passt immer!"
+            },
+            { name: "Montepulciano d'Abruzzo" }
           ]
         },
         {
           title: "Weinschorle",
-          items: [{ name: "Weißweinschorle (enthält Sulfite)", price: "4,00 €" }]
+          items: [{ name: "Weißweinschorle (enthält Sulfite)" }]
         }
       ]
     }
